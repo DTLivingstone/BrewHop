@@ -11,3 +11,7 @@ Thumbs.db
 # Keys #
 ########
 scripts/keys/**
+
+# Node modules #
+################
+node_modules/**
