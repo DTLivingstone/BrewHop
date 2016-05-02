@@ -1,20 +1,14 @@
 var requestProxy = require('express-request-proxy'),
   express = require('express'),
-  BreweryDb = require('brewerydb-node'),
   port = process.env.PORT || 3000,
   app = express();
-  brewdb = new BreweryDb(process.env.BREWERYDB_TOKEN);
 
 var proxyBreweryDb = function(request, response) {
   console.log('Routing BreweryDb request for', request.params[0]);
   (requestProxy({
-    url: 'api.brewerydb.com/v2/' + request.params[0] + '?key=' + process.env.BREWERYDB_TOKEN,
+    url: 'api.brewerydb.com/v2/brewery/' + request.params[0] + '?' + process.env.BREWERYDB_TOKEN,
   }))(request, response);
 };
-
-brewdb.breweries.find( { established: 2010 }, function(err, data){
-    console.log(data);
-});
 
 app.get('/brewerydb/*', proxyBreweryDb);
 
