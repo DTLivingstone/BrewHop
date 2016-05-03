@@ -10,7 +10,7 @@
   },
   "rules": {
     "semi": 1,
-    "strict": ["error", "global"],
+    # "strict": ["error", "global"],
     "indent": [2, 2],
     "no-multi-spaces": [1, {
       "exceptions": {

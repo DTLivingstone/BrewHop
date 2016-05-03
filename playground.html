@@ -5,6 +5,7 @@
     <title>BrewHop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="vendor/styles/normalize.css"></link>
+    <link rel="stylesheet" href="style/base.css"
     <link rel="stylesheet" type="text/css" href="vendor/styles/jquery-ui.structure.css">
     <link rel="stylesheet" type="text/css" href="vendor/styles/jquery-ui.theme.css">
     <style media="screen">
@@ -14,7 +15,17 @@
     </style>
   </head>
   <body>
-    <h1>Hello, world! Welcome to BrewHop!</h1>
+    <header class="site-header">
+      <h1>BrewHop</h1>
+      <nav class="main-nav">
+          <div class="icon-menu"><img src="https://css-tricks.com/wp-content/uploads/2012/10/threelines.png"></div>
+            <ul>
+              <li><a href="/"> Home</a></li>
+              <li><a href="/about"> About</a></li>
+            </ul>
+        </nav>
+      </header>
+      <h1>Hello, world! Welcome to BrewHop!</h1>
 
     <p>Enter a brewery name here:</p>
     <input type="text" id="playground-input">
