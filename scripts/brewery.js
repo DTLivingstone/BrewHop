@@ -5,6 +5,7 @@ function Brewery (opts) {
 
 Brewery.all = [];
 
+//TODO: Perhaps move this function to the server side (server reads our json file?).
 Brewery.getAll = function() {
   $.getJSON('/data/breweries.json', function(data) {
     Brewery.loadById(data);
@@ -12,6 +13,7 @@ Brewery.getAll = function() {
   });
 };
 
+//TODO: Perhaps move this function to the server side (server reads our json file?).
 Brewery.loadById = function(data) {
   Brewery.all = data.map(function(ele) {
     return new Brewery(ele);
@@ -19,6 +21,7 @@ Brewery.loadById = function(data) {
 };
 
 Brewery.requestLocationById = function(id) {
+  //TODO: Refactor by passing in an id rather than iterating over Brewery.all
   Brewery.all.forEach(function(b) {
     var breweryId = b.id;
     $.get('/locations/' + breweryId, function(data) {
@@ -28,6 +31,7 @@ Brewery.requestLocationById = function(id) {
 };
 
 Brewery.requestSocialById = function(id) {
+  //TODO: Refactor by passing in an id rather than iterating over Brewery.all
   Brewery.all.forEach(function(b) {
     var breweryId = b.id;
     $.get('/socialaccounts/' + breweryId, function(data) {
