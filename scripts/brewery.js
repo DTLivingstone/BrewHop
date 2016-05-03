@@ -18,11 +18,10 @@
     });
   };
 
-  Brewery.prototype.handleLocationEndpoint = function() {
-    breweryIds();
+  Brewery.handleLocationEndpoint = function() {
     Brewery.ids.forEach(function(id) {
-      $.get('/locations/' + this, function(data) {
-        Brewery.insertLocationRecord();
+      $.get('/locations/' + id, function(data) {
+        Brewery.all.push(new Brewery(data));
       });
     });
   };
@@ -45,32 +44,27 @@
     );
   };
 
-  Brewery.loadAll = function(rows) {
-    Brewery.all = rows.map(function(ele) {
-      return new Brewery(ele);
-    });
-  };
-
   Brewery.fetchAll = function(callback) {
     webDB.execute('SELECT * FROM breweries', function(rows) {
       if (rows.length) {
         Brewery.loadAll(rows);
         callback();
       } else {
-        $getJSON('data/breweries.json', function(rawData) {
-          rawData.forEach(function(breweryEle) {
-            Brewery.insertRecord();
-          });
-          webDB.execute('SELECT * FROM breweries', function(rows) {
-            Brewery.loadAll(rows);
-            callback();
-          });
-        });
+        //TODO: refactor to build brewery table.
+        // $getJSON('data/breweries.json', function(rawData) {
+        //   rawData.forEach(function(breweryEle) {
+        //     Brewery.insertRecord();
+        //   });
+        //   webDB.execute('SELECT * FROM breweries', function(rows) {
+        //     Brewery.loadAll(rows);
+        //     callback();
+        //   });
+        // });
       }
     });
   };
 
-  Brewery.prototype.insertLocationRecord = function(callback) {
+  Brewery.insertLocationRecord = function(callback) {
     webDB.execute(
       [
         {
@@ -83,6 +77,7 @@
   };
 
   Brewery.createTable();
+  breweryIds();
 
   // module.Brewery = Brewery;
 // })(window);
