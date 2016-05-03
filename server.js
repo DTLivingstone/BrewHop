@@ -19,14 +19,11 @@ var getTweets = function() {
   });
 };
 
-/// START SERVER ///
-app.listen(port, function() {
-  console.log('Express server started on port ' + port);
-
 /// BreweryDB ///
 var proxyBreweryLocation = function(req, res) {
-  console.log('Routing BreweryDb request for', req.params[0]);
+  console.log('Routing BreweryDb request for', req.params[0], 'with key', process.env.BREWERYDB_TOKEN);
   var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '/locations?' + process.env.BREWERYDB_TOKEN;
+  console.log(url);
   request(url).pipe(res);
 };
 
