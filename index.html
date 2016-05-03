@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="vendor/styles/normalize.css"></link>
     <link rel="stylesheet" href="style/base.css"></link>
     <script id="map-templet" type="text/x-handlebars-template">
-      <div id="map"></div>
+
     </script>
   </head>
   <body>
     <h1>Hello world</h1>
-
+    <div id="map"></div>
     <section id="about" class="tab-content">
-      <header>Developers</header>
+      <header>
+        <h1>Developers</h1>
+      </header>
         <article id="erin" class="team-member">
           <h2>Erin Roby</h2>
             <p class="team-text">Add info here</p>
@@ -36,15 +38,12 @@
             <p class="team-text">Add info here</p>
         </article>
     </section>
-    <section id="social">
-      <iframe src="http://www.intagme.com/in/?h=c2VhdHRsZWJyZXdlcnl8c2x8MjAwfDJ8M3x8eWVzfDV8dW5kZWZpbmVkfG5v" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:215px; height: 215px" ></iframe>
-      <iframe src="http://www.intagme.com/in/?h=c2VhdHRsZWJyZXdlcmllc3xzbHwyMDB8MnwzfHx5ZXN8NXx1bmRlZmluZWR8bm8=" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:215px; height: 215px" ></iframe>
-    </section>
+
     <script src="vendor/scripts/jquery-2.2.3.min.js"></script>
     <script src="vendor/scripts/handlebars-v4.0.5.js"></script>
     <script src="vendor/scripts/page.js"></script>
     <script src="scripts/brewery.js"></script>
     <script src="scripts/map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC2MYxgO6L-YWQaaQZPNUZ7NOx5ZE3qyQ&callback=initMap"async defer></script>
   </body>
 </html>
