@@ -18,7 +18,7 @@ Brewery.loadById = function(data) {
   });
 };
 
-Brewery.requestLocationById = function() {
+Brewery.requestLocationById = function(id) {
   Brewery.all.forEach(function(b) {
     var breweryId = b.id;
     $.get('/locations/' + breweryId, function(data) {
@@ -27,5 +27,15 @@ Brewery.requestLocationById = function() {
   });
 };
 
+Brewery.requestSocialById = function(id) {
+  Brewery.all.forEach(function(b) {
+    var breweryId = b.id;
+    $.get('/socialaccounts/' + breweryId, function(data) {
+      console.log(data);
+    });
+  });
+};
+
 Brewery.getAll();
 Brewery.requestLocationById();
+Brewery.requestSocialById();
