@@ -1,16 +1,15 @@
-var requestProxy = require('express-request-proxy'),
+var request = require('request'),
   express = require('express'),
   port = process.env.PORT || 3000,
   app = express();
 
-var proxyBreweryDb = function(request, response) {
-  console.log('Routing BreweryDb request for', request.params[0]);
-  (requestProxy({
-    url: 'api.brewerydb.com/v2/brewery/' + request.params[0] + '?' + process.env.BREWERYDB_TOKEN,
-  }))(request, response);
+var proxyBreweryLocation = function(req, res) {
+  console.log('Routing BreweryDb request for', req.params[0]);
+  var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '/locations?' + process.env.BREWERYDB_TOKEN;
+  request(url).pipe(res);
 };
 
-app.get('/brewerydb/*', proxyBreweryDb);
+app.get('/locations/*', proxyBreweryLocation);
 
 app.use(express.static('./'));
 

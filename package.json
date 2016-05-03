@@ -1,16 +1,16 @@
 {
-  "name": "mvc-blog",
+  "name": "BrewHop",
   "version": "1.0.0",
-  "description": "As we now complete our MVC conversation, we can refactor our app to use good MVC separation of concerns.",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Code Fellows",
+  "author": "Erin Roby",
   "license": "ISC",
   "dependencies": {
     "brewerydb-node": "0.0.1",
     "express": "^4.13.3",
-    "express-request-proxy": "^1.0.10"
+    "request": "^2.72.0"
   }
 }
