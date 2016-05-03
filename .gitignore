@@ -11,3 +11,11 @@ Thumbs.db
 # Keys #
 ########
 scripts/keys/**
+
+# Node modules #
+################
+node_modules/**
+
+# UI development #
+##################
+z_illustrator_files/**

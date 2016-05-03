@@ -1,0 +1,24 @@
+{
+  "name": "brewhop",
+  "version": "1.0.0",
+  "description": "A web app that connects Seattle residents with breweries in their neighborhood",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DTLivingstone/BrewHop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DTLivingstone/BrewHop/issues"
+  },
+  "homepage": "https://github.com/DTLivingstone/BrewHop#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "twit": "^2.2.4",
+    "request": "^2.72.0"
+  }
+}
