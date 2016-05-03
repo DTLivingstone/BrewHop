@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
 
-/// TWIT ///
+/// Twit ///
 var Twit = require('twit');
 
 var T = new Twit({
@@ -13,8 +13,9 @@ var T = new Twit({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
-var getTweets = function() {
-  T.get('statuses/user_timeline', { screen_name: 'hilliardsbeer', count: 3 }, function(err, data, response) {
+var getTweets = function(req, res) {
+  console.log(req.params[0]);
+  T.get('statuses/user_timeline', {screen_name: req.params[0], count: 3}, function(err, data, response) {
     console.log(data);
   });
 };
@@ -32,12 +33,10 @@ var proxyBrewerySocial = function(req, res) {
   request(url).pipe(res);
 };
 
-/// ROUTES ///
+/// Routes ///
 app.use(express.static('./'));
 
-app.get('/twit', function(request, response) {
-  getTweets();
-});
+app.get('/twit/*', getTweets);
 
 app.get('/locations/*', proxyBreweryLocation);
 app.get('/socialaccounts/*', proxyBrewerySocial);
@@ -47,7 +46,7 @@ app.get('*', function(request, response) {
   response.sendFile('index.html', { root: '.' });
 });
 
-/// START SERVER ///
+/// Start Server ///
 app.listen(port, function() {
   console.log('Express server started on port ' + port);
 });
