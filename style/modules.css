@@ -1,0 +1,30 @@
+.site-header {
+  text-align: center;
+}
+
+.main-nav {
+
+}
+
+.icon-menu {
+    position: relative;
+    display: inline-block;
+    float: right;
+    margin-right: 20px;
+    margin-bottom: 15%;
+    font-size: 25px;
+}
+
+.main-nav li {
+  display: inline;
+  float: right;
+}
+
+.main-nav ul li {
+    display: none;
+    position: relative;
+}
+
+.icon-menu:hover .main-nav ul li {
+    display: inline-block;;
+  }

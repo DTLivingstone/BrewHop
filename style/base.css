@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 body {
   font-family: Open Sans Light;
   }
@@ -7,62 +6,13 @@ h1 {
   font-family: Elsie Swash Caps;
 }
 
-#map {
-  height: 400px;
-  width: auto;
-}
-
-.main-nav li {
-  display: inline;
-  float: right;
-}
-
-.main-nav {
-
-}
-
-.icon-menu {
-  float: right;
-  margin-right: 20px;
+section {
+  text-align: center;
+  clear: both;
 }
 
 img {
-  width: 50px;
-  float: right;
-}
-
-.site-header {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-h1 {
-  margin-bottom: 20px;
-}
-
-@media only screen and (max-width: 100px) {
-  .icon-menu {
-    display: none;
-    position: relative;
-  }
-
-  .main-nav {
-    padding: .2em .2em .2em 2em;
-  }
-
-  .main-nav ul {
-    display: none;
-    position: absolute;
-  }
-
-  .main-nav ul li {
-    display: none;
-    border-bottom: none;
-    position: absolute;
-  }
-
-  .main-nav ul li:hover a {
-    color: #29506D;
-  }
-
+  max-width: 100%;
+  width: 100px;
+  float: middle;
 }

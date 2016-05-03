@@ -6,34 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="vendor/styles/normalize.css"></link>
     <link rel="stylesheet" href="style/icons.css"></link>
+    <link href="http://allfont.net/allfont.css?fonts=elsie-swash-caps" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="style/base.css"></link>
-    <link rel="icon" type="image/x-icon" href="">
+    <link rel="stylesheet" href="style/modules.css"></link>
+    <link rel="stylesheet" href="style/layouts.css"></link>
+    <link rel="icon" type="image/x-icon" href="images/icons/icon-hopfen.svg">
 
     <script id="brewery-template" type="text/x-handlebars-template">
       <article class="clearfix" brewery-name="{{name}}" brewery-id="{{id}}"></article>
     </script>
   </head>
-    <nav class="main-nav">
-      <div class="icon-menu"></div>
-        <ul>
-          <li><a href="/" class="icon-home"> Home</a></li>
-          <li><a href"/profile" class="icon-"> Profile</a></li>
-          <li><a href="/about" class="icon-address-book"> About</a></li>
-        </ul>
-      </nav>
-    <body>
+  <body>
     <header class="site-header">
-      <section>
+      <div class="div">
+        <nav class="main-nav">
+          <div class="icon-menu"></div>
+            <ul>
+              <li><a href="/" class="icon-home">Home</a></li>
+              <li><a href="/profile" class="icon-link">Profile</a></li>
+              <li><a href="/about" class="icon-address-book">About</a></li>
+            </ul>
+        </nav>
+      </div>
+      <section class="section">
+        <img src="images/icons/icon-glaeser.svg">
         <h1>BrewHop</h1>
-        <p>Enter a brewery name here:</p>
-        <input type="text" text-align="center" id="brewery-input"> <button type="button">search
       </section>
     </header>
-    <div id="map"></div>
-    <section id="social">
-      <iframe src="http://www.intagme.com/in/?h=c2VhdHRsZWJyZXdlcnl8c2x8MjAwfDJ8M3x8eWVzfDV8dW5kZWZpbmVkfG5v" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:215px; height: 215px" ></iframe>
-      <iframe src="http://www.intagme.com/in/?h=c2VhdHRsZWJyZXdlcmllc3xzbHwyMDB8MnwzfHx5ZXN8NXx1bmRlZmluZWR8bm8=" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:215px; height: 215px" ></iframe>
+    <section>
+      <p>Enter a brewery name here:</p>
+      <input type="text" text-align="center" id="brewery-input"> <button type="button" id="search">SEARCH</button>
     </section>
+    <main>
+      <section id="breweries" class="tab-content">
+        <div>
+          <ul id="filter">
+            <li>
+              <select id="brewery-filter">
+                <option value="">FILTER</option>
+              </select>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    <div id="map"></div>
+
     <script src="vendor/scripts/jquery-2.2.3.min.js"></script>
     <script src="vendor/scripts/handlebars-v4.0.5.js"></script>
     <script src="vendor/scripts/page.js"></script>

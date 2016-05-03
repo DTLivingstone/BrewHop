@@ -8,6 +8,12 @@ function initMap(){
   // setMarkers(map);
 }
 
+$('#map').hide();
+
+$( "#search" ).on( "click", function(event) {
+  $('#map').show();
+});
+
 // var breweries = [
 // //list brewery long & lat in the brackets
 //   ['two-beers': 47.5605572, -122.3396921, 1],
