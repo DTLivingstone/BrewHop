@@ -3,17 +3,6 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
 
-/// ROUTES ///
-app.use(express.static('./'));
-
-app.get('/twit', function(request, response) {
-  getTweets();
-});
-
-app.get('*', function(request, response) {
-  response.sendFile('index.html', { root: '.' });
-});
-
 /// TWIT ///
 var Twit = require('twit');
 
@@ -34,7 +23,7 @@ var getTweets = function() {
 app.listen(port, function() {
   console.log('Express server started on port ' + port);
 
-//BrewDB
+/// BreweryDB ///
 var proxyBreweryLocation = function(req, res) {
   console.log('Routing BreweryDb request for', req.params[0]);
   var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '/locations?' + process.env.BREWERYDB_TOKEN;
@@ -46,16 +35,22 @@ var proxyBrewerySocial = function(req, res) {
   request(url).pipe(res);
 };
 
+/// ROUTES ///
+app.use(express.static('./'));
+
+app.get('/twit', function(request, response) {
+  getTweets();
+});
+
 app.get('/locations/*', proxyBreweryLocation);
 app.get('/socialaccounts/*', proxyBrewerySocial);
-
-app.use(express.static('./'));
 
 app.get('*', function(request, response) {
   console.log('New request:', request.url);
   response.sendFile('index.html', { root: '.' });
 });
 
+/// START SERVER ///
 app.listen(port, function() {
-  console.log('Server started on port ' + port + '!');
+  console.log('Express server started on port ' + port);
 });
