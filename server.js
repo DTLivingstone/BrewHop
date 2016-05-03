@@ -1,5 +1,4 @@
-'use strict';
-
+var request = require('request');
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
@@ -19,6 +18,10 @@ var getTweets = function() {
     console.log(data);
   });
 };
+
+/// START SERVER ///
+app.listen(port, function() {
+  console.log('Express server started on port ' + port);
 
 /// BreweryDB ///
 var proxyBreweryLocation = function(req, res) {
