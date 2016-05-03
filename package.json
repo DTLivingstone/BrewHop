@@ -6,11 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Erin Roby",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "brewerydb-node": "0.0.1",
     "express": "^4.13.3",
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "twit": "^2.2.4"
   }
 }
