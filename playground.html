@@ -12,6 +12,9 @@
       /* Quick and dirty playground styles */
       a { text-decoration: none; color: #374140; }
       a:hover { color: #dc3522; }
+      li { list-style: none; }
+      #autocomplete-test { float: left; }
+      .clearfix { clear: both; }
     </style>
   </head>
   <body>
@@ -26,12 +29,11 @@
         </nav>
       </header>
       <h1>Hello, world! Welcome to BrewHop!</h1>
-
-    <p>Enter a brewery name here:</p>
-    <input id="brew-search-input" type="text" name="Brewery Search" placeholder="Enter a brewery name here" style="width: 300px">
-    <div id="weaselList" style="position: absolute; display: none; z-index:1000; background-color: white; padding: 0.5em; margin-top: 0.2em">
-      <!-- Search results are appended here -->
-    </div>
+    <section id="autocomplete-test">
+      <p>Enter a brewery name here:</p>
+      <input id="brew-search-input" type="text" name="Brewery Search" placeholder="Enter a brewery name here" style="width: 300px">
+    </section>
+    <div class="clearfix"></div>
 
     <script src="vendor/scripts/jquery-2.2.3.min.js"></script>
     <script src="vendor/scripts/jquery-ui.js"></script>
