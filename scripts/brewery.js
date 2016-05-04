@@ -6,9 +6,19 @@
   }
 
   Brewery.ids = [];
-  Brewery.all = [];
+  Brewery.names = [];
 
-  var FilterUniqueBreweryIds = function() {
+  // Fill out an array of brewery names for autocomplete feature
+  Brewery.loadBreweryNames = function() {
+    $.get('/data/breweries.json')
+    .done(function(data) {
+      Brewery.names = data.map(function(element){
+        return element.name;
+      });
+    });
+  };
+
+  var filterUniqueBreweryIds = function() {
     $.getJSON('/data/breweries.json', function(data) {
       data.forEach(function(b){
         if (Brewery.ids.indexOf(b.id) === -1) {
@@ -32,6 +42,15 @@
       $.get('/name/' + id, function(data) {
         var breweryInstance = new Brewery(data.data);
         breweryInstance.insertNameRecord();
+      });
+    });
+  };
+
+  Brewery.handleBeerEndpoint = function() {
+    Brewery.ids.forEach(function(id) {
+      $.get('/beers/' + id, function(data) {
+        var breweryInstance = new Brewery(data);
+        breweryInstance.insertBeerRecord();
       });
     });
   };
@@ -71,6 +90,7 @@
         'openToPublic BOOLEAN, ' +
         'hoursOfOperation VARCHAR(255));'
     );
+    callback();
   };
 
   Brewery.createNameTable = function(callback) {
@@ -84,6 +104,28 @@
       'established DATE, ' +
       'isOrganic BOOLEAN);'
     );
+    callback();
+  };
+
+  Brewery.createBreweryBeerTable = function(callback) {
+    webDB.execute(
+      'CREATE TABLE IF NOT EXISTS breweryBeers (' +
+      'id INTEGER PRIMARY KEY, ' +
+      'breweryId, ' +
+      'categoryId, ' +
+      ';'
+    );
+    callback();
+  };
+
+  Brewery.createBeerCategoryTable = function(callback) {
+    webDB.execute(
+        'CREATE TABLE IF NOT EXISTS beerCategories (' +
+        'id INTEGER PRIMARY KEY, ' +
+        'categoryId INTEGER' +
+        'name VARCHAR(255);'
+    );
+    callback();
   };
 
   Brewery.findBreweryWhere = function(sqlString, callback) {
@@ -102,9 +144,7 @@
     console.log('autocomplete ready!');
     $('#brew-search-input').autocomplete(
       {
-        source: Brewery.all.map(function(obj) {
-          return obj.name;
-        }),
+        source: Brewery.names,
         minLength: 3
       }
     );
@@ -112,12 +152,14 @@
   $('#brew-search-input').on('focus', Brewery.searchFieldComplete);
 
   Brewery.initTables = function() {
-    FilterUniqueBreweryIds();
-    Brewery.createLocationTable();
-    Brewery.createNameTable();
-    Brewery.handleLocationEndpoint();
-    Brewery.handleNameEndpoint();
+    filterUniqueBreweryIds();
+    Brewery.createLocationTable(Brewery.handleLocationEndpoint);
+    Brewery.createNameTable(Brewery.handleNameEndpoint);
+    Brewery.createBeerCategoryTable(Brewery.handleCategoryEndpoint);
+    Brewery.createBreweryBeerTable(Brewery.handleBeerEndpoint);
   };
+
+  Brewery.loadBreweryNames();
 
   module.Brewery = Brewery;
 }(window));

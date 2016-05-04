@@ -21,14 +21,16 @@ var port = process.env.PORT || 3000;
 
 /// BreweryDB ///
 var proxyBreweryLocation = function(req, res) {
-  console.log('Routing BreweryDb request for', req.params[0], 'with key', process.env.BREWERYDB_TOKEN);
+  // console.log('Routing BreweryDb request for', req.params[0], 'with key', process.env.BREWERYDB_TOKEN);
   var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '/locations?key=' + process.env.BREWERYDB_TOKEN;
+  console.log(url);
   request(url).pipe(res);
-  console.log(res);
+  // console.log(res);
 };
 
 var proxyBreweryName = function(req, res) {
-  var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '?' + process.env.BREWERYDB_TOKEN;
+  var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '?key=' + process.env.BREWERYDB_TOKEN;
+  console.log(url);
   request(url).pipe(res);
 };
 
@@ -41,7 +43,7 @@ app.get('/locations/*', proxyBreweryLocation);
 app.get('/name/*', proxyBreweryName);
 
 app.get('*', function(request, response) {
-  console.log('New request:', request.url);
+  // console.log('New request:', request.url);
   response.sendFile('index.html', { root: '.' });
 });
 
