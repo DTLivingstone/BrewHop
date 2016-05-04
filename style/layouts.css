@@ -1,0 +1,42 @@
+#brewery-filter {
+  width: 20%;
+}
+
+ul#filter {
+  list-style-type: none;
+  display: none;
+}
+
+#map {
+  height: 400px;
+  width: auto;
+  border: solid;
+  max-width: 100%;
+  margin-top: 20px;
+}
+
+/*@media only screen and (max-width: 640px) {
+  .icon-menu {
+    margin-bottom: 0;
+  }
+
+  img {
+    float: left;
+    width: 50px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+  }
+
+  section {
+    text-align: left;
+    font-size: 75%;
+  }
+
+  section p {
+    display: none;
+  }
+
+  ul#filter {
+    width: 100%;
+  }
+}*/

@@ -1,5 +1,17 @@
+body {
+  font-family: Open Sans Light;
+  }
 
-#map {
-  height: 300px;
-  width: auto;
+h1 {
+  font-family: Elsie Swash Caps;
 }
+
+section {
+  text-align: center;
+  clear: both;
+}
+
+img {
+  max-width: 100%;
+  width: 100px;
+  float: middle;
