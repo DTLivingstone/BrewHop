@@ -1,8 +1,5 @@
-#social {
-  height: 300px
-  widows: 300px;
-}
+
 #map {
-  height: 400px;
-  width: 400px;
+  height: 300px;
+  width: auto;
 }
