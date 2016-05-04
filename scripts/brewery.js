@@ -1,4 +1,4 @@
-// (function(module) {
+(function(module) {
   function Brewery (opts) {
     Object.keys(opts).forEach(function(b, index, keys) {
       this[b] = opts[b];
@@ -6,6 +6,7 @@
   }
 
   Brewery.ids = [];
+  Brewery.all = [];
 
   var FilterUniqueBreweryIds = function() {
     $.getJSON('/data/breweries.json', function(data) {
@@ -109,6 +110,19 @@
   //   );
   // };
 
+  Brewery.searchFieldComplete = function() {
+    console.log('autocomplete ready!');
+    $('#brew-search-input').autocomplete(
+      {
+        source: Brewery.all.map(function(obj) {
+          return obj.name;
+        }),
+        minLength: 3
+      }
+    );
+  };
+  $('#brew-search-input').on('focus', Brewery.searchFieldComplete);
+
   Brewery.initTables = function() {
     FilterUniqueBreweryIds();
     Brewery.createLocationTable();
@@ -116,5 +130,7 @@
     Brewery.handleLocationEndpoint();
     Brewery.handleNameEndpoint();
   };
-  // module.Brewery = Brewery;
-// })(window);
+
+  module.Brewery = Brewery;
+}(window));
+>>>>>>> staging
