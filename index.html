@@ -15,6 +15,16 @@
     <script id="brewery-template" type="text/x-handlebars-template">
       <article class="clearfix" brewery-name="{{name}}" brewery-id="{{id}}"></article>
     </script>
+    <script id="profile-template" type="text/x-handlebars-template">
+      <div id="profile-body">
+        <h1 id="profile-name" class="profile-heading">{{name}}</h1>
+        <p>{{description}}</p>
+        <p>{{streetAddress}}</p>
+        <p>{{phone}}</p>
+        <p>{{hoursOfOperation}}</p>
+        <p>{{website}}</p>
+      </div>
+    </script>
   </head>
   <body>
     <header class="site-header">

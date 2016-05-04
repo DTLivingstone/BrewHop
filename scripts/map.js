@@ -1,7 +1,8 @@
 
 var markers =[];
 var map;
-var mapIconInfo = "brewery info goes here";
+
+
 var breweries = [
 //list brewery long & lat in the brackets
   ['Bad Jimmys Brewing', 47.660403, -122.365406, 4],
@@ -56,7 +57,7 @@ var breweries = [
   // ['Thomas Kemper Brewing',],/////part of Pyramid
   ['Tin Dog Brewing', 47.526066,-122.331874, 3],
   ['TroutTamer Brewing', 44.528608,-72.0038298, 4],
-  ['Two Beers Brewing Company', 47.5605572,-122.3396921, 5],
+  ['Two Beers Brewing Company', 47.560353,-122.3396921, 5],
   ['Urban Family Brewing', 47.6605741,-122.392483, 6],
   ['West Seattle Brewing Company', 47.5643375,-122.3798643, 7],
 ];
@@ -77,10 +78,7 @@ function setMarkers(map) {
     origin: new google.maps.Point(0,0),
     anchor: new google.maps.Point(0,30)
   };
-  var infowindow = new google.maps.InfoWindow({
-    content: mapIconInfo,
-    maxWidth: 200
-  });
+  
 
   var shape = {
     coords: [1,25,30,,35,35,25,1],
@@ -98,9 +96,7 @@ function setMarkers(map) {
       setZIndex: breweries[i][3]
     });
     markers.push(marker);
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.open(map, marker);
-    });
+
   }
 };
 $('#map').hide();
