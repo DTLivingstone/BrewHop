@@ -12,8 +12,8 @@ var breweries = [
   ['Counterbalance Brewing Company', 47.545501, -122.328096, 9],
   ['Elliott Bay Brewery and Pub', 47.560406, -122.386415, 1],
   ['Elysian Brewing Company', 47.613929, -122.315922, 2],
-  ['Emerald City Beer Company', ],/////closed now
-  ['Filthy Brewing Alliance',],///not a brewery
+  // ['Emerald City Beer Company', ],/////closed now
+  // ['Filthy Brewing Alliance',],///not a brewery
   ['Flying Bike Cooperative Brewery', 47.692105, -122.355007, 3],
   ['Flying Lion Brewing', 47.555989, -122.284290, 4],
   ['Fremont Brewing', 47.649189, -122.344433, 5],
@@ -23,7 +23,7 @@ var breweries = [
   ['Hellbent Brewing Company', 47.723948, -122.293203, 9],
   ['Hilliard'/'s Beer', 47.6645442, -122.3780257, 1],
   ['Holy Mountain Brewing Company', 47.6308025,-122.3767066,2],
-  ['Kortegast & Co'],////not sure what this is
+  // ['Kortegast & Co'],////not sure what this is
   ['Lantern Brewing', 47.6980789,-122.3456311, 3],
   ['Lowercase Brewing', 47.530388,-122.32544, 4],47.550159,-122.319486, 6
   ['Lucky Envelope Brewing', 47.6647949,-122.371264, 5],
@@ -35,7 +35,7 @@ var breweries = [
   ['Odin Brewing Company', 47.4899768,-122.3523348, 2],
   ['Outer Planet Craft Brewing', 47.6180202,-122.3186698, 3],
   ['Outlander Brewing', 47.65231,-122.357761, 4],///not sure if this is a brewery
-  ['Pacific Rim Brewing'],/////no longer a brewery now call big Al
+  // ['Pacific Rim Brewing'],/////no longer a brewery now call big Al
   ['Peddler Brewing Company', 47.6638753,-122.377054, 5],
   ['Pike Brewing Company', 47.608232,-122.341937, 6],
   ['Populuxe Brewing',47.6645364,-122.3702511, 7],
@@ -44,7 +44,7 @@ var breweries = [
   ['RAM Restaurant & Brewery', 47.6858006,-122.3473387, 1],
   ['Reuben'/'s Brews', 47.6654282,-122.3752631, 2],
   ['Rock Bottom Restaurant & Brewery', 47.6123963,-122.3366261, 3],
-  ['Rock Island Brewing Co.', ],/////not in Seattle
+  // ['Rock Island Brewing Co.', ],/////not in Seattle
   ['Rooftop Brewing Company', 47.6558417,-122.3753068, 4],
   ['Schilling Cider', 47.6496435,-122.3513875, 5],
   ['Schooner Exact Brewing Company', 47.56772,-122.337812, 6],
@@ -53,7 +53,7 @@ var breweries = [
   ['Spinnaker Bay Brewing', 47.5507849,-122.2792994, 9],
   ['Standard Brewing', 47.5994777,-122.3019431, 1],
   ['Stoup Brewing', 47.6666891,-122.3733587, 2],
-  ['Thomas Kemper Brewing',],/////part of Pyramid
+  // ['Thomas Kemper Brewing',],/////part of Pyramid
   ['Tin Dog Brewing', 47.526066,-122.331874, 3],
   ['TroutTamer Brewing', 44.528608,-72.0038298, 4],
   ['Two Beers Brewing Company', 47.5605572,-122.3396921, 5],
@@ -64,24 +64,27 @@ var breweries = [
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 47.61, lng: -122.33},
-    zoom: 15
+    zoom: 14
   });
   setMarkers(map);
 };
 
+
 function setMarkers(map) {
+
+  var image = {
+    url: 'images/icons/hop-map-icon-small.png',
+    size: new google.maps.Size(30,30),
+    origin: new google.maps.Point(0,0),
+    anchor: new google.maps.Point(0,30)
+  };
   var infowindow = new google.maps.InfoWindow({
     content: mapIconInfo,
     maxWidth: 200
   });
-  var image = {
-    url: 'images/icons/hop-map-icon.png',
-    size: new google.maps.Size(80,80),
-    origin: new google.maps.Point(0,0),
-    anchor: new google.maps.Point(0,20)
-  };
+
   var shape = {
-    coords: [1,40,60,80,78,60,40,1],
+    coords: [1,25,30,,35,35,25,1],
     type: 'poly'
   };
   for (var i = 0; i < breweries.length; i++){
