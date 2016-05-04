@@ -22,8 +22,7 @@
     Brewery.ids.forEach(function(id) {
       $.get('/locations/' + id, function(data) {
         var breweryInstance = new Brewery(data.data[0]);
-        console.log(data.data[0]);
-        breweryInstance.insertLocationRecord();
+        breweryInstance.insertLocationRecord(id);
       });
     });
   };
@@ -37,36 +36,18 @@
     });
   };
 
-  Brewery.idRecord = function() {
-    Brewery.ids.forEach(function(id) {
-      Brewery.insertBreweryIdRecord(id);
-    });
-  };
-
-  Brewery.insertBreweryIdRecord = function(id) {
+  Brewery.prototype.insertLocationRecord = function(id) {
     webDB.execute(
       [
         {
-          'sql': 'INSERT INTO breweryLocation (breweryId) VALUES (?)',
-          'data': [id],
+          'sql': 'INSERT INTO breweryLocation (breweryId, streetAddress, postalCode, phone, latitude, longitude, openToPublic, hoursOfOperation) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+          'data': [id, this.streetAddress, this.postalCode, this.phone, this.latitude, this.longitude, this.openToPublic, this.hoursOfOperation],
         }
       ]
     );
   };
 
-  Brewery.insertLocationRecord = function(callback) {
-    webDB.execute(
-      [
-        {
-          'sql': 'INSERT INTO breweryLocation (streetAddress, postalCode, phone, latitude, longitude, openToPublic, hoursOfOperation) VALUES (?, ?, ?, ?, ?, ?, ?)',
-          'data': [this.streetAddress, this.postalCode, this.phone, this.latitude, this.longitude, this.openToPublic, this.hoursOfOperation],
-        }
-      ],
-      callback
-    );
-  };
-
-  Brewery.insertNameRecord = function(callback) {
+  Brewery.prototype.insertNameRecord = function(callback) {
     webDB.execute(
       [
         {
@@ -143,9 +124,11 @@
     );
   };
 
+  FilterUniqueBreweryIds();
   Brewery.createLocationTable();
   Brewery.createNameTable();
-  FilterUniqueBreweryIds();
+  Brewery.handleLocationEndpoint();
+  Brewery.handleNameEndpoint();
 
   // module.Brewery = Brewery;
 // })(window);
