@@ -71,6 +71,7 @@
         'openToPublic BOOLEAN, ' +
         'hoursOfOperation VARCHAR(255));'
     );
+    callback();
   };
 
   Brewery.createNameTable = function(callback) {
@@ -84,6 +85,7 @@
       'established DATE, ' +
       'isOrganic BOOLEAN);'
     );
+    callback();
   };
 
   //TODO: Refactor .joinTable and .findWhere into to one findWhere method that accepts an array of filter objects on different tables based on breweryId.
@@ -125,12 +127,9 @@
 
   Brewery.initTables = function() {
     FilterUniqueBreweryIds();
-    Brewery.createLocationTable();
-    Brewery.createNameTable();
-    Brewery.handleLocationEndpoint();
-    Brewery.handleNameEndpoint();
+    Brewery.createLocationTable(Brewery.handleLocationEndpoint);
+    Brewery.createNameTable(Brewery.handleNameEndpoint);
   };
 
   module.Brewery = Brewery;
 }(window));
->>>>>>> staging
