@@ -98,29 +98,17 @@
     callback();
   };
 
-  //TODO: Refactor .joinTable and .findWhere into to one findWhere method that accepts an array of filter objects on different tables based on breweryId.
-  //Set this up first in the view layer with checkbox inputs and values from DOM.
-  // Brewery.joinTable = function(callback) {
-  //   webDB.execute(
-  //     [
-  //       {
-  //         'sql': 'SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId;'
-  //       }
-  //     ]
-  //   );
-  // };
-  //
-  // Brewery.findWhere = function(tableName, field, value, callback) {
-  //   webDB.execute(
-  //     [
-  //       {
-  //         sql: 'SELECT * FROM tableName WHERE ' + field + ' = ?;',
-  //         data: [value]
-  //       }
-  //     ],
-  //     callback
-  //   );
-  // };
+  Brewery.findBreweryWhere = function(sqlString, callback) {
+    webDB.execute(
+      [
+        {
+          'sql': 'SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId WHERE ?;',
+          'data': [sqlString]
+        }
+      ],
+      callback
+    );
+  };
 
   Brewery.searchFieldComplete = function() {
     console.log('autocomplete ready!');
