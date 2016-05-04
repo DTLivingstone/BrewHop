@@ -3,44 +3,39 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
 
-/// TWIT ///
+/// Twit ///
 var Twit = require('twit');
 
 var T = new Twit({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  access_token: process.env.TWITTER_ACCESS_TOKEN,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+  app_only_auth: true
 });
 
-var getTweets = function() {
-  T.get('statuses/user_timeline', { screen_name: 'hilliardsbeer', count: 3 }, function(err, data, response) {
-    console.log(data);
+var getTweets = function(req, res) {
+  T.get('statuses/user_timeline', {screen_name: req.params[0], count: 3})
+  .done(function(result) {
+    res.send(result.data);
   });
 };
 
-/// START SERVER ///
-app.listen(port, function() {
-  console.log('Express server started on port ' + port);
-
 /// BreweryDB ///
 var proxyBreweryLocation = function(req, res) {
-  console.log('Routing BreweryDb request for', req.params[0]);
-  var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '/locations?' + process.env.BREWERYDB_TOKEN;
+  console.log('Routing BreweryDb request for', req.params[0], 'with key', process.env.BREWERYDB_TOKEN);
+  var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '/locations?key=' + process.env.BREWERYDB_TOKEN;
   request(url).pipe(res);
+  console.log(res);
 };
 
 var proxyBrewerySocial = function(req, res) {
-  var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '/socialaccounts?' + process.env.BREWERYDB_TOKEN;
+  var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '/socialaccounts?key=' + process.env.BREWERYDB_TOKEN;
   request(url).pipe(res);
 };
 
-/// ROUTES ///
+/// Routes ///
 app.use(express.static('./'));
 
-app.get('/twit', function(request, response) {
-  getTweets();
-});
+app.get('/twit/*', getTweets);
 
 app.get('/locations/*', proxyBreweryLocation);
 app.get('/socialaccounts/*', proxyBrewerySocial);
@@ -50,7 +45,7 @@ app.get('*', function(request, response) {
   response.sendFile('index.html', { root: '.' });
 });
 
-/// START SERVER ///
+/// Start Server ///
 app.listen(port, function() {
   console.log('Express server started on port ' + port);
 });
