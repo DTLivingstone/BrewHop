@@ -1,7 +1,7 @@
 
 var marker =[];
 var map;
-var mapIconInfo = "brewery infor goes here";
+var mapIconInfo = "brewery info goes here";
 var breweries = [
 //list brewery long & lat in the brackets
   ["title:Bad Jimmys Brewing", "lat: 47.660403", "lng: -122.365406", 4],
@@ -102,8 +102,8 @@ function setMarkers(map) {
     });
   }
 };
-// $('#map').hide();
-//
-// $( "#search" ).on( "click", function(event) {
-//   $('#map').show();
-// });
+$('#map').hide();
+
+$( "#search" ).on( "click", function(event) {
+  $('#map').show();
+});
