@@ -31,7 +31,7 @@ var proxyBreweryLocation = function(req, res) {
 };
 
 var proxyBreweryName = function(req, res) {
-  var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + process.env.BREWERYDB_TOKEN;
+  var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '?' + process.env.BREWERYDB_TOKEN;
   request(url).pipe(res);
 };
 

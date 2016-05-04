@@ -30,7 +30,7 @@
   Brewery.handleNameEndpoint = function() {
     Brewery.ids.forEach(function(id) {
       $.get('/name/' + id, function(data) {
-        var breweryInstance = new Brewery(data.data[0]);
+        var breweryInstance = new Brewery(data.data);
         breweryInstance.insertNameRecord();
       });
     });
