@@ -34,20 +34,25 @@ var searchYelp = function(req, res) {
   yelp.phoneSearch({ phone: req.params[0] })
   .then(function (data) {
     console.log(data);
+    res.send(data);
   });
 };
 
 /// BreweryDB ///
 var proxyBreweryLocation = function(req, res) {
-  // console.log('Routing BreweryDb request for', req.params[0], 'with key', process.env.BREWERYDB_TOKEN);
   var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '/locations?key=' + process.env.BREWERYDB_TOKEN;
   console.log(url);
   request(url).pipe(res);
-  // console.log(res);
 };
 
 var proxyBreweryName = function(req, res) {
   var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '?key=' + process.env.BREWERYDB_TOKEN;
+  console.log(url);
+  request(url).pipe(res);
+};
+
+var proxyBreweryTwitterHandle = function(req, res) {
+  var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] +'/socialaccounts/?key=' + process.env.BREWERYDB_TOKEN;
   console.log(url);
   request(url).pipe(res);
 };
@@ -59,6 +64,7 @@ app.get('/twit/*', getTweets);
 app.get('/yelp/*', searchYelp);
 app.get('/locations/*', proxyBreweryLocation);
 app.get('/name/*', proxyBreweryName);
+app.get('/twitter-handle/*', proxyBreweryTwitterHandle);
 
 app.get('*', function(request, response) {
   // console.log('New request:', request.url);
