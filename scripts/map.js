@@ -1,11 +1,11 @@
-var BrewMap = {};
+
 var marker =[];
 var map;
 var mapIconInfo = "brewery infor goes here";
 var breweries = [
 //list brewery long & lat in the brackets
-  ['Bad Jimmy'/'s Brewing', 47.660403, -122.365406, 4],
-  ['Big Al Brewing',47.514322, -122.352378, 5],
+  ["title:Bad Jimmys Brewing", "lat: 47.660403", "lng: -122.365406", 4],
+  ["title: 'Big Al Brewing", "lat: 47.514322", "lng: -122.352378", 5],
   ['Big Time Brewing Company', 47.657854, -122.313546, 6],
   ['Burdick Brewery', 47.530388, -122.323241, 7],
   ['Cloudburst Brewing', 47.611686, -122.345118, 8],
@@ -83,44 +83,6 @@ function setMarkers(map) {
     maxWidth: 200
   });
 
-  $('#map').hide();
-
-  $( "#search" ).on( "click", function(event) {
-    $('#map').show();
-  });
-
-// var breweries = [
-// //list brewery long & lat in the brackets
-//   ['two-beers': 47.5605572, -122.3396921, 1],
-//   []
-//
-// ];
-//
-// function setMarkers(map) {
-//   var image = {
-//     url: '',//image file goes here
-//     //the marker size is 20 px wide by 30px tall
-//     size: new google.maps.Size(20,30),
-//     origin: new google.maps.Point(0,0),
-//     anchor: new google.maps.Point(0,30)
-//   };
-//   var shape = {
-//     coords: [1,1,1,20,18,20,18,1],
-//     type: 'poly'
-//   };
-//   for (var i = 0; i < breweries.length; i++){
-//     var brewery = breweries[i];
-//     var marker = new google.maps.Marker({
-//       position:{lat: brewery[1], lng: brewery[2]},
-//       map: map,
-//       icon: image,
-//       shape: shape,
-//       title: brewery[0],
-//       zIndex: brewery[3]
-//     });
-//   }
-// }
-
   var shape = {
     coords: [1,25,30,,35,35,25,1],
     type: 'poly'
@@ -135,8 +97,13 @@ function setMarkers(map) {
       title: brewery[0],
       zIndex: brewery[3]
     });
-    marker.addListener('click', function() {
+    google.maps.event.addListener(marker, 'click', function() {
       infowindow.open(map, marker);
     });
   }
 };
+// $('#map').hide();
+//
+// $( "#search" ).on( "click", function(event) {
+//   $('#map').show();
+// });

@@ -133,4 +133,3 @@
 
   module.Brewery = Brewery;
 }(window));
->>>>>>> staging
