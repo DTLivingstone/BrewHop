@@ -8,7 +8,6 @@
   Brewery.ids = [];
   Brewery.names = [];
 
-  // Fill out an array of brewery names for autocomplete feature
   Brewery.loadBreweryNames = function() {
     $.get('/data/breweries.json')
     .done(function(data) {
@@ -42,15 +41,6 @@
       $.get('/name/' + id, function(data) {
         var breweryInstance = new Brewery(data.data);
         breweryInstance.insertNameRecord();
-      });
-    });
-  };
-
-  Brewery.handleBeerEndpoint = function() {
-    Brewery.ids.forEach(function(id) {
-      $.get('/beers/' + id, function(data) {
-        var breweryInstance = new Brewery(data);
-        breweryInstance.insertBeerRecord();
       });
     });
   };
@@ -90,7 +80,7 @@
         'openToPublic BOOLEAN, ' +
         'hoursOfOperation VARCHAR(255));'
     );
-    callback();
+    callback;
   };
 
   Brewery.createNameTable = function(callback) {
@@ -104,28 +94,7 @@
       'established DATE, ' +
       'isOrganic BOOLEAN);'
     );
-    callback();
-  };
-
-  Brewery.createBreweryBeerTable = function(callback) {
-    webDB.execute(
-      'CREATE TABLE IF NOT EXISTS breweryBeers (' +
-      'id INTEGER PRIMARY KEY, ' +
-      'breweryId, ' +
-      'categoryId, ' +
-      ';'
-    );
-    callback();
-  };
-
-  Brewery.createBeerCategoryTable = function(callback) {
-    webDB.execute(
-        'CREATE TABLE IF NOT EXISTS beerCategories (' +
-        'id INTEGER PRIMARY KEY, ' +
-        'categoryId INTEGER' +
-        'name VARCHAR(255);'
-    );
-    callback();
+    callback;
   };
 
   Brewery.findBreweryWhere = function(sqlString, callback) {
@@ -155,11 +124,10 @@
     filterUniqueBreweryIds();
     Brewery.createLocationTable(Brewery.handleLocationEndpoint);
     Brewery.createNameTable(Brewery.handleNameEndpoint);
-    Brewery.createBeerCategoryTable(Brewery.handleCategoryEndpoint);
-    Brewery.createBreweryBeerTable(Brewery.handleBeerEndpoint);
   };
 
   Brewery.loadBreweryNames();
+  Brewery.initTables();
 
   module.Brewery = Brewery;
 }(window));

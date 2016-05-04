@@ -34,6 +34,16 @@ var proxyBreweryName = function(req, res) {
   request(url).pipe(res);
 };
 
+var proxyBreweryBeers = function(req, res) {
+  var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '/beers?key=' + process.env.BREWERYDB_TOKEN;
+  request(url).pipe(res);
+};
+
+var proxyBeerCategories = function(req, res) {
+  var url = 'http://api.brewerydb.com/v2/' + req.params[0] + '/categories?key=' + process.env.BREWERYDB_TOKEN;
+  request(url).pipe(res);
+};
+
 /// Routes ///
 app.use(express.static('./'));
 
@@ -41,6 +51,8 @@ app.use(express.static('./'));
 
 app.get('/locations/*', proxyBreweryLocation);
 app.get('/name/*', proxyBreweryName);
+app.get('/beers/*', proxyBreweryBeers);
+app.get('/categories/*', proxyBeerCategories);
 
 app.get('*', function(request, response) {
   // console.log('New request:', request.url);
