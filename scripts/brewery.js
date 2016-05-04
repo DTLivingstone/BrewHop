@@ -18,7 +18,7 @@
     });
   };
 
-  var FilterUniqueBreweryIds = function() {
+  var filterUniqueBreweryIds = function() {
     $.getJSON('/data/breweries.json', function(data) {
       data.forEach(function(b){
         if (Brewery.ids.indexOf(b.id) === -1) {
@@ -42,6 +42,15 @@
       $.get('/name/' + id, function(data) {
         var breweryInstance = new Brewery(data.data);
         breweryInstance.insertNameRecord();
+      });
+    });
+  };
+
+  Brewery.handleBeerEndpoint = function() {
+    Brewery.ids.forEach(function(id) {
+      $.get('/beers/' + id, function(data) {
+        var breweryInstance = new Brewery(data);
+        breweryInstance.insertBeerRecord();
       });
     });
   };
@@ -98,6 +107,27 @@
     callback();
   };
 
+  Brewery.createBreweryBeerTable = function(callback) {
+    webDB.execute(
+      'CREATE TABLE IF NOT EXISTS breweryBeers (' +
+      'id INTEGER PRIMARY KEY, ' +
+      'breweryId, ' +
+      'categoryId, ' +
+      ';'
+    );
+    callback();
+  };
+
+  Brewery.createBeerCategoryTable = function(callback) {
+    webDB.execute(
+        'CREATE TABLE IF NOT EXISTS beerCategories (' +
+        'id INTEGER PRIMARY KEY, ' +
+        'categoryId INTEGER' +
+        'name VARCHAR(255);'
+    );
+    callback();
+  };
+
   Brewery.findBreweryWhere = function(sqlString, callback) {
     webDB.execute(
       [
@@ -122,9 +152,11 @@
   $('#brew-search-input').on('focus', Brewery.searchFieldComplete);
 
   Brewery.initTables = function() {
-    FilterUniqueBreweryIds();
+    filterUniqueBreweryIds();
     Brewery.createLocationTable(Brewery.handleLocationEndpoint);
     Brewery.createNameTable(Brewery.handleNameEndpoint);
+    Brewery.createBeerCategoryTable(Brewery.handleCategoryEndpoint);
+    Brewery.createBreweryBeerTable(Brewery.handleBeerEndpoint);
   };
 
   Brewery.loadBreweryNames();
