@@ -5,7 +5,6 @@
     }, this);
   }
 
-  Brewery.all = [];
   Brewery.ids = [];
 
   var FilterUniqueBreweryIds = function() {
@@ -86,55 +85,36 @@
     );
   };
 
-  Brewery.joinTable = function(callback) {
-    webDB.execute(
-      [
-        {
-          'sql': 'SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId;'
-        }
-      ]
-    );
+  //TODO: Refactor .joinTable and .findWhere into to one findWhere method that accepts an array of filter objects on different tables based on breweryId.
+  //Set this up first in the view layer with checkbox inputs and values from DOM.
+  // Brewery.joinTable = function(callback) {
+  //   webDB.execute(
+  //     [
+  //       {
+  //         'sql': 'SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId;'
+  //       }
+  //     ]
+  //   );
+  // };
+  //
+  // Brewery.findWhere = function(tableName, field, value, callback) {
+  //   webDB.execute(
+  //     [
+  //       {
+  //         sql: 'SELECT * FROM tableName WHERE ' + field + ' = ?;',
+  //         data: [value]
+  //       }
+  //     ],
+  //     callback
+  //   );
+  // };
+
+  Brewery.initTables = function() {
+    FilterUniqueBreweryIds();
+    Brewery.createLocationTable();
+    Brewery.createNameTable();
+    Brewery.handleLocationEndpoint();
+    Brewery.handleNameEndpoint();
   };
-
-  
-
-  Brewery.fetchAll = function(callback) {
-    webDB.execute('SELECT * FROM breweries', function(rows) {
-      if (rows.length) {
-        Brewery.loadAll(rows);
-        callback();
-      } else {
-        //TODO: refactor to build brewery table.
-        // $getJSON('data/breweries.json', function(rawData) {
-        //   rawData.forEach(function(breweryEle) {
-        //     Brewery.insertRecord();
-        //   });
-        //   webDB.execute('SELECT * FROM breweries', function(rows) {
-        //     Brewery.loadAll(rows);
-        //     callback();
-        //   });
-        // });
-      }
-    });
-  };
-
-  Brewery.findWhere = function(field, value, callback) {
-    webDB.execute(
-      [
-        {
-          sql: 'SELECT * FROM breweries WHERE ' + field + ' = ?;',
-          data: [value]
-        }
-      ],
-      callback
-    );
-  };
-
-  FilterUniqueBreweryIds();
-  Brewery.createLocationTable();
-  Brewery.createNameTable();
-  Brewery.handleLocationEndpoint();
-  Brewery.handleNameEndpoint();
-
   // module.Brewery = Brewery;
 // })(window);
