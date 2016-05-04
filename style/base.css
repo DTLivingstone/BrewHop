@@ -1,5 +1,6 @@
 body {
   font-family: Open Sans Light;
+  font-size: 75%;
   }
 
 h1 {
@@ -13,5 +14,6 @@ section {
 
 img {
   max-width: 100%;
-  width: 100px;
+  width: 75px;
   float: middle;
+}

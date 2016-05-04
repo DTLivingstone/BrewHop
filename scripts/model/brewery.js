@@ -6,7 +6,17 @@
   }
 
   Brewery.ids = [];
-  Brewery.all = [];
+  Brewery.names = [];
+
+  // Fill out an array of brewery names for autocomplete feature
+  Brewery.loadBreweryNames = function() {
+    $.get('/data/breweries.json')
+    .done(function(data) {
+      Brewery.names = data.map(function(element){
+        return element.name;
+      });
+    });
+  };
 
   var FilterUniqueBreweryIds = function() {
     $.getJSON('/data/breweries.json', function(data) {
@@ -71,6 +81,7 @@
         'openToPublic BOOLEAN, ' +
         'hoursOfOperation VARCHAR(255));'
     );
+    callback;
   };
 
   Brewery.createNameTable = function(callback) {
@@ -84,39 +95,26 @@
       'established DATE, ' +
       'isOrganic BOOLEAN);'
     );
+    callback;
   };
 
-  //TODO: Refactor .joinTable and .findWhere into to one findWhere method that accepts an array of filter objects on different tables based on breweryId.
-  //Set this up first in the view layer with checkbox inputs and values from DOM.
-  // Brewery.joinTable = function(callback) {
-  //   webDB.execute(
-  //     [
-  //       {
-  //         'sql': 'SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId;'
-  //       }
-  //     ]
-  //   );
-  // };
-  //
-  // Brewery.findWhere = function(tableName, field, value, callback) {
-  //   webDB.execute(
-  //     [
-  //       {
-  //         sql: 'SELECT * FROM tableName WHERE ' + field + ' = ?;',
-  //         data: [value]
-  //       }
-  //     ],
-  //     callback
-  //   );
-  // };
+  Brewery.findBreweryWhere = function(sqlString, callback) {
+    webDB.execute(
+      [
+        {
+          'sql': 'SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId WHERE ?;',
+          'data': [sqlString]
+        }
+      ],
+      callback
+    );
+  };
 
   Brewery.searchFieldComplete = function() {
     console.log('autocomplete ready!');
     $('#brew-search-input').autocomplete(
       {
-        source: Brewery.all.map(function(obj) {
-          return obj.name;
-        }),
+        source: Brewery.names,
         minLength: 3
       }
     );
@@ -125,11 +123,11 @@
 
   Brewery.initTables = function() {
     FilterUniqueBreweryIds();
-    Brewery.createLocationTable();
-    Brewery.createNameTable();
-    Brewery.handleLocationEndpoint();
-    Brewery.handleNameEndpoint();
+    Brewery.createLocationTable(Brewery.handleLocationEndpoint);
+    Brewery.createNameTable(Brewery.handleNameEndpoint);
   };
+
+  Brewery.loadBreweryNames();
 
   module.Brewery = Brewery;
 }(window));
