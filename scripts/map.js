@@ -1,11 +1,11 @@
 
-var marker =[];
+var markers =[];
 var map;
 var mapIconInfo = "brewery info goes here";
 var breweries = [
 //list brewery long & lat in the brackets
-  ["title:Bad Jimmys Brewing", "lat: 47.660403", "lng: -122.365406", 4],
-  ["title: 'Big Al Brewing", "lat: 47.514322", "lng: -122.352378", 5],
+  // ["title:Bad Jimmys Brewing", "lat: 47.660403", "lng: -122.365406", 4],
+  // ["title: 'Big Al Brewing", "lat: 47.514322", "lng: -122.352378", 5],
   ['Big Time Brewing Company', 47.657854, -122.313546, 6],
   ['Burdick Brewery', 47.530388, -122.323241, 7],
   ['Cloudburst Brewing', 47.611686, -122.345118, 8],
@@ -21,11 +21,11 @@ var breweries = [
   ['Ghostfish Brewing Company', 47.576287, -122.333849, 7],
   ['Hales Ales Brewery and Pub',47.659074, -122.365339, 8],
   ['Hellbent Brewing Company', 47.723948, -122.293203, 9],
-  ['Hilliard'/'s Beer', 47.6645442, -122.3780257, 1],
+  ['Hilliard\'s Beer', 47.6645442, -122.3780257, 1],
   ['Holy Mountain Brewing Company', 47.6308025,-122.3767066,2],
   // ['Kortegast & Co'],////not sure what this is
   ['Lantern Brewing', 47.6980789,-122.3456311, 3],
-  ['Lowercase Brewing', 47.530388,-122.32544, 4],47.550159,-122.319486, 6
+  ['Lowercase Brewing', 47.530388,-122.32544, 4],
   ['Lucky Envelope Brewing', 47.6647949,-122.371264, 5],
   ['Machine House Brewery', 47.550159,-122.319486, 6],
   ['Maritime Pacific Brewing', 47.6626916,-122.3739636, 7],
@@ -42,7 +42,7 @@ var breweries = [
   ['Pyramid Breweries', 47.5907677,-122.3382887, 8],
   ['RAM Restaurant & Brewery', 47.6858006,-122.3473387, 9],
   ['RAM Restaurant & Brewery', 47.6858006,-122.3473387, 1],
-  ['Reuben'/'s Brews', 47.6654282,-122.3752631, 2],
+  ['Reuben\'s Brews', 47.6654282,-122.3752631, 2],
   ['Rock Bottom Restaurant & Brewery', 47.6123963,-122.3366261, 3],
   // ['Rock Island Brewing Co.', ],/////not in Seattle
   ['Rooftop Brewing Company', 47.6558417,-122.3753068, 4],
@@ -66,9 +66,25 @@ function initMap() {
     center: {lat: 47.61, lng: -122.33},
     zoom: 14
   });
+  var testImage = {
+    url: 'images/icons/hop-map-icon-small.png',
+    size: new google.maps.Size(30,30),
+    origin: new google.maps.Point(0,0),
+    anchor: new google.maps.Point(0,30)
+  };
+  var shape = {
+    coords: [1,25,30,,35,35,25,1],
+    type: 'poly'
+  };
+  var markerTest = new google.maps.Marker({
+    position:{lat: 47.5643375, lng: -122.3798643},
+    map: map,
+    setTitle: 'West Seattle Brewing Company',
+    setZIndex: 7
+  });
+  console.log(markerTest);
   setMarkers(map);
 };
-
 
 function setMarkers(map) {
 
@@ -88,15 +104,17 @@ function setMarkers(map) {
     type: 'poly'
   };
   for (var i = 0; i < breweries.length; i++){
-    var brewery = breweries[i];
+    // var brewery = breweries[i];
+    // console.log(brewery);
     var marker = new google.maps.Marker({
-      position:{lat: brewery[1], lng: brewery[2]},
+      position:{lat: breweries[i][1], lng: breweries[i][2]},
       map: map,
       icon: image,
       shape: shape,
-      title: brewery[0],
-      zIndex: brewery[3]
+      setTitle: breweries[i][0],
+      setZIndex: breweries[i][3]
     });
+    markers.push(marker);
     google.maps.event.addListener(marker, 'click', function() {
       infowindow.open(map, marker);
     });
@@ -106,4 +124,5 @@ $('#map').hide();
 
 $( "#search" ).on( "click", function(event) {
   $('#map').show();
+  initMap();
 });
