@@ -39,22 +39,19 @@
     </section>
     <main>
       <section id="breweries" class="tab-content">
-        <div>
-          <ul id="filter">
-            <li>
-              <select id="brewery-filter">
-                <option value="">FILTER</option>
-              </select>
-            </li>
+        <div class='sidebar'>
+          <h1>Filter</h1>
+          <ul id='filter'>
+            <li><input type="checkbox" name='breweryName.isOrganic' value='true' checked><label for="">Organic</label></li>
+            <li><input type="checkbox" name='breweryBeer.paleAle' value='true' checked><label for="">Pale Ale</label></li>
           </ul>
-        </div>
+          <div class='results'></div>
+          </div>
       </section>
     </main>
     <div id="map"></div>
   </head>
   <body>
-    <h1>Hello world</h1>
-    <div id="map"></div>
     <section id="about" class="tab-content">
       <header>
         <h1>Developers</h1>
@@ -88,6 +85,7 @@
     <script src="vendor/scripts/page.js"></script>
     <script src="scripts/brewery.js"></script>
     <script src="scripts/map.js"></script>
+    <script src='scripts/breweryView.js'></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC2MYxgO6L-YWQaaQZPNUZ7NOx5ZE3qyQ&callback=initMap"async defer></script>
   </body>
 </html>
