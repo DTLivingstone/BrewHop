@@ -27,8 +27,8 @@ var proxyBreweryLocation = function(req, res) {
   console.log(res);
 };
 
-var proxyBrewerySocial = function(req, res) {
-  var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '/socialaccounts?key=' + process.env.BREWERYDB_TOKEN;
+var proxyBreweryName = function(req, res) {
+  var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] + '?' + process.env.BREWERYDB_TOKEN;
   request(url).pipe(res);
 };
 
@@ -38,7 +38,7 @@ app.use(express.static('./'));
 app.get('/twit/*', getTweets);
 
 app.get('/locations/*', proxyBreweryLocation);
-app.get('/socialaccounts/*', proxyBrewerySocial);
+app.get('/name/*', proxyBreweryName);
 
 app.get('*', function(request, response) {
   console.log('New request:', request.url);
