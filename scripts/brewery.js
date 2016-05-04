@@ -137,8 +137,6 @@
     FilterUniqueBreweryIds();
     Brewery.createLocationTable(Brewery.handleLocationEndpoint);
     Brewery.createNameTable(Brewery.handleNameEndpoint);
-    Brewery.handleLocationEndpoint();
-    Brewery.handleNameEndpoint();
     Brewery.loadAllBreweries();
   };
 
