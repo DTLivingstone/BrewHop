@@ -5,7 +5,7 @@ $('input[checked]').each(function() {
   filterArray.push(filterString);
 });
 
-$('.results').html(filterArray.join(' AND '));
+var sqlString = $('.results').html(filterArray.join(' AND '));
 console.log(filterArray);
-
+console.log(sqlString);
 //TODO: create event listener on the checked boxes.
