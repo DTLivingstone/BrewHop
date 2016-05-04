@@ -86,11 +86,17 @@
     );
   };
 
-  Brewery.createTable = function(callback) {
+  Brewery.joinTable = function(callback) {
     webDB.execute(
-      //Create and join the above tables into breweries table using unique id keys.
+      [
+        {
+          'sql': 'SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId;'
+        }
+      ]
     );
   };
+
+  
 
   Brewery.fetchAll = function(callback) {
     webDB.execute('SELECT * FROM breweries', function(rows) {
