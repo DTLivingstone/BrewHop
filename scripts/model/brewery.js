@@ -12,8 +12,8 @@
   Brewery.loadBreweryNames = function() {
     $.get('/data/breweries.json')
     .done(function(data) {
-      Brewery.all = data.map(function(element){
-        return element;
+      Brewery.names = data.map(function(element){
+        return element.name;
       });
     });
   };
@@ -191,14 +191,14 @@
 
   Brewery.searchFieldComplete = function() {
     console.log('autocomplete ready!');
-    $('#brew-search-input').autocomplete(
+    $('#brewery-input').autocomplete(
       {
         source: Brewery.names,
-        minLength: 3
+        minLength: 2
       }
     );
   };
-  $('#brew-search-input').on('focus', Brewery.searchFieldComplete);
+  $('#brewery-input').on('focus', Brewery.searchFieldComplete);
 
   Brewery.handleTwitEndpoint = function() {
 
