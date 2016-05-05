@@ -10,9 +10,10 @@
     $('.brewery-query').on('submit', function(event) {
       event.preventDefault();
       var breweryName = $('#brewery-input').val();
-      breweryName = something; // something that matches to name or id in our data;
 
-      
+      // if breweryName matches Brewery.all[someIndex].name,
+      // then, return that shit.
+
 
     });
   };
