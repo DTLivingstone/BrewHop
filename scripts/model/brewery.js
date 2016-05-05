@@ -5,21 +5,23 @@
     }, this);
   }
 
+  Brewery.all = [];
   Brewery.ids = [];
   Brewery.names = [];
 
-  // Fill out an array of brewery names for autocomplete feature
   Brewery.loadBreweryNames = function() {
     $.get('/data/breweries.json')
     .done(function(data) {
-      Brewery.names = data.map(function(element){
-        return element.name;
+      Brewery.all = data.map(function(element){
+        return element;
       });
     });
   };
 
-  var FilterUniqueBreweryIds = function() {
-    $.getJSON('/data/breweries.json', function(data) {
+  // Fill out an array of brewery ids to pick up on breweryDB URI routing
+  Brewery.filterUniqueBreweryIds = function() {
+    $.get('/data/breweries.json')
+    .done(function(data) {
       data.forEach(function(b){
         if (Brewery.ids.indexOf(b.id) === -1) {
           Brewery.ids.push(b.id);
@@ -106,7 +108,7 @@
       'openToPublic BOOLEAN, ' +
       'hoursOfOperation VARCHAR(255));'
     );
-    callback();
+    callback;
   };
 
   Brewery.createNameTable = function(callback) {
@@ -120,7 +122,7 @@
       'established DATE, ' +
       'isOrganic BOOLEAN);'
     );
-    callback();
+    callback;
   };
 
   Brewery.createTwitterHandleTable = function(callback) {
@@ -145,6 +147,25 @@
     );
   };
 
+  Brewery.saveAllBreweryData = function(rows) {
+    Brewery.all = rows.map(function(brew) {
+      return new Brewery(brew);
+    });
+  };
+
+  Brewery.grabAllBreweryData = function() {
+    webDB.execute('SELECT * FROM breweryLocation ORDER BY id DESC', function(rows) {
+      if (rows.length) {
+        Brewery.saveAllBreweryData(rows);
+      } else {
+        Brewery.handleLocationEndpoint();
+        webDB.execute('SELECT * FROM breweryLocation', function(rows) {
+          Brewery.saveAllBreweryData(rows);
+        });
+      }
+    });
+  };
+
   Brewery.searchFieldComplete = function() {
     console.log('autocomplete ready!');
     $('#brew-search-input').autocomplete(
@@ -165,12 +186,14 @@
   };
 
   Brewery.initTables = function() {
-    FilterUniqueBreweryIds();
+    Brewery.filterUniqueBreweryIds();
     Brewery.createLocationTable(Brewery.handleLocationEndpoint);
     Brewery.createNameTable(Brewery.handleNameEndpoint);
     Brewery.createTwitterHandleTable(Brewery.handleTwitterHandleEndpoint);
+    Brewery.grabAllBreweryData();
   };
 
+  Brewery.initTables();
   Brewery.loadBreweryNames();
 
   module.Brewery = Brewery;
