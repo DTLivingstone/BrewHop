@@ -9,7 +9,6 @@
   Brewery.ids = [];
   Brewery.names = [];
 
-  // Fill out an array of brewery names for autocomplete feature
   Brewery.loadBreweryNames = function() {
     $.get('/data/breweries.json')
     .done(function(data) {
@@ -154,6 +153,7 @@
 
   Brewery.initTables();
   Brewery.loadBreweryNames();
+  Brewery.initTables();
 
   module.Brewery = Brewery;
 }(window));
