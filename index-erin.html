@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>BrewHop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="vendor/styles/normalize.css"></link>
+    <script id="brewery-template" type=text/x-handlebars-template>
+    <!-- TODO: fill out the rest of this template with if conditionals, etc. -->
+      <article data-breweryId='{{breweryId}}' class='brewery-container'>
+        <header>
+          <h1 data-name={{name}}>{{name}}</h1>
+          <section data-street='streetAddress'>{{streetAddress}}</section>
+          <a href="/{{breweryId}}" class="learn-more">learn more &rarr;</a>
+        </header>
+      </article>
+    </script>
+  </head>
+  <body>
+    <header>
+    </header>
+    <main>
+      <div class='sidebar'>
+        <ul id='filter'>
+          <li><input type="checkbox" name='breweryBeers.categoryId' value='1'><label for="">British Ales</label></li>
+          <li><input type="checkbox" name='breweryBeers.categoryId' value='2'><label for="">Irish Ales</label></li>
+          <li><input type="checkbox" name='breweryBeers.categoryId' value='3'><label for="">North American Ales</label></li>
+          <li><input type="checkbox" name='breweryBeers.categoryId' value='4'><label for="">German Ales</label></li>
+          <li><input type="checkbox" name='breweryBeers.categoryId' value='5'><label for="">Belgian and French Ales</label></li>
+          <li><input type="checkbox" name='breweryBeers.categoryId' value='6'><label for="">International Ales</label></li>
+          <li><input type="checkbox" name='breweryBeers.categoryId' value='7'><label for="">European-germanic Lager</label></li>
+          <li><input type="checkbox" name='breweryBeers.categoryId' value='8'><label for="">North American Lager</label></li>
+          <li><input type="checkbox" name='breweryBeers.categoryId' value='9'><label for="">Other Lager</label></li>
+          <li><input type="checkbox" name='breweryBeers.categoryId' value='10'><label for="">International Styles</label></li>
+          <li><input type="checkbox" name='breweryBeers.categoryId' value='11'><label for="">Hybrid/mixed Beer</label></li>
+          <li><input type="checkbox" name='breweryBeers.categoryId' value='12'><label for="">Mead, Cider, Perry</label></li>
+          <li><input type="checkbox" name='breweryBeers.categoryId' value='13'><label for="">Other Origin</label></li>
+          <li><input type="checkbox" name='breweryBeers.categoryId' value='14'><label for="">Malternative Beverages</label></li>
+        </ul>
+      </div>
+      <section id="breweries" class="tab-content">
+      </section>
+    </main>
+    <script src="vendor/scripts/jquery-2.2.3.min.js"></script>
+    <script src="vendor/scripts/handlebars-v4.0.5.js"></script>
+    <script src="vendor/scripts/html5sql.js"></script>
+    <script src="vendor/scripts/webdb.js"></script>
+
+    <script src="scripts/model/brewery.js"></script>
+    <script src="scripts/model/beer.js"></script>
+    <script src="scripts/view/breweryView.js"></script>
+    <script src="scripts/controller/breweryController.js"></script>
+  </body>
+</html>

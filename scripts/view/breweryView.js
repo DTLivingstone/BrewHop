@@ -20,6 +20,7 @@
         filterArray.splice(filterArray.indexOf(filterString), 1);
       }
       filterResults(filterArray);
+      // How can I take the breweryId results from the above function and pass into my initIndex?
     });
   };
 
@@ -35,7 +36,6 @@
     breweryRendered = true;
     Brewery.all.forEach(function(b){
       $('#breweries').append(render(b));
-      // console.log(b);
     });
     breweryView.handleBeerFilter();
     // breweryView.setTeasers();

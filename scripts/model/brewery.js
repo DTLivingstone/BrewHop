@@ -8,6 +8,7 @@
   Brewery.all = [];
   Brewery.ids = [];
   Brewery.names = [];
+  Brewery.filterResults = [];
 
   // Brewery.loadBreweryNames = function() {
   //   $.get('/data/breweries.json')
@@ -44,7 +45,6 @@
     Brewery.ids.forEach(function(id) {
       $.get('/name/' + id, function(data) {
         var breweryInstance = new Brewery(data.data);
-        Brewery.all.push(breweryInstance);
         breweryInstance.insertNameRecord();
       });
     });
@@ -138,13 +138,18 @@
   };
 
   Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
-    webDB.execute(
-      [
-        {
-          'sql': 'SELECT * FROM breweryName LEFT JOIN breweryBeers ON (breweryName.breweryId = breweryBeers.breweryId) WHERE ' + sqlString + ' GROUP BY breweryName.name HAVING COUNT(DISTINCT breweryBeers.categoryId) = ' + filterArray.length,
-        }
-      ],
-      callback
+    webDB.execute('SELECT * FROM breweryName LEFT JOIN breweryBeers ON (breweryName.breweryId = breweryBeers.breweryId) WHERE ' + sqlString + ' GROUP BY breweryName.name HAVING COUNT(DISTINCT breweryBeers.categoryId) = ' + filterArray.length,
+      function(result) {
+        Brewery.grabAllFilterData(result);
+      });
+  };
+
+  Brewery.grabAllFilterData = function(result) {
+    result.forEach(
+      webDB.execute('SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId WHERE breweryLocation.breweryId = ' + this,
+      function(result) {
+        console.log(result);
+      })
     );
   };
 
@@ -155,15 +160,8 @@
   };
 
   Brewery.grabAllBreweryData = function() {
-    webDB.execute('SELECT * FROM breweryLocation ORDER BY id DESC', function(rows) {
-      if (rows.length) {
-        Brewery.saveAllBreweryData(rows);
-      } else {
-        Brewery.handleLocationEndpoint();
-        webDB.execute('SELECT * FROM breweryLocation', function(rows) {
-          Brewery.saveAllBreweryData(rows);
-        });
-      }
+    webDB.execute('SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId', function(rows) {
+      Brewery.saveAllBreweryData(rows);
     });
   };
 
@@ -191,10 +189,10 @@
     Brewery.createLocationTable(Brewery.handleLocationEndpoint);
     Brewery.createNameTable(Brewery.handleNameEndpoint);
     Brewery.createTwitterHandleTable(Brewery.handleTwitterHandleEndpoint);
-    Brewery.grabAllBreweryData();
   };
 
   Brewery.initTables();
+  Brewery.grabAllBreweryData();
   // Brewery.loadBreweryNames();
 
   module.Brewery = Brewery;
