@@ -8,6 +8,7 @@
   Brewery.all = [];
   Brewery.ids = [];
   Brewery.names = [];
+  Brewery.filterResults = [];
 
   Brewery.loadBreweryNames = function() {
     $.get('/data/breweries.json')
@@ -18,7 +19,6 @@
     });
   };
 
-  // Fill out an array of brewery ids to pick up on breweryDB URI routing
   Brewery.filterUniqueBreweryIds = function() {
     $.get('/data/breweries.json')
     .done(function(data) {
@@ -157,13 +157,18 @@
   };
 
   Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
-    webDB.execute(
-      [
-        {
-          'sql': 'SELECT * FROM breweryName LEFT JOIN breweryBeers ON (breweryName.breweryId = breweryBeers.breweryId) WHERE ' + sqlString + ' GROUP BY breweryName.name HAVING COUNT(DISTINCT breweryBeers.categoryId) = ' + filterArray.length,
-        }
-      ],
-      callback
+    webDB.execute('SELECT * FROM breweryName LEFT JOIN breweryBeers ON (breweryName.breweryId = breweryBeers.breweryId) WHERE ' + sqlString + ' GROUP BY breweryName.name HAVING COUNT(DISTINCT breweryBeers.categoryId) = ' + filterArray.length,
+      function(result) {
+        Brewery.grabAllFilterData(result);
+      });
+  };
+
+  Brewery.grabAllFilterData = function(result) {
+    result.forEach(
+      webDB.execute('SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId WHERE breweryLocation.breweryId = ' + this,
+      function(result) {
+        console.log(result);
+      })
     );
   };
 
@@ -187,8 +192,7 @@
 
   //////// callback ////////
   Brewery.grabAllBreweryData = function() {
-    console.log('Brewery.grabAllBreweryData');
-    webDB.execute('SELECT * FROM breweryLocation ORDER BY id DESC', function(rows) {
+    webDB.execute('SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId', function(rows) {
       Brewery.saveAllBreweryData(rows);
     });
   };
@@ -217,11 +221,11 @@
     Brewery.createLocationTable(Brewery.handleLocationEndpoint);
     Brewery.createNameTable(Brewery.handleNameEndpoint);
     Brewery.createTwitterHandleTable(Brewery.handleTwitterHandleEndpoint);
-    Brewery.grabAllBreweryData(); //this should be run as a callback after locations are loaded
   };
 
   Brewery.initTables();
-  Brewery.loadBreweryNames();
+  Brewery.grabAllBreweryData();
+  // Brewery.loadBreweryNames();
 
   module.Brewery = Brewery;
 }(window));
