@@ -32,35 +32,54 @@
 
   Brewery.handleLocationEndpoint = function() {
     console.log('location endpoint');
-    Brewery.ids.forEach(function(id) {
-      $.get('/locations/' + id, function(data) {
-        var breweryInstance = new Brewery(data.data[0]);
-        breweryInstance.insertLocationRecord(id);
-      });
+    webDB.execute('SELECT * FROM breweryLocation', function(rows) {
+      if (!rows.length) {
+        Brewery.ids.forEach(function(id) {
+          $.get('/locations/' + id, function(data) {
+            var breweryInstance = new Brewery(data.data[0]);
+            breweryInstance.insertLocationRecord(id);
+          });
+        });
+      } else {
+        console.log('locations already loaded');
+      };
     });
   };
 
   Brewery.handleNameEndpoint = function() {
     console.log('name endpoint');
-    Brewery.ids.forEach(function(id) {
-      $.get('/name/' + id, function(data) {
-        var breweryInstance = new Brewery(data.data);
-        breweryInstance.insertNameRecord();
-      });
+    webDB.execute('SELECT * FROM breweryName', function(rows) {
+      if (!rows.length) {
+        Brewery.ids.forEach(function(id) {
+          $.get('/name/' + id, function(data) {
+            var breweryInstance = new Brewery(data.data);
+            breweryInstance.insertNameRecord();
+          });
+        });
+      } else {
+        console.log('names already loaded');
+      };
     });
   };
 
   Brewery.handleTwitterHandleEndpoint = function() {
     console.log('Twitter endpoint');
-    Brewery.ids.forEach(function(id) {
-      $.get('/twitter-handle/' + id, function(data) {
-        for (var i in data.data) {
-          if (data.data[i].socialMediaId == 2) {
-            var breweryInstance = new Brewery({breweryId: id, twitterHandle: data.data[i].handle});
-            breweryInstance.insertTwitterHandleRecord();
-          };
-        };
-      });
+    webDB.execute('SELECT * FROM breweryTwitterHandle', function(rows) {
+      // console.log(rows);
+      if (!rows.length) {
+        Brewery.ids.forEach(function(id) {
+          $.get('/twitter-handle/' + id, function(data) {
+            for (var i in data.data) {
+              if (data.data[i].socialMediaId == 2) {
+                var breweryInstance = new Brewery({breweryId: id, twitterHandle: data.data[i].handle});
+                breweryInstance.insertTwitterHandleRecord();
+              };
+            };
+          });
+        });
+      } else {
+        console.log('Twitter handles already loaded');
+      };
     });
   };
 
@@ -171,6 +190,7 @@
     });
   };
 
+  //////// callback ////////
   Brewery.grabAllBreweryData = function() {
     webDB.execute('SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId', function(rows) {
       Brewery.saveAllBreweryData(rows);
