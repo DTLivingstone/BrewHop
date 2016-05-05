@@ -31,6 +31,7 @@
   };
 
   Brewery.handleLocationEndpoint = function() {
+    console.log('location endpoint');
     Brewery.ids.forEach(function(id) {
       $.get('/locations/' + id, function(data) {
         var breweryInstance = new Brewery(data.data[0]);
@@ -40,6 +41,7 @@
   };
 
   Brewery.handleNameEndpoint = function() {
+    console.log('name endpoint');
     Brewery.ids.forEach(function(id) {
       $.get('/name/' + id, function(data) {
         var breweryInstance = new Brewery(data.data);
@@ -49,14 +51,14 @@
   };
 
   Brewery.handleTwitterHandleEndpoint = function() {
+    console.log('Twitter endpoint');
     Brewery.ids.forEach(function(id) {
       $.get('/twitter-handle/' + id, function(data) {
-        console.log(data.data);
         for (var i in data.data) {
-          console.log(data.data[i]);
-          console.log(data.data[i].socialMediaId); // iterate through each one of these, test the sodial id, set to variable
-
-          // breweryInstance.insertTwitterHandleRecord();
+          if (data.data[i].socialMediaId == 2) {
+            var breweryInstance = new Brewery({breweryId: id, twitterHandle: data.data[i].handle});
+            breweryInstance.insertTwitterHandleRecord();
+          };
         };
       });
     });
@@ -89,7 +91,7 @@
       [
         {
           'sql': 'INSERT INTO breweryTwitterHandle (breweryId, twitterHandle) VALUES (?, ?)',
-          'data': [this.id, this.twitterHandle],
+          'data': [this.breweryId, this.twitterHandle],
         }
       ]
     );
@@ -108,7 +110,7 @@
       'openToPublic BOOLEAN, ' +
       'hoursOfOperation VARCHAR(255));'
     );
-    callback;
+    callback(); // TODO: run this asynchronously
   };
 
   Brewery.createNameTable = function(callback) {
@@ -122,7 +124,7 @@
       'established DATE, ' +
       'isOrganic BOOLEAN);'
     );
-    callback;
+    callback(); // TODO: run this asynchronously
   };
 
   Brewery.createTwitterHandleTable = function(callback) {
@@ -130,9 +132,9 @@
       'CREATE TABLE IF NOT EXISTS breweryTwitterHandle (' +
       'id INTEGER PRIMARY KEY, ' +
       'breweryId, ' +
-      'screenName VARCHAR(255));'
+      'twitterHandle VARCHAR(255));'
     );
-    callback();
+    callback(); // TODO: run this asynchronously
   };
 
   Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
