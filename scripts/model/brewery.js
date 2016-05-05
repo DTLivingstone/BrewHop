@@ -9,7 +9,6 @@
   Brewery.ids = [];
   Brewery.names = [];
 
-  // Fill out an array of brewery names for autocomplete feature
   Brewery.loadBreweryNames = function() {
     $.get('/data/breweries.json')
     .done(function(data) {
@@ -84,7 +83,7 @@
         'openToPublic BOOLEAN, ' +
         'hoursOfOperation VARCHAR(255));'
     );
-    callback();
+    callback;
   };
 
   Brewery.createNameTable = function(callback) {
@@ -98,7 +97,7 @@
       'established DATE, ' +
       'isOrganic BOOLEAN);'
     );
-    callback();
+    callback;
   };
 
   Brewery.findBreweryWhere = function(sqlString, callback) {
@@ -122,13 +121,10 @@
   Brewery.grabAllBreweryData = function() {
     webDB.execute('SELECT * FROM breweryLocation ORDER BY id DESC', function(rows) {
       if (rows.length) {
-        console.log('data was already there!');
         Brewery.saveAllBreweryData(rows);
       } else {
-        console.log('data needed to be loaded!');
         Brewery.handleLocationEndpoint();
         webDB.execute('SELECT * FROM breweryLocation', function(rows) {
-          console.log('weasel');
           Brewery.saveAllBreweryData(rows);
         });
       }
@@ -157,6 +153,7 @@
 
   Brewery.initTables();
   Brewery.loadBreweryNames();
+  Brewery.initTables();
 
   module.Brewery = Brewery;
 }(window));

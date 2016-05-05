@@ -2,29 +2,38 @@
   text-align: center;
 }
 
-.main-nav {
-
-}
-
 .icon-menu {
     position: relative;
     display: inline-block;
     float: right;
-    margin-right: 20px;
+    margin-right: 80px;
     margin-bottom: 15%;
-    font-size: 25px;
+    font-size: 15px;
 }
 
-.main-nav li {
-  display: inline;
-  float: right;
+.dropdown-content {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  margin-top: 0;
+  padding-left: 0;
+  background-color: #f9f9f9;
+  min-width: 60px;
+  box-shadow: 0px 8px 16px 0px;
 }
 
-.main-nav ul li {
-    display: none;
-    position: relative;
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 10px;
 }
 
-.icon-menu:hover .main-nav ul li {
-    display: inline-block;;
-  }
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .icon-menu {
+  background-color: #FFE5B4;
+}
