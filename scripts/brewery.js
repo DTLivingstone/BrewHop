@@ -121,10 +121,11 @@
   Brewery.grabAllBreweryData = function() {
     webDB.execute('SELECT * FROM breweryLocation ORDER BY id DESC', function(rows) {
       if (rows.length) {
+        // If there is already data in the database, populate Brewery.all with locally stored data
         console.log('data was already there!');
         Brewery.saveAllBreweryData(rows);
       } else {
-        console.log('data needed to be loaded!');
+        // If page is being loaded for the first time, fetch the data from remote source to populate Brewery.all with data
         Brewery.ids.forEach(function(id) {
           $.get('/locations/' + id, function(data) {
             var breweryInstance = new Brewery(data.data[0]);
@@ -132,7 +133,6 @@
           })
           .done(function() {
             webDB.execute('SELECT * FROM breweryLocation', function(rows) {
-              console.log('stuff shouldn\'t load until the document is ready!');
               Brewery.saveAllBreweryData(rows);
             });
           });
@@ -140,8 +140,6 @@
       }
     });
   };
-
-
 
   Brewery.searchFieldComplete = function() {
     console.log('autocomplete ready!');
@@ -155,16 +153,12 @@
   $('#brew-search-input').on('focus', Brewery.searchFieldComplete);
 
   Brewery.initTables = function() {
-    Brewery.handleLocationEndpoint();
     Brewery.filterUniqueBreweryIds();
     Brewery.createLocationTable(Brewery.handleLocationEndpoint);
     Brewery.createNameTable(Brewery.handleNameEndpoint);
     Brewery.grabAllBreweryData();
   };
 
-
-  Brewery.initTables();
-  Brewery.loadBreweryNames();
   Brewery.initTables();
 
   module.Brewery = Brewery;
