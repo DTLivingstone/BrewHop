@@ -10,14 +10,14 @@
   Brewery.names = [];
   Brewery.filterResults = [];
 
-  // Brewery.loadBreweryNames = function() {
-  //   $.get('/data/breweries.json')
-  //   .done(function(data) {
-  //     Brewery.all = data.map(function(element){
-  //       return element;
-  //     });
-  //   });
-  // };
+  Brewery.loadBreweryNames = function() {
+    $.get('/data/breweries.json')
+    .done(function(data) {
+      Brewery.names = data.map(function(element){
+        return element.name;
+      });
+    });
+  };
 
   Brewery.filterUniqueBreweryIds = function() {
     $.get('/data/breweries.json')
@@ -108,9 +108,9 @@
       'latitude FLOAT, ' +
       'longitude FLOAT, ' +
       'openToPublic BOOLEAN, ' +
-      'hoursOfOperation VARCHAR(255));'
+      'hoursOfOperation VARCHAR(255));',
+      callback
     );
-    callback(); // TODO: run this asynchronously
   };
 
   Brewery.createNameTable = function(callback) {
@@ -122,9 +122,9 @@
       'description TEXT, ' +
       'website VARCHAR(255), ' +
       'established DATE, ' +
-      'isOrganic BOOLEAN);'
+      'isOrganic BOOLEAN);',
+      callback
     );
-    callback(); // TODO: run this asynchronously
   };
 
   Brewery.createTwitterHandleTable = function(callback) {
@@ -132,9 +132,9 @@
       'CREATE TABLE IF NOT EXISTS breweryTwitterHandle (' +
       'id INTEGER PRIMARY KEY, ' +
       'breweryId, ' +
-      'twitterHandle VARCHAR(255));'
+      'twitterHandle VARCHAR(255));',
+      callback
     );
-    callback(); // TODO: run this asynchronously
   };
 
   Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
@@ -153,6 +153,18 @@
     );
   };
 
+
+  Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
+    webDB.execute(
+      [
+        {
+          'sql': 'SELECT * FROM breweryName LEFT JOIN breweryBeers ON (breweryName.breweryId = breweryBeers.breweryId) WHERE ' + sqlString + ' GROUP BY breweryName.name HAVING COUNT(DISTINCT breweryBeers.categoryId) = ' + filterArray.length,
+        }
+      ],
+      callback
+    );
+  };
+
   Brewery.saveAllBreweryData = function(rows) {
     Brewery.all = rows.map(function(brew) {
       return new Brewery(brew);
@@ -167,14 +179,14 @@
 
   Brewery.searchFieldComplete = function() {
     console.log('autocomplete ready!');
-    $('#brew-search-input').autocomplete(
+    $('#brewery-input').autocomplete(
       {
         source: Brewery.names,
-        minLength: 3
+        minLength: 2
       }
     );
   };
-  $('#brew-search-input').on('focus', Brewery.searchFieldComplete);
+  $('#brewery-input').on('focus', Brewery.searchFieldComplete);
 
   Brewery.handleTwitEndpoint = function() {
 

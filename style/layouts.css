@@ -10,6 +10,20 @@ header {
   width: 100%;
 }
 
+.team-member {
+  height: 300px;
+  width: auto;;
+  text-align: center;
+  font-family: Open Sans Light;
+  margin-top: 10px;
+}
+
+.team-member p {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #brewery-filter {
   width: 20%;
 }
