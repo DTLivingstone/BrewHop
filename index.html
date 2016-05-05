@@ -8,8 +8,8 @@
     <script id="brewery-template" type=text/x-handlebars-template>
       <article data-category='{{breweryId}}' class='brewery-container'>
         <header>
-          <h1 class='brewery-name'>{{name}}</h1>
-          <section class='description'>{{{description}}}</section>
+          <h1 data-breweryId={{breweryId}}>{{breweryId}}</h1>
+          <section data-street='streetAddres'>{{streetAddress}}</section>
           <a href="/{{breweryId}}" class="learn-more">learn more &rarr;</a>
         </header>
       </article>
@@ -38,8 +38,6 @@
         </ul>
       </div>
       <section id="breweries" class="tab-content">
-      </section>
-      <section>
       </section>
     </main>
     <script src="vendor/scripts/jquery-2.2.3.min.js"></script>

@@ -5,7 +5,7 @@
 
   var render = function(brewery) {
     var template = Handlebars.compile($('#brewery-template').text());
-    console.log(brewery);
+    // console.log(brewery);
     return template(brewery);
   };
 
@@ -35,6 +35,7 @@
     breweryRendered = true;
     Brewery.all.forEach(function(b){
       $('#breweries').append(render(b));
+      // console.log(b);
     });
     breweryView.handleBeerFilter();
     // breweryView.setTeasers();
