@@ -37,6 +37,8 @@
     Brewery.findBreweryWhere(filterArray, sqlString);
   };
 
+  //TODO:Write what to do next with results from handleBeerFilter. This funtion should display the resulting Breweries in DOM with map.
+
   breweryView.handleBeerFilter();
   module.breweryView = breweryView;
 })(window);
