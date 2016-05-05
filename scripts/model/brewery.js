@@ -108,9 +108,9 @@
       'latitude FLOAT, ' +
       'longitude FLOAT, ' +
       'openToPublic BOOLEAN, ' +
-      'hoursOfOperation VARCHAR(255));'
+      'hoursOfOperation VARCHAR(255));',
+      callback
     );
-    callback(); // TODO: run this asynchronously
   };
 
   Brewery.createNameTable = function(callback) {
@@ -122,9 +122,9 @@
       'description TEXT, ' +
       'website VARCHAR(255), ' +
       'established DATE, ' +
-      'isOrganic BOOLEAN);'
+      'isOrganic BOOLEAN);',
+      callback
     );
-    callback(); // TODO: run this asynchronously
   };
 
   Brewery.createTwitterHandleTable = function(callback) {
@@ -132,10 +132,22 @@
       'CREATE TABLE IF NOT EXISTS breweryTwitterHandle (' +
       'id INTEGER PRIMARY KEY, ' +
       'breweryId, ' +
-      'twitterHandle VARCHAR(255));'
+      'twitterHandle VARCHAR(255));',
+      callback
     );
-    callback(); // TODO: run this asynchronously
   };
+
+  Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
+    webDB.execute(
+      [
+        {
+          'sql': 'SELECT * FROM breweryName LEFT JOIN breweryBeers ON (breweryName.breweryId = breweryBeers.breweryId) WHERE ' + sqlString + ' GROUP BY breweryName.name HAVING COUNT(DISTINCT breweryBeers.categoryId) = ' + filterArray.length,
+        }
+      ],
+      callback
+    );
+  };
+
 
   Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
     webDB.execute(
@@ -157,10 +169,10 @@
   Brewery.grabAllBreweryData = function() {
     webDB.execute('SELECT * FROM breweryLocation ORDER BY id DESC', function(rows) {
       if (rows.length) {
-        console.log('data was already there!');
+        // If there is already data in the database, populate Brewery.all with locally stored dat
         Brewery.saveAllBreweryData(rows);
       } else {
-        console.log('data needed to be loaded!');
+        // If page is being loaded for the first time, fetch the data from remote source to populate Brewery.all with data
         Brewery.ids.forEach(function(id) {
           $.get('/locations/' + id, function(data) {
             var breweryInstance = new Brewery(data.data[0]);
