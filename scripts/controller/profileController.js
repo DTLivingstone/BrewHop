@@ -6,7 +6,7 @@
       $('#profiles').show();
     },
 
-    loadByBreweryName: function(ctx, next) {
+    loadByBreweryId: function(ctx, next) {
       console.log(ctx);
     }
   };

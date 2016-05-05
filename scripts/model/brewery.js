@@ -31,6 +31,7 @@
   };
 
   Brewery.handleLocationEndpoint = function() {
+    console.log('location endpoint');
     Brewery.ids.forEach(function(id) {
       $.get('/locations/' + id, function(data) {
         var breweryInstance = new Brewery(data.data[0]);
@@ -40,6 +41,7 @@
   };
 
   Brewery.handleNameEndpoint = function() {
+    console.log('name endpoint');
     Brewery.ids.forEach(function(id) {
       $.get('/name/' + id, function(data) {
         var breweryInstance = new Brewery(data.data);
@@ -49,6 +51,7 @@
   };
 
   Brewery.handleTwitterHandleEndpoint = function() {
+    console.log('Twitter endpoint');
     Brewery.ids.forEach(function(id) {
       $.get('/twitter-handle/' + id, function(data) {
         for (var i in data.data) {
