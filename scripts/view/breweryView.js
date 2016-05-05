@@ -5,7 +5,7 @@
 
   var render = function(brewery) {
     var template = Handlebars.compile($('#brewery-template').text());
-    // console.log(brewery);
+    console.log(brewery);
     return template(brewery);
   };
 
