@@ -124,11 +124,23 @@
         console.log('data was already there!');
         Brewery.saveAllBreweryData(rows);
       } else {
-        console.log('data needed to be loaded!');
-        Brewery.handleLocationEndpoint();
-        webDB.execute('SELECT * FROM breweryLocation', function(rows) {
-          console.log('weasel');
-          Brewery.saveAllBreweryData(rows);
+        // console.log('data needed to be loaded!');
+        // Brewery.handleLocationEndpoint();
+        // webDB.execute('SELECT * FROM breweryLocation', function(rows) {
+        //   console.log('weasel');
+        //   Brewery.saveAllBreweryData(rows);
+        // });
+        Brewery.ids.forEach(function(id) {
+          $.get('/locations/' + id, function(data) {
+            var breweryInstance = new Brewery(data.data[0]);
+            breweryInstance.insertLocationRecord(id);
+          })
+          .done(function() {
+            webDB.execute('SELECT * FROM breweryLocation', function(rows) {
+              console.log('weasel');
+              Brewery.saveAllBreweryData(rows);
+            });
+          });
         });
       }
     });
