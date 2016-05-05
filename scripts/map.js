@@ -48,6 +48,7 @@ function setMarkers(map) {
 $('#map').hide();
 
 $( "#search" ).on( "click", function(event) {
+  Brewery.grabAllBreweryData();
   $('#map').show();
   initMap();
 });
