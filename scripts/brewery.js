@@ -47,12 +47,15 @@
   };
 
   Brewery.handleTwitterHandleEndpoint = function() {
-    console.log('foo');
     Brewery.ids.forEach(function(id) {
       $.get('/twitter-handle/' + id, function(data) {
-        console.log(data);
-        // var breweryInstance = new Brewery(data.data);
-        // breweryInstance.insertTwitterHandleRecord();
+        console.log(data.data);
+        for (var i in data.data) {
+          console.log(data.data[i]);
+          console.log(data.data[i].socialMediaId); // iterate through each one of these, test the sodial id, set to variable
+
+          // breweryInstance.insertTwitterHandleRecord();
+        };
       });
     });
   };
@@ -153,12 +156,12 @@
   };
   $('#brew-search-input').on('focus', Brewery.searchFieldComplete);
 
-  Brewery.handleTwitterEndpoint = function() {
-  ////////////////
+  Brewery.handleTwitEndpoint = function() {
+
   };
 
   Brewery.handleYelpEndpoint = function() {
-  ////////////////
+
   };
 
   Brewery.initTables = function() {
