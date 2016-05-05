@@ -96,7 +96,7 @@
       ]
     );
   };
-  
+
   Brewery.createLocationTable = function(callback) {
     webDB.execute(
       'CREATE TABLE IF NOT EXISTS breweryLocation (' +
@@ -111,7 +111,6 @@
       'hoursOfOperation VARCHAR(255));',
       callback
     );
-    // callback(); // TODO: run this asynchronously
   };
 
   Brewery.createNameTable = function(callback) {
@@ -126,7 +125,6 @@
       'isOrganic BOOLEAN);',
       callback
     );
-    // callback(); // TODO: run this asynchronously
   };
 
   Brewery.createTwitterHandleTable = function(callback) {
@@ -137,7 +135,6 @@
       'twitterHandle VARCHAR(255));',
       callback
     );
-    // callback(); // TODO: run this asynchronously
   };
 
   Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
@@ -172,10 +169,10 @@
   Brewery.grabAllBreweryData = function() {
     webDB.execute('SELECT * FROM breweryLocation ORDER BY id DESC', function(rows) {
       if (rows.length) {
-        console.log('data was already there!');
+        // If there is already data in the database, populate Brewery.all with locally stored dat
         Brewery.saveAllBreweryData(rows);
       } else {
-        console.log('data needed to be loaded!');
+        // If page is being loaded for the first time, fetch the data from remote source to populate Brewery.all with data
         Brewery.ids.forEach(function(id) {
           $.get('/locations/' + id, function(data) {
             var breweryInstance = new Brewery(data.data[0]);
