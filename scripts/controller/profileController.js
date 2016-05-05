@@ -3,7 +3,7 @@
     index: function() {
       FilterUniqueBreweryIds(breweryView.initProfilePage);
       $('main > section').hide();
-      $('#').show();
+      $('#profiles').show();
     }
   };
 
