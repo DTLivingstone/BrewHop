@@ -7,17 +7,7 @@
 
   Brewery.all = [];
   Brewery.ids = [];
-  Brewery.names = [];
   Brewery.filterResults = [];
-
-  Brewery.loadBreweryNames = function() {
-    $.get('/data/breweries.json')
-    .done(function(data) {
-      Brewery.names = data.map(function(element){
-        return element.name;
-      });
-    });
-  };
 
   Brewery.filterUniqueBreweryIds = function() {
     $.get('/data/breweries.json')
@@ -197,25 +187,6 @@
     });
   };
 
-  Brewery.searchFieldComplete = function() {
-    console.log('autocomplete ready!');
-    $('#brewery-input').autocomplete(
-      {
-        source: Brewery.names,
-        minLength: 2
-      }
-    );
-  };
-  $('#brewery-input').on('focus', Brewery.searchFieldComplete);
-
-  Brewery.handleTwitEndpoint = function() {
-
-  };
-
-  Brewery.handleYelpEndpoint = function() {
-
-  };
-
   Brewery.initTables = function() {
     Brewery.filterUniqueBreweryIds();
     Brewery.createLocationTable(Brewery.handleLocationEndpoint);
@@ -225,7 +196,6 @@
 
   Brewery.initTables();
   Brewery.grabAllBreweryData();
-  // Brewery.loadBreweryNames();
 
   module.Brewery = Brewery;
 }(window));
