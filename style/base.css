@@ -9,6 +9,17 @@ h1 {
 
 section {
   text-align: center;
+  /*clear: both;*/
+}
+
+img {
+  max-width: 100%;
+  width: 50px;
+  float: left;
+}
+
+/*section {
+  text-align: center;
   clear: both;
 }
 
@@ -16,4 +27,4 @@ img {
   max-width: 100%;
   width: 75px;
   float: middle;
-}
+}*/
