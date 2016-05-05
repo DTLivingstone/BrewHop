@@ -143,7 +143,6 @@
   $('#brew-search-input').on('focus', Brewery.searchFieldComplete);
 
   Brewery.initTables = function() {
-    Brewery.handleLocationEndpoint();
     Brewery.filterUniqueBreweryIds();
     Brewery.createLocationTable(Brewery.handleLocationEndpoint);
     Brewery.createNameTable(Brewery.handleNameEndpoint);
@@ -153,7 +152,6 @@
 
   Brewery.initTables();
   Brewery.loadBreweryNames();
-  Brewery.initTables();
 
   module.Brewery = Brewery;
 }(window));

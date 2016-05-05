@@ -1,4 +1,4 @@
-// (function(module) {
+(function(module) {
   function Beer(opts) {
     Object.keys(opts).forEach(function(b, index, keys) {
       this[b] = opts[b];
@@ -8,9 +8,20 @@
   Beer.handleBeerEndpoint = function() {
     Brewery.ids.forEach(function(id) {
       $.get('/beers/' + id, function(data) {
-        // var beerInstance = new Beer(data);
-        console.log(data);
-        // beerInstance.insertBeerRecord(id);
+        var breweryBeers = data.data;
+        breweryBeers.forEach(function(beer){
+          var beerInstance = new Beer(beer);
+          beerInstance.insertBeerRecord(id);
+        });
+      });
+    });
+  };
+
+  Beer.handleBeerCategoryEndpoint = function() {
+    $.get('/categories/', function(data) {
+      var beerCategories = data.data;
+      beerCategories.forEach(function(category){
+        Beer.insertCategoryRecord(category);
       });
     });
   };
@@ -19,23 +30,22 @@
     webDB.execute(
       [
         {
-          'sql': 'INSERT INTO breweryBeers (breweryId, categoryId, name, shortName, description) VALUES (?, ?, ?, ?, ?)',
-          'data': [this.id, this.categoryId, this.name, this.shortName, this.description],
+          'sql': 'INSERT INTO breweryBeers (breweryId, categoryId, name, description) VALUES (?, ?, ?, ?)',
+          'data': [id, this.style.categoryId, this.name, this.description],
         }
       ]
     );
   };
 
-  Beer.prototype.insertCategoryRecord = function(callback) {
+  Beer.prototype.insertCategoryRecord = function(category) {
     webDB.execute(
       [
         {
           'sql': 'INSERT INTO beerCategories (categoryId, name) VALUES (?, ?)',
-          'data': [this.categoryId, this.name],
+          'data': [category.id, category.name],
         }
       ]
     );
-    callback;
   };
 
   Beer.createBeerTable = function(callback) {
@@ -62,10 +72,10 @@
   };
 
   Beer.initTables = function() {
-    Beer.createBeerTable(Beer.insertBeerRecord);
-    // Beer.createBeerCategoryTable(Beer.insertCategoryRecord);
+    Beer.createBeerTable(Beer.handleBeerEndpoint);
+    Beer.createBeerCategoryTable(Beer.handleBeerCategoryEndpoint);
   };
 
   Beer.initTables();
-  // module.Beer = Beer;
-// }(window));
+  module.Beer = Beer;
+}(window));
