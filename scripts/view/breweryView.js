@@ -4,7 +4,7 @@
 
   var render = function(brewery) {
     var template = Handlebars.compile($('#brewery-template').text());
-
+    
     return template(brewery);
   };
 

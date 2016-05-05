@@ -1,7 +1,7 @@
 
 var markers =[];
 var map;
-var mapIconInfo = "brewery info goes here";
+
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -19,10 +19,7 @@ function setMarkers(map) {
     origin: new google.maps.Point(0,0),
     anchor: new google.maps.Point(0,30)
   };
-  var infowindow = new google.maps.InfoWindow({
-    content: mapIconInfo,
-    maxWidth: 200
-  });
+
 
   var shape = {
     coords: [1,25,30,,35,35,25,1],
@@ -40,9 +37,7 @@ function setMarkers(map) {
       setZIndex: Brewery.all[i].id
     });
     markers.push(marker);
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.open(map, marker);
-    });
+
   }
 };
 $('#map').hide();

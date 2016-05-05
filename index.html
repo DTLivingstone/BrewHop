@@ -15,6 +15,25 @@
     <script id="brewery-template" type="text/x-handlebars-template">
       <article class="clearfix" brewery-name="{{name}}" brewery-id="{{id}}"></article>
     </script>
+    <script id="profile-template" type="text/x-handlebars-template">
+      <div id="profile-body">
+        <h1 id="profile-name" class="profile-heading">{{name}}</h1>
+        <p>{{description}}</p>
+        <p>{{streetAddress}}</p>
+        <p>{{phone}}</p>
+        <p>{{hoursOfOperation}}</p>
+        <p>{{website}}</p>
+      </div>
+    </script>
+    <script id="sidebar-profile-template" type="text/x-handlebars-temlate">
+      <div>
+        <h1 id="profile-name" class="profile-heading">{{name}}</h1>
+        <p>{{streetAddress}}</p>
+        <p>{{phone}}</p>
+        <p>{{hoursOfOperation}}</p>
+        <p>{{website}}</p>
+      </div>
+    </script>
   </head>
   <body>
     <header class="site-header">
@@ -47,6 +66,14 @@
         </div>
       </section>
       <div id="map"></div>
+      <section id="profiles" class="tab-content">
+        <div></div>
+      </section>
+      <div class="sidebar-profile">
+        <section>
+          <div class="placement-profile"></div>
+        </section>
+      </div>
       <section id="about" class="tab-content">
         <header>
           <h1>Developers</h1>
@@ -72,6 +99,7 @@
               <p class="team-text">Add info here</p>
           </article>
       </section>
+
     </main>
 
     <script src="vendor/scripts/jquery-2.2.3.min.js"></script>
