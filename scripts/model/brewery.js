@@ -134,12 +134,11 @@
     callback(); // run this asynchronously
   };
 
-  Brewery.findBreweryWhere = function(sqlString, callback) {
+  Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
     webDB.execute(
       [
         {
-          'sql': 'SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId WHERE ?;',
-          'data': [sqlString]
+          'sql': 'SELECT * FROM breweryName LEFT JOIN breweryBeers ON (breweryName.breweryId = breweryBeers.breweryId) WHERE ' + sqlString + ' GROUP BY breweryName.name HAVING COUNT(DISTINCT breweryBeers.categoryId) = ' + filterArray.length,
         }
       ],
       callback
