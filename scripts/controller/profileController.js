@@ -5,10 +5,6 @@
       $('main > section').hide();
       $('#profiles').show();
     },
-
-    loadByBreweryId: function(ctx, next) {
-      console.log(ctx);
-    }
   };
 
   module.profileController = profileController;
