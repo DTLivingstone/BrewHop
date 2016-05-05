@@ -4,7 +4,7 @@
 
   var render = function(brewery) {
     var template = Handlebars.compile($('#brewery-template').text());
-    
+
     return template(brewery);
   };
 
@@ -18,18 +18,25 @@
     });
   };
 
-  var filterArray = [];
+  breweryView.handleBeerFilter = function() {
+    var filterArray = [];
+    $('input[type="checkbox"]').change(function(){
+      if($(this).is(':checked')) {
+        var filterString = $(this).attr('name') + '=' + $(this).val();
+        filterArray.push(filterString);
+      } else {
+        var filterString = $(this).attr('name') + '=' + $(this).val();
+        filterArray.splice(filterArray.indexOf(filterString), 1);
+      }
+      filterResults(filterArray);
+    });
+  };
 
-  $('input[checked]').each(function() {
-    var filterString = $(this).attr('name') + '=' + $(this).val();
-    filterArray.push(filterString);
-  });
+  var filterResults = function(filterArray) {
+    var sqlString = filterArray.join(' OR ');
+    Brewery.findBreweryWhere(filterArray, sqlString);
+  };
 
-  $('.results').html(filterArray.join(' AND '));
-  console.log(filterArray);
-
-  //TODO: create event listener on the checked boxes.
-
-
+  breweryView.handleBeerFilter();
   module.breweryView = breweryView;
 })(window);
