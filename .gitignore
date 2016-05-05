@@ -1,0 +1,21 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Keys #
+########
+scripts/keys/**
+
+# Node modules #
+################
+node_modules/**
+
+# UI development #
+##################
+z_illustrator_files/**

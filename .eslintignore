@@ -1,0 +1,15 @@
+node_modules/**
+images/**
+styles/**
+vendor/**
+
+index.html
+package.json
+Procfile
+
+.eslintignore
+.eslintrc
+.gitignore
+
+LICENSE
+README.md

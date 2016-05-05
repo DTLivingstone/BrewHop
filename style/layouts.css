@@ -1,0 +1,51 @@
+.team-member {
+  height: 300px;
+  width: auto;;
+  text-align: center;
+  font-family: Open Sans Light;
+  margin-top: 10px;
+}
+
+.team-member p {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+#brewery-filter {
+  width: 20%;
+}
+
+ul#filter {
+  list-style-type: none;
+  display: none;
+}
+
+#map {
+  height: 400px;
+  width: auto;
+  border: solid;
+  max-width: 100%;
+  margin-top: 20px;
+}
+
+@media only screen and (min-width: 640px) {
+
+  body {
+    font-size: 15px;
+  }
+
+  img {
+    width: 100px;
+  }
+
+  .icon-menu {
+    font-size: 25px;
+  }
+
+  .dropdown-content a {
+    font-size: 20px;
+  }
+
+}
