@@ -1,9 +1,11 @@
 (function(module) {
 
   var breweryView = {};
+  var breweryRendered = false;
 
   var render = function(brewery) {
     var template = Handlebars.compile($('#brewery-template').text());
+    console.log(brewery);
     return template(brewery);
   };
 
@@ -31,9 +33,8 @@
       return;
     };
     breweryRendered = true;
-    Project.all.forEach(function(a){
-      console.log(a);
-      $('#projects').append(render(a));
+    Brewery.all.forEach(function(b){
+      $('#breweries').append(render(b));
     });
     breweryView.handleBeerFilter();
     // breweryView.setTeasers();

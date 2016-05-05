@@ -9,14 +9,14 @@
   Brewery.ids = [];
   Brewery.names = [];
 
-  Brewery.loadBreweryNames = function() {
-    $.get('/data/breweries.json')
-    .done(function(data) {
-      Brewery.all = data.map(function(element){
-        return element;
-      });
-    });
-  };
+  // Brewery.loadBreweryNames = function() {
+  //   $.get('/data/breweries.json')
+  //   .done(function(data) {
+  //     Brewery.all = data.map(function(element){
+  //       return element;
+  //     });
+  //   });
+  // };
 
   Brewery.filterUniqueBreweryIds = function() {
     $.get('/data/breweries.json')
@@ -44,6 +44,7 @@
     Brewery.ids.forEach(function(id) {
       $.get('/name/' + id, function(data) {
         var breweryInstance = new Brewery(data.data);
+        Brewery.all.push(breweryInstance);
         breweryInstance.insertNameRecord();
       });
     });
@@ -194,7 +195,7 @@
   };
 
   Brewery.initTables();
-  Brewery.loadBreweryNames();
+  // Brewery.loadBreweryNames();
 
   module.Brewery = Brewery;
 }(window));
