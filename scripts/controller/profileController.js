@@ -4,6 +4,10 @@
       FilterUniqueBreweryIds(breweryView.initProfilePage);
       $('main > section').hide();
       $('#profiles').show();
+    },
+
+    loadByBreweryName: function(ctx, next) {
+      console.log(ctx);
     }
   };
 

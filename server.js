@@ -13,7 +13,7 @@ var T = new Twit({
 });
 
 var getTweets = function(req, res) {
-  T.get('statuses/user_timeline', {screen_name: req.params[0], count: 3})
+  T.get('statuses/user_timeline', {screen_name: req.params[0], count: 5})
   .done(function(result) {
     res.send(result.data);
   });

@@ -107,7 +107,7 @@
       'openToPublic BOOLEAN, ' +
       'hoursOfOperation VARCHAR(255));'
     );
-    callback(); // run this asynchronously
+    callback(); // TODO: run this asynchronously
   };
 
   Brewery.createNameTable = function(callback) {
@@ -121,7 +121,7 @@
       'established DATE, ' +
       'isOrganic BOOLEAN);'
     );
-    callback(); // run this asynchronously
+    callback(); // TODO: run this asynchronously
   };
 
   Brewery.createTwitterHandleTable = function(callback) {
@@ -131,7 +131,7 @@
       'breweryId, ' +
       'twitterHandle VARCHAR(255));'
     );
-    callback(); // run this asynchronously
+    callback(); // TODO: run this asynchronously
   };
 
   Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
