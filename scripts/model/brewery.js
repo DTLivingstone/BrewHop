@@ -96,7 +96,7 @@
       ]
     );
   };
-
+  
   Brewery.createLocationTable = function(callback) {
     webDB.execute(
       'CREATE TABLE IF NOT EXISTS breweryLocation (' +
@@ -108,9 +108,10 @@
       'latitude FLOAT, ' +
       'longitude FLOAT, ' +
       'openToPublic BOOLEAN, ' +
-      'hoursOfOperation VARCHAR(255));'
+      'hoursOfOperation VARCHAR(255));',
+      callback
     );
-    callback(); // TODO: run this asynchronously
+    // callback(); // TODO: run this asynchronously
   };
 
   Brewery.createNameTable = function(callback) {
@@ -122,9 +123,10 @@
       'description TEXT, ' +
       'website VARCHAR(255), ' +
       'established DATE, ' +
-      'isOrganic BOOLEAN);'
+      'isOrganic BOOLEAN);',
+      callback
     );
-    callback(); // TODO: run this asynchronously
+    // callback(); // TODO: run this asynchronously
   };
 
   Brewery.createTwitterHandleTable = function(callback) {
@@ -132,10 +134,23 @@
       'CREATE TABLE IF NOT EXISTS breweryTwitterHandle (' +
       'id INTEGER PRIMARY KEY, ' +
       'breweryId, ' +
-      'twitterHandle VARCHAR(255));'
+      'twitterHandle VARCHAR(255));',
+      callback
     );
-    callback(); // TODO: run this asynchronously
+    // callback(); // TODO: run this asynchronously
   };
+
+  Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
+    webDB.execute(
+      [
+        {
+          'sql': 'SELECT * FROM breweryName LEFT JOIN breweryBeers ON (breweryName.breweryId = breweryBeers.breweryId) WHERE ' + sqlString + ' GROUP BY breweryName.name HAVING COUNT(DISTINCT breweryBeers.categoryId) = ' + filterArray.length,
+        }
+      ],
+      callback
+    );
+  };
+
 
   Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
     webDB.execute(
