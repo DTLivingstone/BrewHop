@@ -54,6 +54,7 @@ var proxyBreweryName = function(req, res) {
 var proxyBreweryTwitterHandle = function(req, res) {
   var url = 'http://api.brewerydb.com/v2/brewery/' + req.params[0] +'/socialaccounts/?key=' + process.env.BREWERYDB_TOKEN;
   console.log(url);
+  request(url).pipe(res);
 };
 
 var proxyBreweryBeers = function(req, res) {

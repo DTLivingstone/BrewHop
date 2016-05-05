@@ -108,7 +108,7 @@
       'openToPublic BOOLEAN, ' +
       'hoursOfOperation VARCHAR(255));'
     );
-    callback;
+    callback();
   };
 
   Brewery.createNameTable = function(callback) {
@@ -122,7 +122,7 @@
       'established DATE, ' +
       'isOrganic BOOLEAN);'
     );
-    callback;
+    callback();
   };
 
   Brewery.createTwitterHandleTable = function(callback) {
@@ -187,8 +187,8 @@
 
   Brewery.initTables = function() {
     Brewery.filterUniqueBreweryIds();
-    Brewery.createLocationTable(Brewery.handleLocationEndpoint);
-    Brewery.createNameTable(Brewery.handleNameEndpoint);
+    // Brewery.createLocationTable(Brewery.handleLocationEndpoint);
+    // Brewery.createNameTable(Brewery.handleNameEndpoint);
     Brewery.createTwitterHandleTable(Brewery.handleTwitterHandleEndpoint);
     Brewery.grabAllBreweryData();
   };
