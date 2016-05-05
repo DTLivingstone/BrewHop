@@ -5,15 +5,26 @@
     }, this);
   }
 
+  Brewery.current = [];
   Brewery.all = [];
   Brewery.ids = [];
   Brewery.names = [];
+  Brewery.nameID = [];
 
   Brewery.loadBreweryNames = function() {
     $.get('/data/breweries.json')
     .done(function(data) {
       Brewery.names = data.map(function(element){
         return element.name;
+      });
+    });
+  };
+
+  Brewery.loadBreweryNamesIDObjects = function() {
+    $.get('/data/breweries.json')
+    .done(function(data) {
+      Brewery.nameID = data.map(function(element){
+        return element;
       });
     });
   };
@@ -216,8 +227,11 @@
     Brewery.grabAllBreweryData();
   };
 
-  Brewery.initTables();
+  // move the function below to breweryController
+  // Brewery.initTables();
+
   Brewery.loadBreweryNames();
+  Brewery.loadBreweryNamesIDObjects();
 
   module.Brewery = Brewery;
 }(window));

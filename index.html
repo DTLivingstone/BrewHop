@@ -65,7 +65,9 @@
         <h1>BrewHop</h1>
         <section>
           <p>Enter a brewery name here:</p>
-          <input type="text" text-align="center" id="brewery-input"> <button type="button" id="search">SEARCH</button>
+          <form class="brewery-query" type="submit" method="get">
+            <input type="text" text-align="center" id="brewery-input"> <button type="button" id="search">SEARCH</button>
+          </form>
         </section>
         <div class='sidebar'>
           <!-- TODO: refactor the checkboxes into a handlebars template using the beerCategories table in the DB -->
