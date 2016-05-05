@@ -18,7 +18,6 @@
     });
   };
 
-  // Fill out an array of brewery ids to pick up on breweryDB URI routing
   Brewery.filterUniqueBreweryIds = function() {
     $.get('/data/breweries.json')
     .done(function(data) {

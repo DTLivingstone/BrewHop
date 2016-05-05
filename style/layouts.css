@@ -1,10 +1,21 @@
+header {
+  display: inline;
+}
+
+#logo {
+
+}
+
+#main-nav {
+  width: 100%;
+}
+
 #brewery-filter {
   width: 20%;
 }
 
 ul#filter {
   list-style-type: none;
-  display: none;
 }
 
 #map {
@@ -13,24 +24,4 @@ ul#filter {
   border: solid;
   max-width: 100%;
   margin-top: 20px;
-}
-
-@media only screen and (min-width: 640px) {
-
-  body {
-    font-size: 15px;
-  }
-
-  img {
-    width: 100px;
-  }
-
-  .icon-menu {
-    font-size: 25px;
-  }
-
-  .dropdown-content a {
-    font-size: 20px;
-  }
-
 }

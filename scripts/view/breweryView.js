@@ -4,18 +4,7 @@
 
   var render = function(brewery) {
     var template = Handlebars.compile($('#brewery-template').text());
-
     return template(brewery);
-  };
-
-  breweryView.initProfilePage = function() {
-    var template = Handlebars.compile($('#').text());
-  };
-
-  breweryView.initIndexPage = function() {
-    Brewery.all.forEach(function(a){
-      $('#breweries').append(a.toHtml());
-    });
   };
 
   breweryView.handleBeerFilter = function() {
@@ -37,8 +26,18 @@
     Brewery.findBreweryWhere(filterArray, sqlString);
   };
 
-  //TODO:Write what to do next with results from handleBeerFilter. This funtion should display the resulting Breweries in DOM with map.
+  breweryView.initIndexPage = function() {
+    if (breweryRendered === true) {
+      return;
+    };
+    breweryRendered = true;
+    Project.all.forEach(function(a){
+      console.log(a);
+      $('#projects').append(render(a));
+    });
+    breweryView.handleBeerFilter();
+    // breweryView.setTeasers();
+  };
 
-  breweryView.handleBeerFilter();
   module.breweryView = breweryView;
 })(window);
