@@ -4,7 +4,6 @@ styles/**
 vendor/**
 
 index.html
-server.js
 package.json
 Procfile
 

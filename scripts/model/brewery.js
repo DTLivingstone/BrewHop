@@ -48,6 +48,20 @@
     });
   };
 
+  Brewery.handleTwitterHandleEndpoint = function() {
+    Brewery.ids.forEach(function(id) {
+      $.get('/twitter-handle/' + id, function(data) {
+        console.log(data.data);
+        for (var i in data.data) {
+          console.log(data.data[i]);
+          console.log(data.data[i].socialMediaId); // iterate through each one of these, test the sodial id, set to variable
+
+          // breweryInstance.insertTwitterHandleRecord();
+        };
+      });
+    });
+  };
+
   Brewery.prototype.insertLocationRecord = function(id) {
     webDB.execute(
       [
@@ -70,18 +84,29 @@
     );
   };
 
+  Brewery.prototype.insertTwitterHandleRecord = function(callback) {
+    webDB.execute(
+      [
+        {
+          'sql': 'INSERT INTO breweryTwitterHandle (breweryId, twitterHandle) VALUES (?, ?)',
+          'data': [this.id, this.twitterHandle],
+        }
+      ]
+    );
+  };
+
   Brewery.createLocationTable = function(callback) {
     webDB.execute(
       'CREATE TABLE IF NOT EXISTS breweryLocation (' +
-        'id INTEGER PRIMARY KEY, ' +
-        'breweryId, ' +
-        'streetAddress VARCHAR(255), ' +
-        'postalCode, ' +
-        'phone VARCHAR(255), ' +
-        'latitude FLOAT, ' +
-        'longitude FLOAT, ' +
-        'openToPublic BOOLEAN, ' +
-        'hoursOfOperation VARCHAR(255));'
+      'id INTEGER PRIMARY KEY, ' +
+      'breweryId, ' +
+      'streetAddress VARCHAR(255), ' +
+      'postalCode, ' +
+      'phone VARCHAR(255), ' +
+      'latitude FLOAT, ' +
+      'longitude FLOAT, ' +
+      'openToPublic BOOLEAN, ' +
+      'hoursOfOperation VARCHAR(255));'
     );
     callback;
   };
@@ -98,6 +123,16 @@
       'isOrganic BOOLEAN);'
     );
     callback;
+  };
+
+  Brewery.createTwitterHandleTable = function(callback) {
+    webDB.execute(
+      'CREATE TABLE IF NOT EXISTS breweryTwitterHandle (' +
+      'id INTEGER PRIMARY KEY, ' +
+      'breweryId, ' +
+      'screenName VARCHAR(255));'
+    );
+    callback();
   };
 
   Brewery.findBreweryWhere = function(sqlString, callback) {
@@ -142,13 +177,21 @@
   };
   $('#brew-search-input').on('focus', Brewery.searchFieldComplete);
 
+  Brewery.handleTwitEndpoint = function() {
+
+  };
+
+  Brewery.handleYelpEndpoint = function() {
+
+  };
+
   Brewery.initTables = function() {
     Brewery.filterUniqueBreweryIds();
     Brewery.createLocationTable(Brewery.handleLocationEndpoint);
     Brewery.createNameTable(Brewery.handleNameEndpoint);
+    Brewery.createTwitterHandleTable(Brewery.handleTwitterHandleEndpoint);
     Brewery.grabAllBreweryData();
   };
-
 
   Brewery.initTables();
   Brewery.loadBreweryNames();
