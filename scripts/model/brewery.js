@@ -203,7 +203,6 @@
     Brewery.createTwitterHandleTable(Brewery.handleTwitterHandleEndpoint);
   };
 
-  Brewery.initTables();
   Brewery.grabAllBreweryData();
   // Brewery.loadBreweryNames();
 
