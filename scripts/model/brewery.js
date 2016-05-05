@@ -8,6 +8,7 @@
   Brewery.all = [];
   Brewery.ids = [];
   Brewery.names = [];
+  Brewery.filterResults = [];
 
   Brewery.loadBreweryNames = function() {
     $.get('/data/breweries.json')
@@ -18,7 +19,6 @@
     });
   };
 
-  // Fill out an array of brewery ids to pick up on breweryDB URI routing
   Brewery.filterUniqueBreweryIds = function() {
     $.get('/data/breweries.json')
     .done(function(data) {
@@ -138,13 +138,18 @@
   };
 
   Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
-    webDB.execute(
-      [
-        {
-          'sql': 'SELECT * FROM breweryName LEFT JOIN breweryBeers ON (breweryName.breweryId = breweryBeers.breweryId) WHERE ' + sqlString + ' GROUP BY breweryName.name HAVING COUNT(DISTINCT breweryBeers.categoryId) = ' + filterArray.length,
-        }
-      ],
-      callback
+    webDB.execute('SELECT * FROM breweryName LEFT JOIN breweryBeers ON (breweryName.breweryId = breweryBeers.breweryId) WHERE ' + sqlString + ' GROUP BY breweryName.name HAVING COUNT(DISTINCT breweryBeers.categoryId) = ' + filterArray.length,
+      function(result) {
+        Brewery.grabAllFilterData(result);
+      });
+  };
+
+  Brewery.grabAllFilterData = function(result) {
+    result.forEach(
+      webDB.execute('SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId WHERE breweryLocation.breweryId = ' + this,
+      function(result) {
+        console.log(result);
+      })
     );
   };
 
@@ -167,25 +172,8 @@
   };
 
   Brewery.grabAllBreweryData = function() {
-    webDB.execute('SELECT * FROM breweryLocation ORDER BY id DESC', function(rows) {
-      if (rows.length) {
-        // If there is already data in the database, populate Brewery.all with locally stored dat
-        Brewery.saveAllBreweryData(rows);
-      } else {
-        // If page is being loaded for the first time, fetch the data from remote source to populate Brewery.all with data
-        Brewery.ids.forEach(function(id) {
-          $.get('/locations/' + id, function(data) {
-            var breweryInstance = new Brewery(data.data[0]);
-            breweryInstance.insertLocationRecord(id);
-          })
-          .done(function() {
-            webDB.execute('SELECT * FROM breweryLocation', function(rows) {
-              console.log('stuff shouldn\'t load until the document is ready!');
-              Brewery.saveAllBreweryData(rows);
-            });
-          });
-        });
-      }
+    webDB.execute('SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId', function(rows) {
+      Brewery.saveAllBreweryData(rows);
     });
   };
 
@@ -213,11 +201,11 @@
     Brewery.createLocationTable(Brewery.handleLocationEndpoint);
     Brewery.createNameTable(Brewery.handleNameEndpoint);
     Brewery.createTwitterHandleTable(Brewery.handleTwitterHandleEndpoint);
-    Brewery.grabAllBreweryData();
   };
 
   Brewery.initTables();
-  Brewery.loadBreweryNames();
+  Brewery.grabAllBreweryData();
+  // Brewery.loadBreweryNames();
 
   module.Brewery = Brewery;
 }(window));

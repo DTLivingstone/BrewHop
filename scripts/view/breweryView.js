@@ -1,21 +1,12 @@
 (function(module) {
 
   var breweryView = {};
+  var breweryRendered = false;
 
   var render = function(brewery) {
     var template = Handlebars.compile($('#brewery-template').text());
-
+    // console.log(brewery);
     return template(brewery);
-  };
-
-  breweryView.initProfilePage = function() {
-    var template = Handlebars.compile($('#').text());
-  };
-
-  breweryView.initIndexPage = function() {
-    Brewery.all.forEach(function(a){
-      $('#breweries').append(a.toHtml());
-    });
   };
 
   breweryView.handleBeerFilter = function() {
@@ -29,6 +20,7 @@
         filterArray.splice(filterArray.indexOf(filterString), 1);
       }
       filterResults(filterArray);
+      // How can I take the breweryId results from the above function and pass into my initIndex?
     });
   };
 
@@ -37,8 +29,17 @@
     Brewery.findBreweryWhere(filterArray, sqlString);
   };
 
-  //TODO:Write what to do next with results from handleBeerFilter. This funtion should display the resulting Breweries in DOM with map.
+  breweryView.initIndexPage = function() {
+    if (breweryRendered === true) {
+      return;
+    };
+    breweryRendered = true;
+    Brewery.all.forEach(function(b){
+      $('#breweries').append(render(b));
+    });
+    breweryView.handleBeerFilter();
+    // breweryView.setTeasers();
+  };
 
-  breweryView.handleBeerFilter();
   module.breweryView = breweryView;
 })(window);
