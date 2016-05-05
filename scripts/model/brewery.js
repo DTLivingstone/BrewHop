@@ -121,13 +121,10 @@
   Brewery.grabAllBreweryData = function() {
     webDB.execute('SELECT * FROM breweryLocation ORDER BY id DESC', function(rows) {
       if (rows.length) {
-        console.log('data was already there!');
         Brewery.saveAllBreweryData(rows);
       } else {
-        console.log('data needed to be loaded!');
         Brewery.handleLocationEndpoint();
         webDB.execute('SELECT * FROM breweryLocation', function(rows) {
-          console.log('weasel');
           Brewery.saveAllBreweryData(rows);
         });
       }

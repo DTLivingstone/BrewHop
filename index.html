@@ -18,75 +18,77 @@
   </head>
   <body>
     <header class="site-header">
-      <div class="div">
         <nav class="main-nav">
-          <div class="icon-menu"></div>
-            <ul>
+          <div class="dropdown">
+          <div class="icon-menu">
+            <ul class=dropdown-content>
               <li><a href="/" class="icon-home">Home</a></li>
               <li><a href="/profile" class="icon-link">Profile</a></li>
               <li><a href="/about" class="icon-address-book">About</a></li>
             </ul>
+          </div>
+          </div>
         </nav>
-      </div>
-      <section class="section">
+      </header>
+      <main>
+      <section <section id="breweries" class="tab-content">
         <img src="images/icons/icon-glaeser.svg">
         <h1>BrewHop</h1>
-      </section>
-    </header>
-    <section>
-      <p>Enter a brewery name here:</p>
-      <input type="text" text-align="center" id="brewery-input"> <button type="button" id="search">SEARCH</button>
-    </section>
-    <main>
-      <section id="breweries" class="tab-content">
+        <section>
+          <p>Enter a brewery name here:</p>
+          <input type="text" text-align="center" id="brewery-input"> <button type="button" id="search">SEARCH</button>
+        </section>
         <div class='sidebar'>
-          <h1>Filter</h1>
-          <ul id='filter'>
+          <!-- <ul id='filter'>
             <li><input type="checkbox" name='breweryName.isOrganic' value='true' checked><label for="">Organic</label></li>
             <li><input type="checkbox" name='breweryBeer.paleAle' value='true' checked><label for="">Pale Ale</label></li>
-          </ul>
+          </ul> -->
           <div class='results'></div>
-          </div>
+        </div>
+      </section>
+      <div id="map"></div>
+      <section id="about" class="tab-content">
+        <header>
+          <h1>Developers</h1>
+        </header>
+          <article id="erin" class="team-member">
+            <h2>Erin Roby</h2>
+              <p class="team-text">Add info here</p>
+          </article>
+          <article id="david"class="team-member">
+            <h2>David Livingston</h2>
+              <p class="team-text">Add info here</p>
+          </article>
+          <article id="caleb"class="team-member">
+            <h2>Caleb Sattgast</h2>
+              <p class="team-text">Add info here</p>
+          </article>
+          <article id="ruben"class="team-member">
+            <h2>Ruben Sarkisyan</h2>
+              <p class="team-text">Add info here</p>
+          </article>
+          <article id="dan"class="team-member">
+            <h2>Dan Stineback</h2>
+              <p class="team-text">Add info here</p>
+          </article>
       </section>
     </main>
-    <div id="map"></div>
-  </head>
-  <body>
-    <section id="about" class="tab-content">
-      <header>
-        <h1>Developers</h1>
-      </header>
-        <article id="erin" class="team-member">
-          <h2>Erin Roby</h2>
-            <p class="team-text">Add info here</p>
-        </article>
-        <article id="david"class="team-member">
-          <h2>David Livingston</h2>
-            <p class="team-text">Add info here</p>
-        </article>
-        <article id="caleb"class="team-member">
-          <h2>Caleb Sattgast</h2>
-            <p class="team-text">Add info here</p>
-        </article>
-        <article id="ruben"class="team-member">
-          <h2>Ruben Sarkisyan</h2>
-            <p class="team-text">Add info here</p>
-        </article>
-        <article id="dan"class="team-member">
-          <h2>Dan Stineback</h2>
-            <p class="team-text">Add info here</p>
-        </article>
-    </section>
 
     <script src="vendor/scripts/jquery-2.2.3.min.js"></script>
     <script src="vendor/scripts/handlebars-v4.0.5.js"></script>
-    <script src="/vendor/scripts/html5sql.js"></script>
-    <script src="/vendor/scripts/webdb.js"></script>
+    <script src="vendor/scripts/html5sql.js"></script>
+    <script src="vendor/scripts/webdb.js"></script>
     <script src="vendor/scripts/page.js"></script>
-    <script src="scripts/brewery.js"></script>
-    <script src="scripts/beer.js"></script>
-    <script src="scripts/map.js"></script>
-    <script src='scripts/breweryView.js'></script>
+
+    <script src="scripts/model/brewery.js"></script>
+    <script src="scripts/model/map.js"></script>
+    <script src="scripts/model/beer.js"></script>
+    <script src="scripts/view/breweryView.js"></script>
+    <script src="scripts/controller/breweryController.js"></script>
+    <script src="scripts/controller/aboutController.js"></script>
+    <script src="scripts/controller/profileController.js"></script>
+    <script src="scripts/routes.js"></script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC2MYxgO6L-YWQaaQZPNUZ7NOx5ZE3qyQ&callback=initMap"async defer></script>
   </body>
 </html>
