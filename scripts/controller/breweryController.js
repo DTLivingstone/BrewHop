@@ -1,6 +1,8 @@
 (function(module) {
   var breweryController = {};
 
+  // Brewery.createLocationTable();
+
   breweryController.index = function() {
     // FilterUniqueBreweryIds(Brewery.initTables);
 

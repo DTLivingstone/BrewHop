@@ -3,7 +3,11 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
 
+
 /// Twit ///
+
+// /// Twit ///
+
 // var Twit = require('twit');
 //
 // var T = new Twit({
@@ -18,7 +22,11 @@ var port = process.env.PORT || 3000;
 //     res.send(result.data);
 //   });
 // };
+
 //
+
+
+
 // /// Yelp ///
 // var Yelp = require('yelp');
 //
@@ -37,6 +45,15 @@ var port = process.env.PORT || 3000;
 //     res.send(data);
 //   });
 // };
+
+var searchYelp = function(req, res) {
+  console.log('yelp search for', req.params[0]);
+  yelp.phoneSearch({ phone: req.params[0] })
+  .then(function (data) {
+    console.log(data);
+    res.send(data);
+  });
+};
 
 /// BreweryDB ///
 var proxyBreweryLocation = function(req, res) {
@@ -71,7 +88,9 @@ var proxyBeerCategories = function(req, res) {
 app.use(express.static('./'));
 
 // app.get('/twit/*', getTweets);
+
 // app.get('/yelp/*', searchYelp);
+app.get('/yelp/*', searchYelp);
 app.get('/locations/*', proxyBreweryLocation);
 app.get('/name/*', proxyBreweryName);
 app.get('/twitter-handle/*', proxyBreweryTwitterHandle);

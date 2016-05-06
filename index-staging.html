@@ -5,21 +5,45 @@
     <title>BrewHop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="vendor/styles/normalize.css"></link>
+    <link rel="stylesheet" href="style/icons.css"></link>
+    <link href="http://allfont.net/allfont.css?fonts=elsie-swash-caps" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="vendor/styles/jquery-ui.structure.css">
+    <link rel="stylesheet" href="vendor/styles/jquery-ui.theme.css">
     <link rel="stylesheet" href="style/base.css"></link>
     <link rel="stylesheet" href="style/modules.css"></link>
     <link rel="stylesheet" href="style/layouts.css"></link>
 
-    <script id="brewery-template" type=text/x-handlebars-template>
-    <!-- TODO: fill out the rest of this template with if conditionals, etc. -->
-      <article data-breweryId='{{breweryId}}' class='brewery-container'>
-        <h1 data-name={{name}}>{{name}}</h1>
-        <section data-street='streetAddress'>{{streetAddress}}</section>
-        <a href="/{{breweryId}}" class="learn-more">learn more...</a>
-        <section data-hours='hours'>Hours of Operation: {{hoursOfOperation}}</section>
-        <a href={{website}}>Official Website</a>
-        <section data-description='description'>Description: {{description}}</section>
-        <section data-established='established'>Established: {{established}}</section>
-      </article>
+    <link rel="icon" type="image/x-icon" href="images/icons/icon-hopfen.svg">
+
+    <script id="brewery-template" type="text/x-handlebars-template">
+      <article class="clearfix" brewery-name="{{name}}" brewery-id="{{id}}"></article>
+    </script>
+    <script id="profile-template" type="text/x-handlebars-template">
+      <div id="profile-body">
+        <h1 id="profile-name" class="profile-heading">{{name}}</h1>
+        <p>{{description}}</p>
+        <p>{{streetAddress}}</p>
+        <p>{{phone}}</p>
+        <p>{{hoursOfOperation}}</p>
+        <p>{{website}}</p>
+        <div class="tweets">
+          <span>{{twitterHandle}}</span>
+          <span>{{tweet1}}</span>
+          <span>{{tweet2}}</span>
+          <span>{{tweet3}}</span>
+          <span>{{tweet4}}</span>
+          <span>{{tweet5}}</span>
+        </div>
+      </div>
+    </script>
+    <script id="sidebar-profile-template" type="text/x-handlebars-temlate">
+      <div>
+        <h1 id="profile-name" class="profile-heading">{{name}}</h1>
+        <p>{{streetAddress}}</p>
+        <p>{{phone}}</p>
+        <p>{{hoursOfOperation}}</p>
+        <p>{{website}}</p>
+      </div>
     </script>
   </head>
   <body>
@@ -40,24 +64,12 @@
         <img src="images/icons/icon-glaeser.svg">
         <h1>BrewHop</h1>
         <section>
-          <input type="text" text-align="center" id="brewery-input" placeholder="SEARCH">
-           <button type="button" id="search">SEARCH</button>
-        </section>
-        <section>
-          <div>
-          <ul id="filters">
-            <li>
-              <select id="beer-filter">
-                <option value="">Choose a Beer</option>
-              </select>
-            </li>
-          </ul>
-          </div>
+          <p>Enter a brewery name here:</p>
+          <input type="text" text-align="center" id="brewery-input"> <button type="button" id="search">SEARCH</button>
         </section>
         <div class='sidebar'>
           <!-- TODO: refactor the checkboxes into a handlebars template using the beerCategories table in the DB -->
           <ul id='filter'>
-            <p>FILTERS</p>
             <li><input type="checkbox" name='breweryBeers.categoryId' value='1'><label for="">British Ales</label></li>
             <li><input type="checkbox" name='breweryBeers.categoryId' value='2'><label for="">Irish Ales</label></li>
             <li><input type="checkbox" name='breweryBeers.categoryId' value='3'><label for="">North American Ales</label></li>
@@ -85,18 +97,16 @@
          </section>
        </div>
        <section id="about" class="tab-content">
-         <h1>Developers</h1>
          <header>
-
+           <h1>Developers</h1>
          </header>
-         <div class="container">
            <article id="erin" class="team-member">
              <h2>Erin Roby</h2>
                <img src="https://avatars0.githubusercontent.com/u/15080085?v=3&s=460" alt="" />
                <p class="team-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. </p>
            </article>
            <article id="david"class="team-member">
-             <h2>David Livingston</h2>
+             <h2>David Livingstone</h2>
                <img src="https://avatars0.githubusercontent.com/u/7908688?v=3&s=460" alt="" />
                <p class="team-text">Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh.</p>
            </article>
@@ -107,7 +117,7 @@
            </article>
            <article id="ruben"class="team-member">
              <h2>Ruben Sarkisyan</h2>
-               <img src="https://avatars0.githubusercontent.com/u/12316016?v=3&s=460" alt="" />
+               <img src="" alt="" />
                <p class="team-text">Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. </p>
            </article>
            <article id="dan"class="team-member">
@@ -115,85 +125,26 @@
                <img src="https://avatars3.githubusercontent.com/u/15150073?v=3&s=460" alt="" />
                <p class="team-text">Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis, venenatis tristique, dignissim in, ultrices sit amet, augue. Proin sodales libero eget ante. Nulla quam. Aenean laoreet. Vestibulum nisi lectus, commodo ac, facilisis ac, ultricies eu, pede. </p>
            </article>
-         </div>
        </section>
-    <header>
-      <img src="images/icons/icon-glaeser.svg">
-      <h1>BrewHop</h1>
-      <nav class="main-nav">
-        <div class="dropdown">
-        <div class="icon-menu">
-          <ul class=dropdown-content>
-            <li><a href="/" class="icon-home">Home</a></li>
-            <li><a href="/about" class="icon-address-book">About</a></li>
-          </ul>
-        </div>
-        </div>
-      </nav>
-    </header>
-    <main>
-      <div id='map'></div>
-      <div class='sidebar'>
-        <ul id='filter'>
-          <li><input type="checkbox" name='breweryBeers.categoryId' value='1'><label for="">British Ales</label></li>
-          <li><input type="checkbox" name='breweryBeers.categoryId' value='2'><label for="">Irish Ales</label></li>
-          <li><input type="checkbox" name='breweryBeers.categoryId' value='3'><label for="">North American Ales</label></li>
-          <li><input type="checkbox" name='breweryBeers.categoryId' value='4'><label for="">German Ales</label></li>
-          <li><input type="checkbox" name='breweryBeers.categoryId' value='5'><label for="">Belgian and French Ales</label></li>
-          <li><input type="checkbox" name='breweryBeers.categoryId' value='6'><label for="">International Ales</label></li>
-          <li><input type="checkbox" name='breweryBeers.categoryId' value='7'><label for="">European-germanic Lager</label></li>
-          <li><input type="checkbox" name='breweryBeers.categoryId' value='8'><label for="">North American Lager</label></li>
-          <li><input type="checkbox" name='breweryBeers.categoryId' value='9'><label for="">Other Lager</label></li>
-          <li><input type="checkbox" name='breweryBeers.categoryId' value='10'><label for="">International Styles</label></li>
-          <li><input type="checkbox" name='breweryBeers.categoryId' value='11'><label for="">Hybrid/mixed Beer</label></li>
-          <li><input type="checkbox" name='breweryBeers.categoryId' value='12'><label for="">Mead, Cider, Perry</label></li>
-          <li><input type="checkbox" name='breweryBeers.categoryId' value='13'><label for="">Other Origin</label></li>
-          <li><input type="checkbox" name='breweryBeers.categoryId' value='14'><label for="">Malternative Beverages</label></li>
-        </ul>
-      </div>
-      <section id="breweries" class="tab-content"></section>
-      <section id="about" class="tab-content">
-        <header>
-          <h1>Developers</h1>
-        </header>
-          <article id="erin" class="team-member">
-            <h2>Erin Roby</h2>
-              <img src="https://avatars0.githubusercontent.com/u/15080085?v=3&s=460" alt="" />
-              <p class="team-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. </p>
-          </article>
-          <article id="david"class="team-member">
-            <h2>David Livingstone</h2>
-              <img src="https://avatars0.githubusercontent.com/u/7908688?v=3&s=460" alt="" />
-              <p class="team-text">Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh.</p>
-          </article>
-          <article id="caleb"class="team-member">
-            <h2>Caleb Sattgast</h2>
-              <img src="https://avatars3.githubusercontent.com/u/15165856?v=3&s=460" />
-              <p class="team-text">Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. </p>
-          </article>
-          <article id="ruben"class="team-member">
-            <h2>Ruben Sarkisyan</h2>
-              <img src="" alt="" />
-              <p class="team-text">Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. </p>
-          </article>
-          <article id="dan"class="team-member">
-            <h2>Dan Stineback</h2>
-              <img src="https://avatars3.githubusercontent.com/u/15150073?v=3&s=460" alt="" />
-              <p class="team-text">Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis, venenatis tristique, dignissim in, ultrices sit amet, augue. Proin sodales libero eget ante. Nulla quam. Aenean laoreet. Vestibulum nisi lectus, commodo ac, facilisis ac, ultricies eu, pede. </p>
-          </article>
-      </section>
+
     </main>
+
     <script src="vendor/scripts/jquery-2.2.3.min.js"></script>
+    <script src="vendor/scripts/jquery-ui.js"></script>
     <script src="vendor/scripts/handlebars-v4.0.5.js"></script>
     <script src="vendor/scripts/html5sql.js"></script>
     <script src="vendor/scripts/webdb.js"></script>
+    <script src="vendor/scripts/page.js"></script>
 
     <script src="scripts/model/brewery.js"></script>
+    <script src="scripts/model/map.js"></script>
     <script src="scripts/model/beer.js"></script>
     <script src="scripts/view/breweryView.js"></script>
     <script src="scripts/controller/breweryController.js"></script>
     <script src="scripts/controller/aboutController.js"></script>
+    <script src="scripts/controller/profileController.js"></script>
     <script src="scripts/routes.js"></script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC2MYxgO6L-YWQaaQZPNUZ7NOx5ZE3qyQ&callback=initMap"async defer></script>
   </body>
 </html>

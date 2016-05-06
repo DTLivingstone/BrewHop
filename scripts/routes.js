@@ -1,6 +1,3 @@
-page('/', breweryController.index);
-// page('/:categoryId', breweryController.loadByBeer, breweryController.index);
+page('/', breweryView.initIndexPage);
 page('/about', aboutController.index);
-page('/profile/:breweryId', profileController.index);
-
 page();

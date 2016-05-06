@@ -1,3 +1,15 @@
+header {
+  display: inline;
+}
+
+#logo {
+
+}
+
+#main-nav {
+  width: 100%;
+}
+
 .team-member {
   height: 300px;
   width: auto;;
@@ -48,7 +60,6 @@
 
 ul#filter {
   list-style-type: none;
-  display: none;
 }
 
 #map {
