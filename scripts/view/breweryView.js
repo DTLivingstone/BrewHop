@@ -37,7 +37,6 @@
       $('#breweries').append(render(b));
     });
     breweryView.handleBeerFilter();
-    Brewery.grabAllBreweryData();
     // breweryView.setTeasers();
   };
 
