@@ -40,9 +40,5 @@ function setMarkers(map) {
 
   }
 };
-$('#map').hide();
 
-$( "#search" ).on( "click", function(event) {
-  $('#map').show();
-  initMap();
-});
+initMap();
