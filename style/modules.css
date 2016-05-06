@@ -6,8 +6,9 @@
     position: relative;
     display: inline-block;
     float: right;
-    margin-right: 80px;
-    margin-bottom: 15%;
+    margin-right: 65px;
+    margin-bottom: 10%;
+    margin-top: 15px;
     font-size: 15px;
 }
 

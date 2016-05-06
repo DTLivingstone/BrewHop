@@ -61,12 +61,24 @@
         <img src="images/icons/icon-glaeser.svg">
         <h1>BrewHop</h1>
         <section>
-          <p>Enter a brewery name here:</p>
-          <input type="text" text-align="center" id="brewery-input"> <button type="button" id="search">SEARCH</button>
+          <input type="text" text-align="center" id="brewery-input" placeholder="SEARCH">
+           <button type="button" id="search">SEARCH</button>
+        </section>
+        <section>
+          <div>
+          <ul id="filters">
+            <li>
+              <select id="beer-filter">
+                <option value="">Choose a Beer</option>
+              </select>
+            </li>
+          </ul>
+          </div>
         </section>
         <div class='sidebar'>
           <!-- TODO: refactor the checkboxes into a handlebars template using the beerCategories table in the DB -->
           <ul id='filter'>
+            <p>FILTERS</p>
             <li><input type="checkbox" name='breweryBeers.categoryId' value='1'><label for="">British Ales</label></li>
             <li><input type="checkbox" name='breweryBeers.categoryId' value='2'><label for="">Irish Ales</label></li>
             <li><input type="checkbox" name='breweryBeers.categoryId' value='3'><label for="">North American Ales</label></li>
@@ -94,9 +106,11 @@
          </section>
        </div>
        <section id="about" class="tab-content">
+         <h1>Developers</h1>
          <header>
-           <h1>Developers</h1>
+
          </header>
+         <div class="container">
            <article id="erin" class="team-member">
              <h2>Erin Roby</h2>
                <img src="https://avatars0.githubusercontent.com/u/15080085?v=3&s=460" alt="" />
@@ -114,7 +128,7 @@
            </article>
            <article id="ruben"class="team-member">
              <h2>Ruben Sarkisyan</h2>
-               <img src="" alt="" />
+               <img src="https://avatars0.githubusercontent.com/u/12316016?v=3&s=460" alt="" />
                <p class="team-text">Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. </p>
            </article>
            <article id="dan"class="team-member">
@@ -122,6 +136,7 @@
                <img src="https://avatars3.githubusercontent.com/u/15150073?v=3&s=460" alt="" />
                <p class="team-text">Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis, venenatis tristique, dignissim in, ultrices sit amet, augue. Proin sodales libero eget ante. Nulla quam. Aenean laoreet. Vestibulum nisi lectus, commodo ac, facilisis ac, ultricies eu, pede. </p>
            </article>
+         </div>
        </section>
 
     </main>

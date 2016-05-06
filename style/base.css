@@ -5,6 +5,18 @@ body {
 
 h1 {
   font-family: Elsie Swash Caps;
+  font-size: 20px;
+  float: left;
+  margin-left: 10px;
+}
+
+
+p {
+  margin-left: 10px;
+  color: gray;
+  border: solid;
+  border-width: thin;
+  width: 15em;
 }
 
 section {
@@ -16,8 +28,13 @@ img {
   max-width: 100%;
   width: 50px;
   float: left;
+  margin-left: 10px;
 }
 
+input {
+  width: 90%;
+
+}
 /*section {
   text-align: center;
   clear: both;
