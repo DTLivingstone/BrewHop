@@ -64,6 +64,7 @@ input[type=checkbox] {
 section.breweries {
   display: inline-block;
   margin-top: 50px;
+  width: 60%;
 }
 
 article {
