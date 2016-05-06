@@ -5,15 +5,36 @@ body {
 
 h1 {
   font-family: Elsie Swash Caps;
+  font-size: 20px;
+  float: left;
+  margin-left: 10px;
+}
+
+h2 {
+  text-align: center;
+}
+
+p {
+  margin-left: 10px;
+  color: gray;
+  border: solid;
+  border-width: thin;
+  width: 15em;
 }
 
 section {
   text-align: center;
-  clear: both;
+  /*clear: both;*/
 }
 
 img {
   max-width: 100%;
-  width: 75px;
-  float: middle;
+  width: 50px;
+  float: left;
+  margin-left: 10px;
+}
+
+input {
+  width: 90%;
+
 }

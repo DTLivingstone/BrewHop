@@ -5,6 +5,8 @@
     <title>BrewHop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="vendor/styles/normalize.css"></link>
+    <link rel="stylesheet" href="style/icons.css"></link>
+    <link href="http://allfont.net/allfont.css?fonts=elsie-swash-caps" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="style/base.css"></link>
     <link rel="stylesheet" href="style/modules.css"></link>
     <link rel="stylesheet" href="style/layouts.css"></link>
@@ -38,9 +40,25 @@
       </nav>
     </header>
     <main>
+      <section id="breweries" class="tab-content">
+          <input type="text" text-align="center" id="brewery-input" placeholder="SEARCH">
+           <button type="button" id="search">SEARCH</button>
+        </section>
+        <section>
+          <div>
+          <ul id="filters">
+            <li>
+              <select id="beer-filter">
+                <option value="">Choose a Beer</option>
+              </select>
+            </li>
+          </ul>
+          </div>
+        </section>
       <div id='map'></div>
       <div class='sidebar'>
         <ul id='filter'>
+          <p>FILTERS</p>
           <li><input type="checkbox" name='breweryBeers.categoryId' value='1'><label for="">British Ales</label></li>
           <li><input type="checkbox" name='breweryBeers.categoryId' value='2'><label for="">Irish Ales</label></li>
           <li><input type="checkbox" name='breweryBeers.categoryId' value='3'><label for="">North American Ales</label></li>
@@ -62,6 +80,7 @@
         <header>
           <h1>Developers</h1>
         </header>
+          <div class="container">
           <article id="erin" class="team-member">
             <h2>Erin Roby</h2>
               <img src="https://avatars0.githubusercontent.com/u/15080085?v=3&s=460" alt="" />
@@ -79,7 +98,7 @@
           </article>
           <article id="ruben"class="team-member">
             <h2>Ruben Sarkisyan</h2>
-              <img src="" alt="" />
+              <img src="https://avatars0.githubusercontent.com/u/12316016?v=3&s=460" alt="" />
               <p class="team-text">Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. </p>
           </article>
           <article id="dan"class="team-member">
@@ -87,19 +106,23 @@
               <img src="https://avatars3.githubusercontent.com/u/15150073?v=3&s=460" alt="" />
               <p class="team-text">Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis, venenatis tristique, dignissim in, ultrices sit amet, augue. Proin sodales libero eget ante. Nulla quam. Aenean laoreet. Vestibulum nisi lectus, commodo ac, facilisis ac, ultricies eu, pede. </p>
           </article>
+        </div>
       </section>
     </main>
     <script src="vendor/scripts/jquery-2.2.3.min.js"></script>
     <script src="vendor/scripts/handlebars-v4.0.5.js"></script>
     <script src="vendor/scripts/html5sql.js"></script>
     <script src="vendor/scripts/webdb.js"></script>
+    <script src="vendor/scripts/page.js"></script>
 
     <script src="scripts/model/brewery.js"></script>
+    <script src="scripts/model/map.js"></script>
     <script src="scripts/model/beer.js"></script>
     <script src="scripts/view/breweryView.js"></script>
     <script src="scripts/controller/breweryController.js"></script>
     <script src="scripts/controller/aboutController.js"></script>
     <script src="scripts/routes.js"></script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC2MYxgO6L-YWQaaQZPNUZ7NOx5ZE3qyQ&callback=initMap"async defer></script>
   </body>
 </html>
