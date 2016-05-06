@@ -7,6 +7,7 @@
     // FilterUniqueBreweryIds(Brewery.initTables);
 
     $('#breweries').show().siblings().hide();
+    $('#map').show();
   };
 
   breweryController.loadByBeerCategory = function(ctx, next) {

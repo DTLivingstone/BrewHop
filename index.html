@@ -12,11 +12,13 @@
     <script id="brewery-template" type=text/x-handlebars-template>
     <!-- TODO: fill out the rest of this template with if conditionals, etc. -->
       <article data-breweryId='{{breweryId}}' class='brewery-container'>
-        <header>
-          <h1 data-name={{name}}>{{name}}</h1>
-          <section data-street='streetAddress'>{{streetAddress}}</section>
-          <a href="/{{breweryId}}" class="learn-more">learn more &rarr;</a>
-        </header>
+        <h1 data-name={{name}}>{{name}}</h1>
+        <section data-street='streetAddress'>{{streetAddress}}</section>
+        <a href="/{{breweryId}}" class="learn-more">learn more...</a>
+        <section data-hours='hours'>Hours of Operation: {{hoursOfOperation}}</section>
+        <a href={{website}}>Official Website</a>
+        <section data-description='description'>Description: {{description}}</section>
+        <section data-established='established'>Established: {{established}}</section>
       </article>
     </script>
   </head>
@@ -91,10 +93,15 @@
     <script src="vendor/scripts/handlebars-v4.0.5.js"></script>
     <script src="vendor/scripts/html5sql.js"></script>
     <script src="vendor/scripts/webdb.js"></script>
+    <script src="vendor/scripts/page.js"></script>
 
+    
     <script src="scripts/model/brewery.js"></script>
     <script src="scripts/model/beer.js"></script>
+    <script src="scripts/model/map.js"></script>
     <script src="scripts/view/breweryView.js"></script>
+
+
     <script src="scripts/controller/breweryController.js"></script>
     <script src="scripts/controller/aboutController.js"></script>
     <script src="scripts/routes.js"></script>
