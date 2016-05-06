@@ -5,7 +5,6 @@
 
   var render = function(brewery) {
     var template = Handlebars.compile($('#brewery-template').text());
-    // console.log(brewery);
     return template(brewery);
   };
 
@@ -23,21 +22,29 @@
     });
   };
 
+  breweryView.setTeasers = function() {
+    $('.brewery-container *:nth-of-type(n+2)').hide();
+
+    $('.brewery-container').on('click', 'a.learn-more', function(e) {
+      e.preventDefault();
+      $('.brewery-container *:nth-of-type(n+2)').hide();
+      $(this).parent().find('*').fadeIn();
+      $('a.learn-more').show();
+      $(this).hide();
+    });
+  };
+
   var filterResults = function(filterArray) {
     var sqlString = filterArray.join(' OR ');
     Brewery.findBreweryWhere(filterArray, sqlString);
   };
 
   breweryView.initIndexPage = function() {
-    if (breweryRendered === true) {
-      return;
-    };
-    breweryRendered = true;
     Brewery.all.forEach(function(b){
       $('#breweries').append(render(b));
     });
     breweryView.handleBeerFilter();
-    // breweryView.setTeasers();
+    breweryView.setTeasers();
   };
 
   module.breweryView = breweryView;
