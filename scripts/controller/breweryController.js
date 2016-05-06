@@ -1,13 +1,18 @@
 (function(module) {
   var breweryController = {};
-
-  // Brewery.createLocationTable();
+  var indexRendered = false;
 
   breweryController.index = function() {
-    // FilterUniqueBreweryIds(Brewery.initTables);
-
-    $('#breweries').show().siblings().hide();
     $('#map').show();
+    $('#breweries').show();
+    $('.sidebar').show();
+    if (!indexRendered) {
+      setTimeout(function(){
+        breweryView.initIndexPage();
+      }, 1500);
+      indexRendered = true;
+    }
+    $('#about').hide();
   };
 
   breweryController.loadByBeerCategory = function(ctx, next) {

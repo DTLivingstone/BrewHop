@@ -147,33 +147,28 @@
   };
 
   Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
-    webDB.execute('SELECT * FROM breweryName LEFT JOIN breweryBeers ON (breweryName.breweryId = breweryBeers.breweryId) WHERE ' + sqlString + ' GROUP BY breweryName.name HAVING COUNT(DISTINCT breweryBeers.categoryId) = ' + filterArray.length,
-      function(result) {
+    if (filterArray.length === 0) {
+      webDB.execute('SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId', function(result) {
         Brewery.grabAllFilterData(result);
       });
+    } else {
+      webDB.execute('SELECT * FROM breweryName LEFT JOIN breweryBeers ON (breweryName.breweryId = breweryBeers.breweryId) WHERE ' + sqlString + ' GROUP BY breweryName.name HAVING COUNT(DISTINCT breweryBeers.categoryId) = ' + filterArray.length,
+        function(result) {
+          Brewery.grabAllFilterData(result);
+        });
+    }
   };
 
   Brewery.grabAllFilterData = function(results) {
     $('article').hide();
+    for (breweryId in markers) {
+      markers[breweryId].setMap(null);
+    };
     results.forEach(function(result){
       $('article[data-breweryId="' + result.breweryId + '"]').fadeIn();
-      console.log(result.breweryId);
-      //show this brewery
+      markers[result.breweryId].setMap(map);
     });
   };
-
-  // articleView.handleCategoryFilter = function() {
-//   $('#category-filter').on('change', function() {
-//     if ($(this).val()) {
-//       $('article').hide();
-//       $('article[data-category="' + $(this).val() + '"]').fadeIn();
-//     } else {
-//       $('article').fadeIn();
-//       $('article.template').hide();
-//     }
-//     $('#author-filter').val('');
-//   });
-// };
 
   Brewery.saveAllBreweryData = function(rows) {
     Brewery.all = rows.map(function(brew) {

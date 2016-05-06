@@ -2,7 +2,10 @@
   var aboutController = {};
 
   aboutController.index = function() {
-    $('#about').show().siblings().hide();
+    $('#map').hide();
+    $('#breweries').hide();
+    $('.sidebar').hide();
+    $('#about').show();
   };
 
   module.aboutController = aboutController;
