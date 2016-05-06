@@ -1,14 +1,78 @@
-header {
-  width:100%;
-  display: inline;
+.pull-left {
+  float: left;
 }
 
-#logo {
-
+.pull-right {
+  float: right;
 }
 
-#main-nav {
+#logo-container {
+  display: inline-block;
+}
+
+#logo-icon {
+  padding: 25px 0 0 25px;
+}
+
+#main-nav-container {
+  display: inline-block;
   width: 100%;
+}
+
+footer {
+  text-align: center;
+  margin: 40px;
+}
+
+.dropdown-content li {
+  display: inline-block;
+  list-style-type: none;
+  text-transform: uppercase;
+  padding-right: 15px;
+}
+
+#map-container {
+  display: inline-block;
+  width: 100%;
+}
+
+#brewery-filter {
+  width: 20%;
+}
+
+ul#filter {
+  list-style-type: none;
+  padding-left: 25px;
+}
+
+label {
+  padding-left: 10px;
+}
+
+input[type=checkbox] {
+  width: 30px;
+  height: 20px;
+}
+
+#map {
+  height: 600px;
+  width: auto;
+  max-width: 100%;
+  margin-top: 20px;
+}
+
+section.breweries {
+  display: inline-block;
+  margin-top: 50px;
+  width: 60%;
+}
+
+article {
+  margin-left: 100px;
+}
+
+#beer-filter {
+  padding: 25px 0px 0px 20px;
 }
 
 .team-member {
@@ -23,21 +87,4 @@ header {
   width: 80%;
   margin-left: auto;
   margin-right: auto;
-}
-
-#brewery-filter {
-  width: 20%;
-}
-
-ul#filter {
-  list-style-type: none;
-  padding-left: 25px;
-}
-
-#map {
-  height: 400px;
-  width: auto;
-  border: solid;
-  max-width: 100%;
-  margin-top: 20px;
 }
