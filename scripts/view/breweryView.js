@@ -23,14 +23,15 @@
   };
 
   breweryView.setTeasers = function() {
+    $("section :contains('undefined')").hide();
     $('.brewery-container *:nth-of-type(n+2)').hide();
-
     $('.brewery-container').on('click', 'a.learn-more', function(e) {
       e.preventDefault();
       $('.brewery-container *:nth-of-type(n+2)').hide();
-      $(this).parent().find('*').fadeIn();
-      $('a.learn-more').show();
+      $('.brewery-container a.learn-more').show();
+      $(this).parent().find('*').fadeIn(100);
       $(this).hide();
+      $("section :contains('undefined')").hide();
     });
   };
 
@@ -46,6 +47,8 @@
     breweryView.handleBeerFilter();
     breweryView.setTeasers();
   };
+
+  breweryView.initIndexPage();
 
   module.breweryView = breweryView;
 })(window);
