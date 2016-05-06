@@ -4,9 +4,11 @@
   // Brewery.createLocationTable();
 
   breweryController.index = function() {
-    $('#map').show();
-    breweryView.initIndexPage();
-    $('#about').hide();
+    setTimeout(function() {
+      $('#map').show();
+      breweryView.initIndexPage();
+      $('#about').hide();
+    });
   };
 
   breweryController.loadByBeerCategory = function(ctx, next) {
