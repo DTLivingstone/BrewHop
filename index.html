@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="vendor/styles/normalize.css"></link>
     <link rel="stylesheet" href="style/icons.css"></link>
-    <link href="http://allfont.net/allfont.css?fonts=elsie-swash-caps" rel="stylesheet" type="text/css"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400italic,400,600,600italic|Elsie+Swash+Caps:400,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="style/base.css"></link>
     <link rel="stylesheet" href="style/modules.css"></link>
     <link rel="stylesheet" href="style/layouts.css"></link>
@@ -25,24 +25,25 @@
     </script>
   </head>
   <body>
-    <header>
-      <img src="images/icons/icon-glaeser.svg">
-      <h1>BrewHop</h1>
-      <nav class="main-nav">
-        <div class="dropdown">
-        <div class="icon-menu">
-          <ul class=dropdown-content>
-            <li><a href="/" class="icon-home">Home</a></li>
-            <li><a href="/about" class="icon-address-book">About</a></li>
-          </ul>
-        </div>
-        </div>
+    <header id="main-nav-container">
+      <div id='logo-container'>
+        <img id='logo-icon' src="images/icons/icon-glaeser.svg">
+        <h1 id='logo-text'>BrewHop</h1>
+      </div>
+      <nav class="main-nav pull-right">
+        <ul class="dropdown-content pull-right">
+          <li><a href="/" class="">home</a></li>
+          <li><a href="/about" class="">about</a></li>
+        </ul>
       </nav>
     </header>
-    <main>
+    <div class='clearfix'></div>
+    <div id="map-container">
       <div id='map'></div>
+    </div>
+    <main>
       <div class='sidebar'>
-        <div>Beer Filter</div>
+        <h1 id='beer-filter'>Beer Filter</h1>
         <ul id='filter'>
           <li><input type="checkbox" name='breweryBeers.categoryId' value='1'><label for="">British Ales</label></li>
           <li><input type="checkbox" name='breweryBeers.categoryId' value='2'><label for="">Irish Ales</label></li>
@@ -61,37 +62,34 @@
         </ul>
       </div>
       <section id="breweries" class="tab-content"></section>
-      <section id="about" class="tab-content">
-        <header>
-          <h1>Developers</h1>
-        </header>
-          <article id="erin" class="team-member">
-            <h2>Erin Roby</h2>
-              <img src="https://avatars0.githubusercontent.com/u/15080085?v=3&s=460" alt="" />
-              <p class="team-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. </p>
-          </article>
-          <article id="david"class="team-member">
-            <h2>David Livingstone</h2>
-              <img src="https://avatars0.githubusercontent.com/u/7908688?v=3&s=460" alt="" />
-              <p class="team-text">Retired data janitor. Went to journalism school to write, re-write, clean up, and edit stories. Now he’s at Codefellows to write, re-write, clean up, and edit code. Half-marathon runner. Enjoys raiding the snack isle at the Asian market and taking long baths.</p>
-          </article>
-          <article id="caleb"class="team-member">
-            <h2>Caleb Sattgast</h2>
-              <img src="https://avatars3.githubusercontent.com/u/15165856?v=3&s=460" />
-              <p class="team-text">Normally, both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you. But I can't give you this case, it don't belong to me. Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass. </p>
-          </article>
-          <article id="ruben"class="team-member">
-            <h2>Ruben Sarkisyan</h2>
-              <img src="" alt="" />
-              <p class="team-text">Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper. </p>
-          </article>
-          <article id="dan"class="team-member">
-            <h2>Dan Stineback</h2>
-              <img src="https://avatars3.githubusercontent.com/u/15150073?v=3&s=460" alt="" />
-              <p class="team-text">Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. Morbi mi. Quisque nisl felis, venenatis tristique, dignissim in, ultrices sit amet, augue. Proin sodales libero eget ante. Nulla quam. Aenean laoreet. Vestibulum nisi lectus, commodo ac, facilisis ac, ultricies eu, pede. </p>
-          </article>
-      </section>
     </main>
+    <section id="about" class="tab-content">
+      <article id="erin" class="team-member">
+        <h2>Erin Roby</h2>
+          <img src="https://avatars0.githubusercontent.com/u/15080085?v=3&s=460" alt="" />
+          <p class="team-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. </p>
+      </article>
+      <article id="david"class="team-member">
+        <h2>David Livingstone</h2>
+          <img src="https://avatars0.githubusercontent.com/u/7908688?v=3&s=460" alt="" />
+          <p class="team-text">Retired data janitor. Went to journalism school to write, re-write, clean up, and edit stories. Now he’s at Codefellows to write, re-write, clean up, and edit code. Half-marathon runner. Enjoys raiding the snack isle at the Asian market and taking long baths.</p>
+      </article>
+      <article id="caleb"class="team-member">
+        <h2>Caleb Sattgast</h2>
+          <img src="https://avatars3.githubusercontent.com/u/15165856?v=3&s=460" />
+          <p class="team-text">Normally, both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you. But I can't give you this case, it don't belong to me. Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass. </p>
+      </article>
+      <article id="ruben"class="team-member">
+        <h2>Ruben Sarkisyan</h2>
+          <img src="" alt="" />
+          <p class="team-text">Ruben is an aspiring developer with a thirst for knowledge. His hobbies include writing dysfunctional code, creating unusable software, adding in undocumented features, and not learning from his mistakes OR successes.</p>
+      </article>
+      <article id="dan"class="team-member">
+        <h2>Dan Stineback</h2>
+          <img src="https://avatars3.githubusercontent.com/u/15150073?v=3&s=460" alt="" />
+          <p class="team-text">Dan is an aspiring programmer with a humorous personality. Dan resides in the Phinney Ridge area with his wife and 3 year old son. When Dan is not coding he loves everything soccer. If the Sounders are playing you can guarantee he is either at the game or watching it. In the past Dan has worked many boring dead end jobs and because of this he has decided to take the step into web development. With the wonderful and expensive guidance of CodeFellows he hopes to one day create an application that will make Facebook look like peopleofwalmart.com.</p>
+      </article>
+    </section>
     <script src="vendor/scripts/jquery-2.2.3.min.js"></script>
     <script src="vendor/scripts/handlebars-v4.0.5.js"></script>
     <script src="vendor/scripts/html5sql.js"></script>
