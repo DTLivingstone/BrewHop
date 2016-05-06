@@ -9,7 +9,7 @@
     Brewery.ids.forEach(function(id) {
       $.get('/beers/' + id, function(data) {
         var breweryBeers = data.data;
-        if (!breweryBeers.length) {
+        if (!breweryBeers) {
           return;
         }
         breweryBeers.forEach(function(beer){
@@ -23,7 +23,7 @@
   Beer.handleBeerCategoryEndpoint = function() {
     $.get('/categories/', function(data) {
       var beerCategories = data.data;
-      if (!beerCategories.length) {
+      if (!beerCategories) {
         return;
       }
       beerCategories.forEach(function(category){
@@ -33,6 +33,9 @@
   };
 
   Beer.prototype.insertBeerRecord = function(id) {
+    if (!this.style) {
+      return;
+    }
     webDB.execute(
       [
         {
