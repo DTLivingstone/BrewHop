@@ -58,7 +58,7 @@
       'shortName, ' +
       'description);'
     );
-    callback;
+    callback();
   };
 
   Beer.createBeerCategoryTable = function(callback) {
@@ -68,7 +68,7 @@
       'categoryId INTEGER, ' +
       'name VARCHAR(255));'
     );
-    callback;
+    callback();
   };
 
   Beer.initTables = function() {
