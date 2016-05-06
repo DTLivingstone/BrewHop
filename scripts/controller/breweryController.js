@@ -4,11 +4,9 @@
   // Brewery.createLocationTable();
 
   breweryController.index = function() {
-    // FilterUniqueBreweryIds(Brewery.initTables);
-
-    $('#breweries').show().siblings().hide();
     $('#map').show();
     breweryView.initIndexPage();
+    $('#about').hide();
   };
 
   breweryController.loadByBeerCategory = function(ctx, next) {

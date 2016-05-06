@@ -48,7 +48,5 @@
     breweryView.setTeasers();
   };
 
-  breweryView.initIndexPage();
-
   module.breweryView = breweryView;
 })(window);
