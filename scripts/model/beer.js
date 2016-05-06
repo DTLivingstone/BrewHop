@@ -9,6 +9,9 @@
     Brewery.ids.forEach(function(id) {
       $.get('/beers/' + id, function(data) {
         var breweryBeers = data.data;
+        if (!breweryBeers.length) {
+          return;
+        }
         breweryBeers.forEach(function(beer){
           var beerInstance = new Beer(beer);
           beerInstance.insertBeerRecord(id);
@@ -20,6 +23,9 @@
   Beer.handleBeerCategoryEndpoint = function() {
     $.get('/categories/', function(data) {
       var beerCategories = data.data;
+      if (!beerCategories.length) {
+        return;
+      }
       beerCategories.forEach(function(category){
         Beer.insertCategoryRecord(category);
       });
