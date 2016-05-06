@@ -22,10 +22,40 @@ header {
   width: 80%;
   margin-left: auto;
   margin-right: auto;
+  color: black;
+  border: none;
+}
+
+.container {
+  color: black;
+  border: none;
+}
+
+#search {
+  display: none;
+}
+
+#brewery-input {
+  float: left;
+  margin-right: 300px;
+  margin-left: 10px;
+  margin-top: 0px;
+  width: 28.5em;
+
 }
 
 #brewery-filter {
   width: 20%;
+}
+
+#filters {
+  list-style: none;
+  float: left;
+  padding-left: 0.75em;
+}
+
+#beer-filter {
+  width: 29em;
 }
 
 ul#filter {
@@ -34,8 +64,102 @@ ul#filter {
 
 #map {
   height: 400px;
-  width: auto;
+  width: 98%;
   border: solid;
   max-width: 100%;
-  margin-top: 20px;
+  margin-top: 40px;
+}
+
+#about {
+  clear: both;
+}
+
+@media only screen and (min-width: 845px) {
+
+  h1 {
+    font-size: 35px;
+  }
+
+  body {
+    font-size: 15px;
+  }
+
+  img {
+    width: 100px;
+  }
+
+  p {
+    color: black;
+    border: none;
+  }
+
+  .icon-menu {
+    font-size: 25px;
+  }
+
+  .dropdown-content a {
+    font-size: 20px;
+  }
+
+  #brewery-input {
+    width: 28.5em;
+    margin-top: 20px;
+  }
+
+  ul#filter {
+    display: none;
+  }
+
+}
+
+@media only screen and (min-width: 1000px) {
+
+  h1 {
+    font-size: 40px;
+    margin-top: 1em;
+    position: absolute;
+    margin-left: 3em;
+  }
+
+  #brewery-input {
+    width: 15em;
+    margin-top: 0px;
+    margin-right: 300px;
+    float: left;
+    clear: both;
+  }
+
+  #map {
+    position: absolute;
+    height: 800px;
+    width: 75%;
+    border: solid;
+    max-width: 100%;
+    margin-top: 13em;
+    margin-left: 20em;
+    margin-right: 10px;
+    float: right;
+    clear: both;
+  }
+
+  #beer-filter {
+    width: 15em;
+  }
+
+  #filters {
+    float: left;
+    clear: both;
+    display: none;
+  }
+
+  ul#filter {
+    display: block;
+    clear: both;
+    float: left;
+    padding-left: 0px;
+    text-align: left;
+    border: solid;
+    margin-left: 5px;
+  }
+
 }

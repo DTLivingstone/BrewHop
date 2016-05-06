@@ -41,4 +41,7 @@ function setMarkers(map) {
   }
 };
 
-initMap();
+setTimeout(function() {
+  initMap();
+
+},1000);
