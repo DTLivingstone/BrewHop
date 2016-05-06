@@ -5,7 +5,7 @@
 
   var render = function(brewery) {
     var template = Handlebars.compile($('#brewery-template').text());
-    // console.log(brewery);
+    console.log(brewery);
     return template(brewery);
   };
 
@@ -23,6 +23,18 @@
     });
   };
 
+  breweryView.setTeasers = function() {
+    $('.brewery-container *:nth-of-type(n+2)').hide();
+    
+    $('.brewery-container').on('click', 'a.learn-more', function(e) {
+      e.preventDefault();
+      console.log('foo');
+      $('.brewery-container *:nth-of-type(n+2)').hide();
+      $(this).parent().find('*').fadeIn(100);
+      $(this).hide();
+    });
+  };
+
   var filterResults = function(filterArray) {
     var sqlString = filterArray.join(' OR ');
     Brewery.findBreweryWhere(filterArray, sqlString);
@@ -37,7 +49,9 @@
       $('#breweries').append(render(b));
     });
     breweryView.handleBeerFilter();
-    // breweryView.setTeasers();
+
+    breweryView.setTeasers();
+
   };
 
   module.breweryView = breweryView;
