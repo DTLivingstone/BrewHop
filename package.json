@@ -18,8 +18,6 @@
   "homepage": "https://github.com/DTLivingstone/BrewHop#readme",
   "dependencies": {
     "express": "^4.13.4",
-    "request": "^2.72.0",
-    "twit": "^2.2.4",
-    "yelp": "^1.0.1"
+    "request": "^2.72.0"
   }
 }
