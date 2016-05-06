@@ -5,6 +5,8 @@
     <title>BrewHop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="vendor/styles/normalize.css"></link>
+    <link rel="stylesheet" href="style/icons.css"></link>
+    <link href="http://allfont.net/allfont.css?fonts=elsie-swash-caps" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="style/base.css"></link>
     <link rel="stylesheet" href="style/modules.css"></link>
     <link rel="stylesheet" href="style/layouts.css"></link>
@@ -40,6 +42,7 @@
     <main>
       <div id='map'></div>
       <div class='sidebar'>
+        <div>Beer Filter</div>
         <ul id='filter'>
           <li><input type="checkbox" name='breweryBeers.categoryId' value='1'><label for="">British Ales</label></li>
           <li><input type="checkbox" name='breweryBeers.categoryId' value='2'><label for="">Irish Ales</label></li>
@@ -70,7 +73,7 @@
           <article id="david"class="team-member">
             <h2>David Livingstone</h2>
               <img src="https://avatars0.githubusercontent.com/u/7908688?v=3&s=460" alt="" />
-              <p class="team-text">Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh.</p>
+              <p class="team-text">Retired data janitor. Went to journalism school to write, re-write, clean up, and edit stories. Now he’s at Codefellows to write, re-write, clean up, and edit code. Half-marathon runner. Enjoys raiding the snack isle at the Asian market and taking long baths.</p>
           </article>
           <article id="caleb"class="team-member">
             <h2>Caleb Sattgast</h2>
@@ -95,7 +98,7 @@
     <script src="vendor/scripts/webdb.js"></script>
     <script src="vendor/scripts/page.js"></script>
 
-    
+
     <script src="scripts/model/brewery.js"></script>
     <script src="scripts/model/beer.js"></script>
     <script src="scripts/model/map.js"></script>

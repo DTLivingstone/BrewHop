@@ -8,6 +8,7 @@
 
     $('#breweries').show().siblings().hide();
     $('#map').show();
+    breweryView.initIndexPage();
   };
 
   breweryController.loadByBeerCategory = function(ctx, next) {

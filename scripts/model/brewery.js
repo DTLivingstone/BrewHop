@@ -157,23 +157,8 @@
     $('article').hide();
     results.forEach(function(result){
       $('article[data-breweryId="' + result.breweryId + '"]').fadeIn();
-      console.log(result.breweryId);
-      //show this brewery
     });
   };
-
-  // articleView.handleCategoryFilter = function() {
-//   $('#category-filter').on('change', function() {
-//     if ($(this).val()) {
-//       $('article').hide();
-//       $('article[data-category="' + $(this).val() + '"]').fadeIn();
-//     } else {
-//       $('article').fadeIn();
-//       $('article.template').hide();
-//     }
-//     $('#author-filter').val('');
-//   });
-// };
 
   Brewery.saveAllBreweryData = function(rows) {
     Brewery.all = rows.map(function(brew) {
