@@ -161,7 +161,7 @@
   };
 
   Brewery.grabAllFilterData = function(results) {
-    $('article').hide();
+    $('.brewery-container').hide();
     for (breweryId in markers) {
       markers[breweryId].setMap(null);
     };
