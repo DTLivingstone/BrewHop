@@ -6,7 +6,7 @@ var map;
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 47.61, lng: -122.33},
-    zoom: 14
+    zoom: 12
   });
   setMarkers(map);
 };
@@ -39,6 +39,9 @@ function setMarkers(map) {
     markers.push(marker);
 
   }
+
 };
 
-initMap();
+setTimeout(function(){
+  initMap();
+},1000);
