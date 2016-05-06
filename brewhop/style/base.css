@@ -1,0 +1,19 @@
+body {
+  font-family: Open Sans Light;
+  font-size: 75%;
+  }
+
+h1 {
+  font-family: Elsie Swash Caps;
+}
+
+section {
+  text-align: center;
+  clear: both;
+}
+
+img {
+  max-width: 100%;
+  width: 75px;
+  float: middle;
+}
