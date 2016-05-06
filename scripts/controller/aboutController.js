@@ -7,7 +7,7 @@
       $('#breweries').hide();
       $('.sidebar').hide();
       $('#about').show();
-    });
+    }, 1500);
   };
 
   module.aboutController = aboutController;

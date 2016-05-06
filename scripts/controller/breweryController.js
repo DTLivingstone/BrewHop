@@ -8,7 +8,7 @@
       $('#map').show();
       breweryView.initIndexPage();
       $('#about').hide();
-    });
+    }, 1500);
   };
 
   breweryController.loadByBeerCategory = function(ctx, next) {
