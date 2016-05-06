@@ -76,6 +76,5 @@
     Beer.createBeerCategoryTable(Beer.handleBeerCategoryEndpoint);
   };
 
-  Beer.initTables();
   module.Beer = Beer;
 }(window));

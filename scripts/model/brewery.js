@@ -187,6 +187,7 @@
     Brewery.createLocationTable(Brewery.handleLocationEndpoint);
     Brewery.createNameTable(Brewery.handleNameEndpoint);
     Brewery.createTwitterHandleTable(Brewery.handleTwitterHandleEndpoint);
+    Beer.initTables();
   };
 
   Brewery.initTables();
