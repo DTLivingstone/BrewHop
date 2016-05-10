@@ -8,6 +8,12 @@
   Brewery.all = [];
   Brewery.ids = [];
   Brewery.filterResults = [];
+  Brewery.dbComplete = false;
+
+  var locationDBCount = 0;
+  var nameDBCount = 0;
+  var locationEndpointDone = false;
+  var nameEndpointDone = false;
 
   Brewery.filterUniqueBreweryIds = function() {
     $.get('/data/breweries.json')
@@ -20,34 +26,44 @@
     });
   };
 
+  var checkComplete = function() {
+    if (locationEndpointDone === true && nameEndpointDone === true) {
+      Brewery.dbComplete =true;
+    };
+  };
+
   Brewery.handleLocationEndpoint = function() {
-    console.log('location endpoint');
     webDB.execute('SELECT * FROM breweryLocation', function(rows) {
       if (!rows.length) {
         Brewery.ids.forEach(function(id) {
           $.get('/locations/' + id, function(data) {
             var breweryInstance = new Brewery(data.data[0]);
             breweryInstance.insertLocationRecord(id);
+            locationDBCount += 1;
+            if (locationDBCount === Brewery.ids.length) {
+              locationEndpointDone = true;
+              checkComplete();
+            };
           });
         });
-      } else {
-        console.log('locations already loaded');
-      };
+      }
     });
   };
 
   Brewery.handleNameEndpoint = function() {
-    console.log('name endpoint');
     webDB.execute('SELECT * FROM breweryName', function(rows) {
       if (!rows.length) {
         Brewery.ids.forEach(function(id) {
           $.get('/name/' + id, function(data) {
             var breweryInstance = new Brewery(data.data);
             breweryInstance.insertNameRecord();
+            nameDBCount += 1;
+            if (locationDBCount === Brewery.ids.length) {
+              nameEndpointDone = true;
+              checkComplete();
+            };
           });
         });
-      } else {
-        console.log('names already loaded');
       };
     });
   };

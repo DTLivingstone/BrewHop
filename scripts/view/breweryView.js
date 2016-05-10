@@ -39,7 +39,6 @@
   };
 
   breweryView.initIndexPage = function() {
-    console.log('initIndexPage ran here');
     Brewery.all.forEach(function(b){
       $('#breweries').append(render(b));
     });

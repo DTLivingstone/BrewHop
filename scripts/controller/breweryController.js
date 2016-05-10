@@ -4,25 +4,30 @@
 
   Brewery.filterUniqueBreweryIds();
 
+  var dbloadComplete = false;
+
+  var checkDBloadComplete = function() {
+    if (Beer.dbComplete === true && Brewery.dbComplete === true) {
+      dbloadComplete = true;
+    };
+  };
+
   breweryController.initTables = function(ctx, next) {
+    $('#map').show();
+    $('#breweries').show();
+    $('.sidebar').show();
+    $('#about').hide();
     Brewery.initTables();
-    Brewery.grabAllBreweryData();
     Beer.initTables();
     next();
   };
 
   breweryController.index = function(ctx, next) {
-    $('#map').show();
-    $('#breweries').show();
-    $('.sidebar').show();
-    if (!indexRendered) {
-      setTimeout(function(){
-        breweryView.initIndexPage();
-      }, 1500);
-      indexRendered = true;
-    }
-    $('#about').hide();
-    next();
+    Brewery.grabAllBreweryData();
+    // if (!indexRendered) {
+    breweryView.initIndexPage();
+      // indexRendered = true;
+    // };
   };
 
   module.breweryController = breweryController;

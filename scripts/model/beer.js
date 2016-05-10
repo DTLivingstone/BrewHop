@@ -5,6 +5,9 @@
     }, this);
   };
 
+  var beerDBCount = 0;
+  Beer.dbComplete = false;
+
   Beer.handleBeerEndpoint = function() {
     webDB.execute('SELECT * FROM breweryBeers', function(rows) {
       if (!rows.length) {
@@ -17,6 +20,10 @@
             breweryBeers.forEach(function(beer){
               var beerInstance = new Beer(beer);
               beerInstance.insertBeerRecord(id);
+              beerDBCount += 1;
+              if (beerDBCount >= 670) { 
+                Beer.dbComplete = true;
+              };
             });
           });
         });
