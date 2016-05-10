@@ -6,29 +6,21 @@
   };
 
   Beer.handleBeerEndpoint = function() {
-    Brewery.ids.forEach(function(id) {
-      $.get('/beers/' + id, function(data) {
-        var breweryBeers = data.data;
-        if (!breweryBeers) {
-          return;
-        }
-        breweryBeers.forEach(function(beer){
-          var beerInstance = new Beer(beer);
-          beerInstance.insertBeerRecord(id);
+    webDB.execute('SELECT * FROM breweryBeers', function(rows) {
+      if (!rows.length) {
+        Brewery.ids.forEach(function(id) {
+          $.get('/beers/' + id, function(data) {
+            var breweryBeers = data.data;
+            if (!breweryBeers) {
+              return;
+            }
+            breweryBeers.forEach(function(beer){
+              var beerInstance = new Beer(beer);
+              beerInstance.insertBeerRecord(id);
+            });
+          });
         });
-      });
-    });
-  };
-
-  Beer.handleBeerCategoryEndpoint = function() {
-    $.get('/categories/', function(data) {
-      var beerCategories = data.data;
-      if (!beerCategories) {
-        return;
-      }
-      beerCategories.forEach(function(category){
-        Beer.insertCategoryRecord(category);
-      });
+      };
     });
   };
 
@@ -41,17 +33,6 @@
         {
           'sql': 'INSERT INTO breweryBeers (breweryId, categoryId, name, description) VALUES (?, ?, ?, ?)',
           'data': [id, this.style.categoryId, this.name, this.description],
-        }
-      ]
-    );
-  };
-
-  Beer.prototype.insertCategoryRecord = function(category) {
-    webDB.execute(
-      [
-        {
-          'sql': 'INSERT INTO beerCategories (categoryId, name) VALUES (?, ?)',
-          'data': [category.id, category.name],
         }
       ]
     );
@@ -70,19 +51,8 @@
     callback();
   };
 
-  Beer.createBeerCategoryTable = function(callback) {
-    webDB.execute(
-      'CREATE TABLE IF NOT EXISTS beerCategories (' +
-      'id INTEGER PRIMARY KEY, ' +
-      'categoryId INTEGER, ' +
-      'name VARCHAR(255));'
-    );
-    callback();
-  };
-
   Beer.initTables = function() {
     Beer.createBeerTable(Beer.handleBeerEndpoint);
-    Beer.createBeerCategoryTable(Beer.handleBeerCategoryEndpoint);
   };
 
   module.Beer = Beer;

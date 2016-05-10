@@ -19,11 +19,6 @@
   width: 100%;
 }
 
-footer {
-  text-align: center;
-  margin: 40px;
-}
-
 .dropdown-content li {
   display: inline-block;
   list-style-type: none;

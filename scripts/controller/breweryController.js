@@ -2,7 +2,18 @@
   var breweryController = {};
   var indexRendered = false;
 
-  breweryController.index = function() {
+  Brewery.filterUniqueBreweryIds();
+  // Beer.initTables();
+  // Brewery.initTables();
+
+  breweryController.grabAll = function(ctx, next) {
+    Beer.initTables();
+    Brewery.initTables();
+    Brewery.grabAllBreweryData();
+    next();
+  };
+
+  breweryController.index = function(ctx, next) {
     $('#map').show();
     $('#breweries').show();
     $('.sidebar').show();
@@ -13,14 +24,8 @@
       indexRendered = true;
     }
     $('#about').hide();
-  };
-
-  breweryController.loadByBeerCategory = function(ctx, next) {
-    var breweryData = function(breweriesByBeerCategory) {
-      ctx.breweries = breweriesByBeerCategory;
-      next();
-    };
-    Brewery.findBreweryWhere();
+    // Beer.initTables();
+    next();
   };
 
   module.breweryController = breweryController;

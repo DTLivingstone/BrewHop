@@ -1,7 +1,7 @@
 (function(module) {
 
   var breweryView = {};
-  var breweryRendered = false;
+  var beersLoaded = false;
 
   var render = function(brewery) {
     var template = Handlebars.compile($('#brewery-template').text());
@@ -24,7 +24,6 @@
 
   breweryView.setTeasers = function() {
     $('.brewery-container *:nth-of-type(n+2)').hide();
-
     $('.brewery-container').on('click', 'a.learn-more', function(e) {
       e.preventDefault();
       $('.brewery-container *:nth-of-type(n+2)').hide();
@@ -45,6 +44,7 @@
     });
     breweryView.handleBeerFilter();
     breweryView.setTeasers();
+    // Beer.initTables();
   };
 
   module.breweryView = breweryView;

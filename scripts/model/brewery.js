@@ -17,7 +17,6 @@
           Brewery.ids.push(b.id);
         }
       });
-      Beer.initTables();
     });
   };
 
@@ -53,27 +52,6 @@
     });
   };
 
-  Brewery.handleTwitterHandleEndpoint = function() {
-    console.log('Twitter endpoint');
-    webDB.execute('SELECT * FROM breweryTwitterHandle', function(rows) {
-      // console.log(rows);
-      if (!rows.length) {
-        Brewery.ids.forEach(function(id) {
-          $.get('/twitter-handle/' + id, function(data) {
-            for (var i in data.data) {
-              if (data.data[i].socialMediaId == 2) {
-                var breweryInstance = new Brewery({breweryId: id, twitterHandle: data.data[i].handle});
-                breweryInstance.insertTwitterHandleRecord();
-              };
-            };
-          });
-        });
-      } else {
-        console.log('Twitter handles already loaded');
-      };
-    });
-  };
-
   Brewery.prototype.insertLocationRecord = function(id) {
     webDB.execute(
       [
@@ -91,17 +69,6 @@
         {
           'sql': 'INSERT INTO breweryName (breweryId, name, description, website, established, isOrganic) VALUES (?, ?, ?, ?, ?, ?)',
           'data': [this.id, this.name, this.description, this.website, this.established, this.isOrganic],
-        }
-      ]
-    );
-  };
-
-  Brewery.prototype.insertTwitterHandleRecord = function(callback) {
-    webDB.execute(
-      [
-        {
-          'sql': 'INSERT INTO breweryTwitterHandle (breweryId, twitterHandle) VALUES (?, ?)',
-          'data': [this.breweryId, this.twitterHandle],
         }
       ]
     );
@@ -133,16 +100,6 @@
       'website VARCHAR(255), ' +
       'established DATE, ' +
       'isOrganic BOOLEAN);',
-      callback
-    );
-  };
-
-  Brewery.createTwitterHandleTable = function(callback) {
-    webDB.execute(
-      'CREATE TABLE IF NOT EXISTS breweryTwitterHandle (' +
-      'id INTEGER PRIMARY KEY, ' +
-      'breweryId, ' +
-      'twitterHandle VARCHAR(255));',
       callback
     );
   };
@@ -184,15 +141,9 @@
   };
 
   Brewery.initTables = function() {
-    Brewery.filterUniqueBreweryIds();
     Brewery.createLocationTable(Brewery.handleLocationEndpoint);
     Brewery.createNameTable(Brewery.handleNameEndpoint);
-    Brewery.createTwitterHandleTable(Brewery.handleTwitterHandleEndpoint);
   };
-
-  Brewery.initTables();
-  Brewery.grabAllBreweryData();
-
 
   module.Brewery = Brewery;
 }(window));

@@ -2,10 +2,7 @@
   var aboutController = {};
 
   aboutController.index = function() {
-    $('#map').hide();
-    $('#breweries').hide();
-    $('.sidebar').hide();
-    $('#about').show();
+    aboutView.index();
   };
 
   module.aboutController = aboutController;
