@@ -1,3 +1,3 @@
-page('/', breweryController.index, breweryController.grabAll);
+page('/', breweryController.index, breweryController.initTables);
 page('/about', aboutController.index);
 page();

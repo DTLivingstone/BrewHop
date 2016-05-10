@@ -3,13 +3,11 @@
   var indexRendered = false;
 
   Brewery.filterUniqueBreweryIds();
-  // Beer.initTables();
-  // Brewery.initTables();
 
-  breweryController.grabAll = function(ctx, next) {
-    Beer.initTables();
+  breweryController.initTables = function(ctx, next) {
     Brewery.initTables();
     Brewery.grabAllBreweryData();
+    Beer.initTables();
     next();
   };
 
@@ -24,7 +22,6 @@
       indexRendered = true;
     }
     $('#about').hide();
-    // Beer.initTables();
     next();
   };
 

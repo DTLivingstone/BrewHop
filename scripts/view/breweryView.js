@@ -8,6 +8,11 @@
     return template(brewery);
   };
 
+  var filterResults = function(filterArray) {
+    var sqlString = filterArray.join(' OR ');
+    Brewery.findBreweryWhere(filterArray, sqlString);
+  };
+
   breweryView.handleBeerFilter = function() {
     var filterArray = [];
     $('input[type="checkbox"]').change(function(){
@@ -33,18 +38,13 @@
     });
   };
 
-  var filterResults = function(filterArray) {
-    var sqlString = filterArray.join(' OR ');
-    Brewery.findBreweryWhere(filterArray, sqlString);
-  };
-
   breweryView.initIndexPage = function() {
+    console.log('initIndexPage ran here');
     Brewery.all.forEach(function(b){
       $('#breweries').append(render(b));
     });
     breweryView.handleBeerFilter();
     breweryView.setTeasers();
-    // Beer.initTables();
   };
 
   module.breweryView = breweryView;
