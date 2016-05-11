@@ -2,7 +2,7 @@
   var aboutController = {};
 
   aboutController.index = function() {
-    $('#about').show().siblings().hide();
+    aboutView.index();
   };
 
   module.aboutController = aboutController;

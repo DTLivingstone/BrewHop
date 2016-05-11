@@ -1,19 +1,28 @@
 body {
-  font-family: Open Sans Light;
-  font-size: 75%;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 1em;
   }
 
 h1 {
-  font-family: Elsie Swash Caps;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 1.5em;
 }
 
-section {
-  text-align: center;
-  clear: both;
+#logo-text {
+  font-family: 'Elsie Swash Caps', cursive;
+  text-transform: none;
+  display: inline-block;
+  font-size: 2.25em;
 }
 
 img {
   max-width: 100%;
   width: 75px;
-  float: middle;
+  /*float: middle;*/
+}
+
+main {
+  display:-webkit-inline-box;
 }

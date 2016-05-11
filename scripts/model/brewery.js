@@ -8,6 +8,12 @@
   Brewery.all = [];
   Brewery.ids = [];
   Brewery.filterResults = [];
+  Brewery.dbComplete = false;
+
+  var locationDBCount = 0;
+  var nameDBCount = 0;
+  var locationEndpointDone = false;
+  var nameEndpointDone = false;
 
   Brewery.filterUniqueBreweryIds = function() {
     $.get('/data/breweries.json')
@@ -20,56 +26,51 @@
     });
   };
 
+  var checkComplete = function() {
+    if (locationEndpointDone === true && nameEndpointDone === true) {
+      Brewery.dbComplete =true;
+    };
+  };
+
   Brewery.handleLocationEndpoint = function() {
-    console.log('location endpoint');
     webDB.execute('SELECT * FROM breweryLocation', function(rows) {
       if (!rows.length) {
         Brewery.ids.forEach(function(id) {
           $.get('/locations/' + id, function(data) {
             var breweryInstance = new Brewery(data.data[0]);
             breweryInstance.insertLocationRecord(id);
+            locationDBCount += 1;
+            if (locationDBCount === Brewery.ids.length) {
+              locationEndpointDone = true;
+              checkComplete();
+            }
           });
         });
       } else {
-        console.log('locations already loaded');
-      };
+        locationEndpointDone = true;
+        checkComplete();
+      }
     });
   };
 
   Brewery.handleNameEndpoint = function() {
-    console.log('name endpoint');
     webDB.execute('SELECT * FROM breweryName', function(rows) {
       if (!rows.length) {
         Brewery.ids.forEach(function(id) {
           $.get('/name/' + id, function(data) {
             var breweryInstance = new Brewery(data.data);
             breweryInstance.insertNameRecord();
+            nameDBCount += 1;
+            if (nameDBCount === Brewery.ids.length) {
+              nameEndpointDone = true;
+              checkComplete();
+            }
           });
         });
       } else {
-        console.log('names already loaded');
-      };
-    });
-  };
-
-  Brewery.handleTwitterHandleEndpoint = function() {
-    console.log('Twitter endpoint');
-    webDB.execute('SELECT * FROM breweryTwitterHandle', function(rows) {
-      // console.log(rows);
-      if (!rows.length) {
-        Brewery.ids.forEach(function(id) {
-          $.get('/twitter-handle/' + id, function(data) {
-            for (var i in data.data) {
-              if (data.data[i].socialMediaId == 2) {
-                var breweryInstance = new Brewery({breweryId: id, twitterHandle: data.data[i].handle});
-                breweryInstance.insertTwitterHandleRecord();
-              };
-            };
-          });
-        });
-      } else {
-        console.log('Twitter handles already loaded');
-      };
+        nameEndpointDone = true;
+        checkComplete();
+      }
     });
   };
 
@@ -90,17 +91,6 @@
         {
           'sql': 'INSERT INTO breweryName (breweryId, name, description, website, established, isOrganic) VALUES (?, ?, ?, ?, ?, ?)',
           'data': [this.id, this.name, this.description, this.website, this.established, this.isOrganic],
-        }
-      ]
-    );
-  };
-
-  Brewery.prototype.insertTwitterHandleRecord = function(callback) {
-    webDB.execute(
-      [
-        {
-          'sql': 'INSERT INTO breweryTwitterHandle (breweryId, twitterHandle) VALUES (?, ?)',
-          'data': [this.breweryId, this.twitterHandle],
         }
       ]
     );
@@ -136,44 +126,29 @@
     );
   };
 
-  Brewery.createTwitterHandleTable = function(callback) {
-    webDB.execute(
-      'CREATE TABLE IF NOT EXISTS breweryTwitterHandle (' +
-      'id INTEGER PRIMARY KEY, ' +
-      'breweryId, ' +
-      'twitterHandle VARCHAR(255));',
-      callback
-    );
-  };
-
   Brewery.findBreweryWhere = function(filterArray, sqlString, callback) {
-    webDB.execute('SELECT * FROM breweryName LEFT JOIN breweryBeers ON (breweryName.breweryId = breweryBeers.breweryId) WHERE ' + sqlString + ' GROUP BY breweryName.name HAVING COUNT(DISTINCT breweryBeers.categoryId) = ' + filterArray.length,
-      function(result) {
+    if (filterArray.length === 0) {
+      webDB.execute('SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId', function(result) {
         Brewery.grabAllFilterData(result);
       });
+    } else {
+      webDB.execute('SELECT * FROM breweryName LEFT JOIN breweryBeers ON (breweryName.breweryId = breweryBeers.breweryId) WHERE ' + sqlString + ' GROUP BY breweryName.name HAVING COUNT(DISTINCT breweryBeers.categoryId) = ' + filterArray.length,
+        function(result) {
+          Brewery.grabAllFilterData(result);
+        });
+    }
   };
 
   Brewery.grabAllFilterData = function(results) {
-    $('article').hide();
+    $('.brewery-container').hide();
+    for (breweryId in markers) {
+      markers[breweryId].setMap(null);
+    };
     results.forEach(function(result){
       $('article[data-breweryId="' + result.breweryId + '"]').fadeIn();
-      console.log(result.breweryId);
-      //show this brewery
+      markers[result.breweryId].setMap(map);
     });
   };
-
-  // articleView.handleCategoryFilter = function() {
-//   $('#category-filter').on('change', function() {
-//     if ($(this).val()) {
-//       $('article').hide();
-//       $('article[data-category="' + $(this).val() + '"]').fadeIn();
-//     } else {
-//       $('article').fadeIn();
-//       $('article.template').hide();
-//     }
-//     $('#author-filter').val('');
-//   });
-// };
 
   Brewery.saveAllBreweryData = function(rows) {
     Brewery.all = rows.map(function(brew) {
@@ -181,22 +156,17 @@
     });
   };
 
-  Brewery.grabAllBreweryData = function() {
+  Brewery.grabAllBreweryData = function(callback) {
     webDB.execute('SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId', function(rows) {
       Brewery.saveAllBreweryData(rows);
+      callback();
     });
   };
 
   Brewery.initTables = function() {
-    Brewery.filterUniqueBreweryIds();
     Brewery.createLocationTable(Brewery.handleLocationEndpoint);
     Brewery.createNameTable(Brewery.handleNameEndpoint);
-    Brewery.createTwitterHandleTable(Brewery.handleTwitterHandleEndpoint);
   };
-
-  Brewery.initTables();
-  Brewery.grabAllBreweryData();
-
 
   module.Brewery = Brewery;
 }(window));
