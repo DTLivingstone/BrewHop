@@ -1,14 +1,16 @@
 (function(module) {
   var breweryController = {};
   var indexRendered = false;
+  var dbloadComplete = false;
+  var nextRoute;
+  var dataInterval;
 
   Brewery.filterUniqueBreweryIds();
 
-  var dbloadComplete = false;
-
-  var checkDBloadComplete = function() {
+  breweryController.checkDBloadComplete = function() {
     if (Beer.dbComplete === true && Brewery.dbComplete === true) {
-      dbloadComplete = true;
+      clearInterval(dataInterval);
+      nextRoute();
     };
   };
 
@@ -17,17 +19,27 @@
     $('#breweries').show();
     $('.sidebar').show();
     $('#about').hide();
-    Brewery.initTables();
-    Beer.initTables();
-    next();
+    if (!indexRendered) {
+      Brewery.initTables();
+      Beer.initTables();
+      initMap();
+      nextRoute = next;
+      dataInterval = setInterval(breweryController.checkDBloadComplete, 1000);
+    }
   };
 
   breweryController.index = function(ctx, next) {
-    Brewery.grabAllBreweryData();
-    // if (!indexRendered) {
-    breweryView.initIndexPage();
-      // indexRendered = true;
-    // };
+    Brewery.grabAllBreweryData(function(){
+      if (!indexRendered) {
+        breweryView.initIndexPage();
+        if (mapLoaded) {
+          setMarkers(map);
+        } else {
+          loadMap();
+        }
+        indexRendered = true;
+      };
+    });
   };
 
   module.breweryController = breweryController;

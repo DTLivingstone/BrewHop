@@ -43,9 +43,12 @@
             if (locationDBCount === Brewery.ids.length) {
               locationEndpointDone = true;
               checkComplete();
-            };
+            }
           });
         });
+      } else {
+        locationEndpointDone = true;
+        checkComplete();
       }
     });
   };
@@ -58,13 +61,16 @@
             var breweryInstance = new Brewery(data.data);
             breweryInstance.insertNameRecord();
             nameDBCount += 1;
-            if (locationDBCount === Brewery.ids.length) {
+            if (nameDBCount === Brewery.ids.length) {
               nameEndpointDone = true;
               checkComplete();
-            };
+            }
           });
         });
-      };
+      } else {
+        nameEndpointDone = true;
+        checkComplete();
+      }
     });
   };
 
@@ -150,9 +156,10 @@
     });
   };
 
-  Brewery.grabAllBreweryData = function() {
+  Brewery.grabAllBreweryData = function(callback) {
     webDB.execute('SELECT * FROM breweryLocation JOIN breweryName ON breweryLocation.breweryId=breweryName.breweryId', function(rows) {
       Brewery.saveAllBreweryData(rows);
+      callback();
     });
   };
 

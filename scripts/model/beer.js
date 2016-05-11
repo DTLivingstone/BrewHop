@@ -21,13 +21,15 @@
               var beerInstance = new Beer(beer);
               beerInstance.insertBeerRecord(id);
               beerDBCount += 1;
-              if (beerDBCount >= 670) { 
+              if (beerDBCount >= 670) {
                 Beer.dbComplete = true;
-              };
+              }
             });
           });
         });
-      };
+      } else {
+        Beer.dbComplete = true;
+      }
     });
   };
 
